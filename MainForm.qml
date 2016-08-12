@@ -22,12 +22,8 @@ Rectangle
         DestinationView{}
     }
 
-    ToolBar
-    {
+    CustomToolBar{
         id:myToolBar
-        height: 40
-        width:parent.width
-        anchors.right: parent.right
 
         Text{
             text: "iTravel"

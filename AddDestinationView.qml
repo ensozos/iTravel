@@ -4,19 +4,8 @@ import QtQuick.Controls 1.4
 Rectangle {
 
     //We should make this toolbar a separate file and just put it in every view (and add to it whatever specific button in each view).
-    ToolBar
-    {
+    CustomToolBar{
         id:myToolBar
-        height: 40
-        width:parent.width
-        anchors.right: parent.right
-
-        Text{
-            text: "iTravel"
-            font.pixelSize: 20
-            font.family: "Arial"
-            anchors.left:parent.left
-        }
     }
 
     Rectangle{

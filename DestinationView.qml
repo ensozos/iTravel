@@ -10,12 +10,15 @@ Rectangle{
     property string desc
     property string date
 
+    CustomToolBar{
+        id:myToolBar
+    }
+
     Label{
+
          width: parent.width
          height: parent.height
          text:name
-
     }
-
 
 }

@@ -6,6 +6,7 @@
         <file>DestinationView.qml</file>
         <file>MapView.qml</file>
         <file>AddDestinationView.qml</file>
+        <file>CustomToolBar.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>
