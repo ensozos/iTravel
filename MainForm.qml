@@ -3,6 +3,17 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 Rectangle
 {
+    Component
+    {
+        id:map_view
+        MapView{}
+    }
+
+    Component
+    {
+        id:destination_view
+        DestinationView{}
+    }
 
     ToolBar
     {
@@ -17,6 +28,21 @@ Rectangle
             font.family: "Arial"
             anchors.left:parent.left
         }
+
+
+        ToolButton{
+            anchors.right: parent.right
+            id:mapIcon
+            width:50
+            Image{
+                source:"images/images/planet-earth.png"
+            }
+            onClicked:
+            {
+                stack.push(map_view);
+            }
+        }
+
     }
 
     GridView
@@ -37,8 +63,7 @@ Rectangle
             anchors.fill: parent
             onClicked:
             {
-
-
+                stack.push({item:destination_view,properties:{name:name,img:image,desc:desc,date:date}});
 
             }
         }

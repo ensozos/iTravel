@@ -3,10 +3,13 @@
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
         <file>MainForm.qml</file>
+        <file>DestinationView.qml</file>
+        <file>MapView.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>
         <file>images/brazil.jpg</file>
         <file>images/newyork.jpg</file>
+        <file>images/planet-earth.png</file>
     </qresource>
 </RCC>
