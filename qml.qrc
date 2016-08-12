@@ -5,6 +5,7 @@
         <file>MainForm.qml</file>
         <file>DestinationView.qml</file>
         <file>MapView.qml</file>
+        <file>AddDestinationView.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>
