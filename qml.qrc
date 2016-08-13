@@ -13,5 +13,6 @@
         <file>images/brazil.jpg</file>
         <file>images/newyork.jpg</file>
         <file>images/planet-earth.png</file>
+        <file>images/noImage.png</file>
     </qresource>
 </RCC>
