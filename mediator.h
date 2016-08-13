@@ -29,6 +29,7 @@ signals:
 
 public slots:
     void insertDestination(QString name,QString imPath,QString desc,QString date);
+    void deleteDestination(QString name,QString imPath,QString desc,QString date);
 
 };
 

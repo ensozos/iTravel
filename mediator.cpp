@@ -10,3 +10,9 @@ void Mediator::insertDestination(QString name,QString imPath,QString desc,QStrin
 {
     _destionationModel->insertDestionation(name,imPath,desc,date);
 }
+
+void Mediator::deleteDestination(QString name,QString imPath,QString desc,QString date)
+{
+    _destionationModel->deleteDestination(name,imPath,desc,date);
+}
+

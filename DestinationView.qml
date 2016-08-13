@@ -15,7 +15,7 @@ Rectangle{
         id:myToolBar
 
         ToolButton{
-            id:addDestIcon
+            id:backIcon
             anchors.right: parent.right
             anchors.rightMargin: 5
             width:parent.height
@@ -26,20 +26,29 @@ Rectangle{
                 anchors.horizontalCenter: parent.horizontalCenter
                 //font.pointSize: 15
             }
-            style: ButtonStyle {
-                    background: Rectangle {
-                        border.width: control.activeFocus ? 2 : 1
-                        border.color: "#888"
-                        radius: 18
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                        }
-                    }
-                }
+            style: addDestIcon.style
             onClicked:
             {
                 stack.pop();
+            }
+        }
+        ToolButton{
+            id:deleteDestIcon
+            anchors.right: backIcon.left
+            anchors.rightMargin: 5
+            width:parent.height
+            height:width
+            Text{
+                text: "x"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            style: addDestIcon.style
+            onClicked:
+            {
+                console.log("Delete Button Pressed")
+                mediator.deleteDestination(name,img,desc,date)
+                stack.pop()
             }
         }
     }
