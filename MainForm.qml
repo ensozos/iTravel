@@ -105,7 +105,6 @@ Rectangle
         {
             width:parent.width
 
-
             Image
             {
                 anchors.horizontalCenter: parent.horizontalCenter

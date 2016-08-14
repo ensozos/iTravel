@@ -41,8 +41,6 @@ void DestinationModel::insertDestionation(QString name, QString imPath, QString 
 void DestinationModel::deleteDestination(QString name,QString imPath,QString desc,QString date)
 {
     beginResetModel();
-    Destination *destination_obj;
-    destination_obj = new Destination(name,imPath,desc,date);
 
     //Linear search over all destinations
     int i=0;
@@ -50,10 +48,10 @@ void DestinationModel::deleteDestination(QString name,QString imPath,QString des
     vector<Destination>::iterator it;
     for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
         cout << "Checking index:" << i << endl;
-        if(destination_obj->getName() == it->getName()){
-            if(destination_obj->getDesc() == it->getDesc()){
-                if(destination_obj->getDate() == it->getDate()){
-                    if(destination_obj->getImgPath() == it->getImgPath()){
+        if(name == it->getName()){
+            if(desc == it->getDesc()){
+                if(date == it->getDate()){
+                    if(imPath == it->getImgPath()){
                         found = true;
                         cout << "Found at:" << i <<endl;
                         break;//Breaks the loop
@@ -70,6 +68,30 @@ void DestinationModel::deleteDestination(QString name,QString imPath,QString des
         cout << "Item not found. (This should never happen)";
     }
     endResetModel();
+}
+
+/** Checks weather a Destination with the specific (name,imgPath) values exists in the model. */
+bool DestinationModel::isDuplicateDestination(QString name,QString imgPath){
+
+    //Extract the imageName from the imgPath
+    QStringList tokens = imgPath.split( QRegExp("/") ); //Tokenize the imgPath using "/" as a delimiter (applies to Unix paths and Windows URI paths which covers our file paths)
+    QString img1Name = tokens.value( tokens.length() - 1 );
+    QString img2Name;
+
+    //Linear search over all destinations
+    vector<Destination>::iterator it;
+    for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
+
+        if(name == it->getName()){
+            //Extract the imageName
+            tokens = it->getImgPath().split( QRegExp("/") );
+            img2Name = tokens.value( tokens.length() - 1 );
+            if(img1Name == img2Name){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 QVariant DestinationModel::data(const QModelIndex &index, int role) const
@@ -92,5 +114,4 @@ QVariant DestinationModel::data(const QModelIndex &index, int role) const
         QVariant qv;
         return qv;
     }
-
 }

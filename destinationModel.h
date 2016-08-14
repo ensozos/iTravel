@@ -23,6 +23,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     void insertDestionation(QString name,QString imPath,QString desc,QString date);
     void deleteDestination(QString name,QString imPath,QString desc,QString date);
+    bool isDuplicateDestination(QString name,QString imPath);
 
 private:
     vector<Destination> myDestinationData;
