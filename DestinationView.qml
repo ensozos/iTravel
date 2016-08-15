@@ -6,11 +6,29 @@ import QtQuick.Controls.Styles 1.4
 
 Rectangle{
 
+    //The values of a Destination
     property string name
     property string img
     property string desc
-    property string date
+    property string date 
+
     property bool isEditingEnabled : false
+
+    function makeElementsEditable(makeThemEditable){
+        if(makeThemEditable){
+            editableColumn.visible    = true
+            nonEditableColumn.visible = false
+        }else{
+            //Set the new values to the nonEditable elements
+            name = nameField.text
+            date = dateField.text
+            desc = descField.text
+            //"img" has already been set in the "uploadButton" onClicked listener
+
+            editableColumn.visible    = false
+            nonEditableColumn.visible = true
+        }
+    }
 
     CustomToolBar{
         id:myToolBar
@@ -37,7 +55,7 @@ Rectangle{
 
         ToolButton{
             id:editDestIcon
-            anchors.right: deleteDestIcon.left
+            anchors.right: backIcon.left
             anchors.rightMargin: 5
             width:parent.height
             height:width
@@ -56,10 +74,12 @@ Rectangle{
                     console.log("Enable Editing")
                     isEditingEnabled = true
                     editImage.source = "images/images/editOff.png"
+                    makeElementsEditable(true)
                 }else{
                     console.log("Disable Editing")
                     isEditingEnabled = false
                     editImage.source = "images/images/editOn.png"
+                    makeElementsEditable(false)
                 }
             }
         }
@@ -82,41 +102,53 @@ Rectangle{
                 stack.pop();
             }
         }
-        ToolButton{
-            id:deleteDestIcon
-            anchors.right: backIcon.left
-            anchors.rightMargin: 5
-            width:parent.height
-            height:width
-            Text{
-                text: "x"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-            style: addDestIcon.style
-            onClicked:
-            {
-                console.log("Delete Button Pressed")
-                mediator.deleteDestination(name,img,desc,date)
-                stack.pop()
-            }
-        }
     }
 
     Column{
+        id: nonEditableColumn
         anchors.top: myToolBar.bottom
         anchors.left: parent.left
         anchors.margins: 20
         spacing: 10
 
-        Label{text:name}
-        Label{text:date}
-        Label{text:desc}
+        Label{id:nameLabel; text:name}
+        Label{id:dateLabel; text:date}
+        Label{id:descLabel; text:desc}
         Image{
+            id:image
             source: img
             width: 200
             height:100
             fillMode: Image.PreserveAspectFit
+        }
+    }
+
+    Column{
+        id: editableColumn
+        visible: false
+        anchors.top: myToolBar.bottom
+        anchors.left: parent.left
+        anchors.margins: 20
+        spacing: 10
+
+        TextField{id:nameField; text:name}
+        TextField{id:dateField; text:date}
+        TextArea{id:descField; text:desc}
+        Image{
+            id:image2
+            source: img
+            width: 200
+            height:100
+            fillMode: Image.PreserveAspectFit
+        }
+        Button{
+            id: uploadButton
+            text: "Upload another photo"
+            height: 15
+            onClicked: {
+                //1)File chooser
+                //2)Set img = "what file chose"
+            }
         }
     }
 
