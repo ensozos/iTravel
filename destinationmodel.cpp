@@ -1,4 +1,5 @@
 #include "destinationModel.h"
+#include <iostream>
 
 DestinationModel::DestinationModel()
 {
@@ -34,6 +35,40 @@ void DestinationModel::insertDestionation(QString name, QString imPath, QString 
     destination_obj = new Destination(name,imPath,desc,date);
     this->myDestinationData.push_back(*destination_obj);
 
+    endResetModel();
+}
+
+void DestinationModel::deleteDestination(QString name,QString imPath,QString desc,QString date)
+{
+    beginResetModel();
+    Destination *destination_obj;
+    destination_obj = new Destination(name,imPath,desc,date);
+
+    //Linear search over all destinations
+    int i=0;
+    bool found = false;
+    vector<Destination>::iterator it;
+    for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
+        cout << "Checking index:" << i << endl;
+        if(destination_obj->getName() == it->getName()){
+            if(destination_obj->getDesc() == it->getDesc()){
+                if(destination_obj->getDate() == it->getDate()){
+                    if(destination_obj->getImgPath() == it->getImgPath()){
+                        found = true;
+                        cout << "Found at:" << i <<endl;
+                        break;//Breaks the loop
+                    }
+                }
+            }
+        }
+        i++;
+    }
+    if(found){
+        cout << "Deleting item ...";
+        this->myDestinationData.erase(it);
+    }else{
+        cout << "Item not found. (This should never happen)";
+    }
     endResetModel();
 }
 

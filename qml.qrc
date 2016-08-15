@@ -7,11 +7,13 @@
         <file>MapView.qml</file>
         <file>AddDestinationView.qml</file>
         <file>CustomToolBar.qml</file>
+        <file>Splash.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>
         <file>images/brazil.jpg</file>
         <file>images/newyork.jpg</file>
         <file>images/planet-earth.png</file>
+        <file>images/noImage.png</file>
     </qresource>
 </RCC>

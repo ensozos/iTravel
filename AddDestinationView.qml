@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
+import QtQuick 2.2
+import QtQuick.Dialogs 1.0
 
 Rectangle {
 
@@ -30,6 +32,20 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+            onClicked: {
+                fileDialog.open()
+            }
+        }
+
+        Image
+        {
+            id:photo
+            anchors.top: uploadPhoto.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            fillMode: Image.PreserveAspectFit
+            height:0
+            width :0
+            source:""
         }
 
         Row{
@@ -97,17 +113,38 @@ Rectangle {
             text:"cancel"
             onClicked: {
                 console.log("Canceled")
+                stack.pop()
             }
         }
 
         Button{
             text:"apply"
             onClicked: {
-                console.log("\n----------------------------\nInsert New Destination:\n"+"Title:"+title.text+"\nDate:"+date.text+"\nDescription:"+description.text+"\n----------------------------")
+                console.log("\n----------------------------\nInsert New Destination:"+"\nImage:"+photo.source+"\nTitle:"+title.text+"\nDate:"+date.text+"\nDescription:"+description.text+"\n----------------------------")
+                if(photo.source == ""){
+                    photo.source = "images/images/noImage.png"
+                }
+                mediator.insertDestination(title.text,photo.source,description.text,date.text);
                 stack.pop()
             }
         }
     }
 
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        folder: shortcuts.pictures
+        //nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+        nameFilters: [ "Image files (*.jpg *.png)" ]
+        onAccepted: {
+            console.log("You chose: " + fileDialog.fileUrl)
+            photo.height = 100
+            photo.width = 200
+            photo.source = fileDialog.fileUrl
+        }
+        onRejected: {
+            console.log("Canceled")
+        }
+    }
 
 }
