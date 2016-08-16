@@ -8,6 +8,7 @@
         <file>AddDestinationView.qml</file>
         <file>CustomToolBar.qml</file>
         <file>Splash.qml</file>
+        <file>DeleteDestinationView.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>
@@ -15,5 +16,8 @@
         <file>images/newyork.jpg</file>
         <file>images/planet-earth.png</file>
         <file>images/noImage.png</file>
+        <file>images/editOff.png</file>
+        <file>images/editOn.png</file>
+        <file>images/save.png</file>
     </qresource>
 </RCC>
