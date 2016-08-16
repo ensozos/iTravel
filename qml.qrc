@@ -16,5 +16,8 @@
         <file>images/newyork.jpg</file>
         <file>images/planet-earth.png</file>
         <file>images/noImage.png</file>
+        <file>images/editOff.png</file>
+        <file>images/editOn.png</file>
+        <file>images/save.png</file>
     </qresource>
 </RCC>
