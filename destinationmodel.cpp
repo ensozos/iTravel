@@ -1,15 +1,19 @@
 #include "destinationModel.h"
 #include <iostream>
+#include <QFile>
+#include <QStandardPaths>
+#include <QTextStream>
 
 DestinationModel::DestinationModel()
 {
-    Destination greece("Greece","images/images/greece.jpg","mpla mpla mpla mpla","9/9/16");
+    /*Destination greece("Greece","images/images/greece.jpg","mpla mpla mpla mpla","9/9/16");
     Destination rio("Rio","images/images/brazil.jpg","mpla mpla mpla mpla","10/9/16");
     Destination new_york("New York","images/images/newyork.jpg","mpla mpla mpla mpla","6/9/16");
-
     myDestinationData.push_back(greece);
     myDestinationData.push_back(rio);
-    myDestinationData.push_back(new_york);
+    myDestinationData.push_back(new_york);*/
+
+    loadModel();
 }
 
 QHash<int, QByteArray> DestinationModel::roleNames() const
@@ -27,7 +31,45 @@ int DestinationModel::rowCount(const QModelIndex &parent) const
     return myDestinationData.size();
 }
 
-void DestinationModel::insertDestionation(QString name, QString imPath, QString desc, QString date)
+void DestinationModel::loadModel(){
+
+    cout<<"<<Load model>>"<<endl;
+    QString s ="data.txt";
+    qDebug(s.toLatin1());
+    QFile qf(s);
+    qf.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&qf);
+    while (!in.atEnd())
+    {
+        QString name = in.readLine();
+        QString imgPath = in.readLine();
+        QString desc = in.readLine();
+        QString date = in.readLine();
+        insertDestination(name,imgPath,desc,date);
+    }
+    qf.close();
+}
+
+void DestinationModel::saveModel(){
+
+    cout<<"<<Save model>>"<<endl;
+    QString s ="data.txt";
+    QFile qf(s);
+    QTextStream out(&qf);
+    qf.open(QIODevice::WriteOnly | QIODevice::Text);
+
+    //Linear pass over all destinations
+    vector<Destination>::iterator it;
+    for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
+        out<< it->getName()    <<endl;
+        out<< it->getImgPath() <<endl;
+        out<< it->getDesc()    <<endl;
+        out<< it->getDate()    <<endl;
+    }
+    qf.close();
+}
+
+void DestinationModel::insertDestination(QString name, QString imPath, QString desc, QString date)
 {
     beginResetModel();
 

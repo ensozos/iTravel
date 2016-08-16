@@ -32,6 +32,7 @@ public slots:
     void deleteDestination(int index);
     bool isDuplicateDestination(QString name,QString imPath);
     void editDestination(int index,QString name,QString imPath,QString desc,QString date);
+    void saveAll();
 };
 
 #endif // MEDIATOR_H

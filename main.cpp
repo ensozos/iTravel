@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "mediator.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -10,6 +11,9 @@ int main(int argc, char *argv[])
     Mediator mediator;
     engine.rootContext()->setContextProperty("mediator",&mediator);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+    //Save the whole model before closing the app. (Connect the "aboutToQuit" signal of the "app" with the "saveAll" function of "mediator")
+    QObject::connect(&app,SIGNAL(aboutToQuit()),&mediator,SLOT(saveAll()));
 
     return app.exec();
 }
