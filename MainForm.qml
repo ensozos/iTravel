@@ -3,7 +3,9 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 Rectangle
-{
+{    
+    property bool deleteDelegateButtonsAreVisible : false
+
     Component
     {
         id:map_view
@@ -20,6 +22,11 @@ Rectangle
     {
         id:destination_view
         DestinationView{}
+    }
+
+    Component{
+        id:deleteDest_view
+        DeleteDestinationView{}
     }
 
     CustomToolBar{
@@ -74,6 +81,34 @@ Rectangle
             }
         }
 
+        ToolButton{
+            id:deleteDestIcon
+            anchors.right: addDestIcon.left
+            anchors.rightMargin: 5
+            width:parent.height
+            height:width
+            Text{
+                text: "x"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                //font.pointSize: 15
+            }
+            style: ButtonStyle {
+                    background: Rectangle {
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 18
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color:{ if(control.pressed)   {"#ccc"}else{"#eee"}}}
+                            GradientStop { position: 1 ; color:{ if(control.pressed || deleteDelegateButtonsAreVisible){"#aaa"}else{"#ccc"}}}
+                        }
+                    }
+                }
+            onClicked:
+            {
+                deleteDelegateButtonsAreVisible = !deleteDelegateButtonsAreVisible
+            }
+        }
     }
 
     GridView
@@ -87,45 +122,54 @@ Rectangle
         model:mediator.destinationModel
         cellWidth:210
         cellHeight:210
-        delegate: Rectangle
-        {
-        MouseArea
-        {
-            anchors.fill: parent
-            onClicked:
+        delegate:
+            Rectangle
             {
-                stack.push({item:destination_view,properties:{name:name,img:image,desc:desc,date:date}});
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,date:date}});
+                    }
+                }
+                width:myGridView.cellWidth-10
+                height:width
 
+                Column
+                {
+                    width:parent.width
+
+                    Image
+                    {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        id:img
+                        height:(parent.width-5)*0.8
+                        width:height
+                        fillMode: Image.PreserveAspectFit
+                        source:image
+                    }
+                    Label{
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        id:l
+                        verticalAlignment: Text.AlignVCenter
+                        height:(parent.width-5)/5
+                        text:name
+                    }
+                    Button{
+                        id: deleteDelegateButton
+                        visible: isDelegateDeleteButtonVisible()
+                        text:"Delete"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                        }
+                    }
+                }
             }
-        }
-        width:myGridView.cellWidth-10
-        height:width
-
-        Column
-        {
-            width:parent.width
-
-
-            Image
-            {
-                anchors.horizontalCenter: parent.horizontalCenter
-                id:img
-                height:(parent.width-5)*0.8
-                width:height
-                fillMode: Image.PreserveAspectFit
-                source:image
-            }
-            Label{
-                anchors.horizontalCenter: parent.horizontalCenter
-                id:l
-                verticalAlignment: Text.AlignVCenter
-                height:(parent.width-5)/5
-                text:name
-
-            }
-
-        }
     }
-}
 
+    function isDelegateDeleteButtonVisible(){
+        return deleteDelegateButtonsAreVisible;
+    }
 }

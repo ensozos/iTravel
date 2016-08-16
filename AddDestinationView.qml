@@ -3,9 +3,10 @@ import QtQuick.Controls 1.4
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
 
+//SUGGESTION: We could have a photo gallery for each destination. (Ex. When we click on "Rio" we see the image,title,date,description and a photo gallery)
+
 Rectangle {
 
-    //We should make this toolbar a separate file and just put it in every view (and add to it whatever specific button in each view).
     CustomToolBar{
         id:myToolBar
     }
@@ -124,8 +125,12 @@ Rectangle {
                 if(photo.source == ""){
                     photo.source = "images/images/noImage.png"
                 }
-                mediator.insertDestination(title.text,photo.source,description.text,date.text);
-                stack.pop()
+                if(!mediator.isDuplicateDestination(title.text,photo.source)){
+                    mediator.insertDestination(title.text,photo.source,description.text,date.text);
+                    stack.pop()
+                }else{
+                    console.log("Inform the user that there is an existing destination with the same (name,imgNAME) values. This entry he is trying to save is considered a duplicate. \n(Note: ///C:/aaa/bbb/brazil.jpg) is the same as ///C:/ccc/ddd/eee/brazil.jpg")
+                }
             }
         }
     }
