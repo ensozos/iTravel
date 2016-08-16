@@ -19,6 +19,11 @@ public:
     QString getDesc(){return desc;}
     QString getDate(){return date;}
 
+    void setName(QString n){name = n;}
+    void setImgPath(QString i){imgPath = i;}
+    void setDesc(QString d){desc = d;}
+    void setDate(QString d){date = d;}
+
 };
 
 #endif // DESTINATION_H

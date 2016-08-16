@@ -11,6 +11,7 @@ Rectangle{
     property string img
     property string desc
     property string date
+    property int indexOfDestInModel //The position of this Destination inside the vector of thie "destinationModel"
 
     CustomToolBar{
         id:myToolBar
@@ -54,7 +55,7 @@ Rectangle{
             text:"Delete"
             onClicked: {
                 console.log("Delete Button Pressed")
-                mediator.deleteDestination(name,img,desc,date)
+                mediator.deleteDestination(indexOfDestInModel)
                 stack.pop()
             }
         }

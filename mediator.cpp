@@ -11,13 +11,17 @@ void Mediator::insertDestination(QString name,QString imPath,QString desc,QStrin
     _destionationModel->insertDestionation(name,imPath,desc,date);
 }
 
-void Mediator::deleteDestination(QString name,QString imPath,QString desc,QString date)
+void Mediator::deleteDestination(int index)
 {
-    _destionationModel->deleteDestination(name,imPath,desc,date);
+    _destionationModel->deleteDestination(index);
 }
 
 bool Mediator::isDuplicateDestination(QString name,QString imPath)
 {
     return _destionationModel->isDuplicateDestination(name,imPath);
+}
+
+void Mediator::editDestination(int index,QString name,QString imPath,QString desc,QString date){
+    _destionationModel->editDestination(index,name,imPath,desc,date);
 }
 

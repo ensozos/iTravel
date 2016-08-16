@@ -130,7 +130,7 @@ Rectangle
                     anchors.fill: parent
                     onClicked:
                     {
-                        stack.push({item:destination_view,properties:{name:name,img:image,desc:desc,date:date}});
+                        stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,date:date}});
                     }
                 }
                 width:myGridView.cellWidth-10
@@ -162,7 +162,7 @@ Rectangle
                         text:"Delete"
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date}});
+                            stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
                         }
                     }
                 }

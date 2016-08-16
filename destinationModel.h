@@ -22,8 +22,9 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     void insertDestionation(QString name,QString imPath,QString desc,QString date);
-    void deleteDestination(QString name,QString imPath,QString desc,QString date);
+    void deleteDestination(int index);
     bool isDuplicateDestination(QString name,QString imPath);
+    void editDestination(int index,QString name,QString imPath,QString desc,QString date);
 
 private:
     vector<Destination> myDestinationData;

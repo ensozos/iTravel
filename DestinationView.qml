@@ -2,15 +2,17 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Dialogs 1.0
 
 
 Rectangle{
 
     //The values of a Destination
+    property int indexInModel
     property string name
     property string img
     property string desc
-    property string date 
+    property string date
 
     property bool isEditingEnabled : false
 
@@ -49,7 +51,12 @@ Rectangle{
             style: addDestIcon.style
             onClicked:
             {
-                console.log("Save")
+                console.log("Save Changes")
+                if(isEditingEnabled){
+                    mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.text)
+                }else{
+                    mediator.editDestination(indexInModel,name,img,desc,date)
+                }
             }
         }
 
@@ -115,7 +122,6 @@ Rectangle{
         Label{id:dateLabel; text:date}
         Label{id:descLabel; text:desc}
         Image{
-            id:image
             source: img
             width: 200
             height:100
@@ -135,7 +141,6 @@ Rectangle{
         TextField{id:dateField; text:date}
         TextArea{id:descField; text:desc}
         Image{
-            id:image2
             source: img
             width: 200
             height:100
@@ -144,11 +149,24 @@ Rectangle{
         Button{
             id: uploadButton
             text: "Upload another photo"
-            height: 15
             onClicked: {
-                //1)File chooser
-                //2)Set img = "what file chose"
+                fileDialog.open()
             }
+        }
+    }
+
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        folder: shortcuts.pictures
+        //nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+        nameFilters: [ "Image files (*.jpg *.png)" ]
+        onAccepted: {
+            console.log("You chose: " + fileDialog.fileUrl)
+            img = fileDialog.fileUrl
+        }
+        onRejected: {
+            console.log("Canceled")
         }
     }
 

@@ -38,34 +38,27 @@ void DestinationModel::insertDestionation(QString name, QString imPath, QString 
     endResetModel();
 }
 
-void DestinationModel::deleteDestination(QString name,QString imPath,QString desc,QString date)
+void DestinationModel::deleteDestination(int index)
 {
     beginResetModel();
-
-    //Linear search over all destinations
-    int i=0;
-    bool found = false;
-    vector<Destination>::iterator it;
-    for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
-        cout << "Checking index:" << i << endl;
-        if(name == it->getName()){
-            if(desc == it->getDesc()){
-                if(date == it->getDate()){
-                    if(imPath == it->getImgPath()){
-                        found = true;
-                        cout << "Found at:" << i <<endl;
-                        break;//Breaks the loop
-                    }
-                }
-            }
-        }
-        i++;
-    }
-    if(found){
-        cout << "Deleting item ...";
+    vector<Destination>::iterator it = this->myDestinationData.begin();
+    advance(it, index);
+    //Index should never be -1 but qml might return -1
+    if(index != -1){
         this->myDestinationData.erase(it);
-    }else{
-        cout << "Item not found. (This should never happen)";
+    }
+    endResetModel();
+}
+
+void DestinationModel::editDestination(int index,QString name,QString imPath,QString desc,QString date){
+
+    beginResetModel();
+    /*vector<Destination>::size_type*/int size = this->myDestinationData.size();
+    if(index>-1 && index<size){
+        this->myDestinationData[index].setName(name);
+        this->myDestinationData[index].setImgPath(imPath);
+        this->myDestinationData[index].setDesc(desc);
+        this->myDestinationData[index].setDate(date);
     }
     endResetModel();
 }
