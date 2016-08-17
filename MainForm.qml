@@ -42,9 +42,15 @@ Rectangle
         ToolButton{
             anchors.right: parent.right
             id:mapIcon
-            width:50
+            width:parent.height
+            height:width
+            style: addDestIcon.style
             Image{
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 source:"images/images/planet-earth.png"
+                width:parent.width
+                height:width
             }
             onClicked:
             {
@@ -122,6 +128,7 @@ Rectangle
         model:mediator.destinationModel
         cellWidth:210
         cellHeight:210
+        clip:true
         delegate:
             Rectangle
             {

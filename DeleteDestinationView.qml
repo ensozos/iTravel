@@ -43,7 +43,7 @@ Rectangle{
         spacing: 10
 
         Label{text:name}
-        Label{text:date}
+        Label{text:Qt.formatDate(date,"ddd dd MMM yyyy")}
         Label{text:desc}
         Image{
             source: img
