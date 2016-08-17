@@ -144,6 +144,7 @@ Rectangle
                     {
                         anchors.horizontalCenter: parent.horizontalCenter
                         id:img
+                        asynchronous: true
                         height:(parent.width-5)*0.8
                         width:height
                         fillMode: Image.PreserveAspectFit

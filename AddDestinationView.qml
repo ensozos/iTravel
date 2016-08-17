@@ -14,98 +14,100 @@ Rectangle {
     Rectangle{
         id: container
         color:"light blue"
-        anchors.top: myToolBar.bottom
-        anchors.left: parent.left
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 10
-        anchors.topMargin: 10
         width: (parent.width>1000) ? 900 : (parent.width * 0.9) //If the width is <1200 then set is as "90% of parent" else set it as "1080"
-
-        Button{
-            id: uploadPhoto
-            anchors.left: parent.left
-            anchors.top: parent.top
-            width: 200
-            height:25
-
-            Text{
-                text: "Upload Photo"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-            onClicked: {
-                fileDialog.open()
-            }
+        anchors{
+            top: myToolBar.bottom;
+            left: parent.left;
+            bottom: bottomRow.top;
+            leftMargin: 10;
+            topMargin: 10
         }
+        clip:true //Makes the scrollable content invisible beyond the "container" rectangle
 
-        Image
+        Flickable //The draggable area
         {
-            id:photo
-            anchors.top: uploadPhoto.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            fillMode: Image.PreserveAspectFit
-            height:0
-            width :0
-            source:""
+            anchors.fill:parent
+            contentWidth: parent.width
+            contentHeight: col.height
+            interactive:true
+            boundsBehavior: Flickable.StopAtBounds
+
+            Column
+            {
+                id:col
+                spacing: 20
+                Button
+                {
+                    id: uploadPhoto
+                    width: 200
+                    height:25
+
+                    Text
+                    {
+                        text: "Upload Photo"
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    onClicked: {
+                        fileDialog.open()
+                    }
+                }
+                Image
+                {
+                    id:photo
+                    asynchronous: true
+                    fillMode: Image.PreserveAspectFit
+                    height:0
+                    width :0
+                    source:""
+                }
+                Row{
+                    spacing: 10
+                    Text{
+                        anchors.verticalCenter: parent.verticalCenter
+                        text:"Title:"
+                    }
+                    TextField{
+                        id:title
+                        placeholderText: "Destination Name"
+
+                    }
+                }
+                Row{
+                    spacing: 10
+
+                    Text{
+                        anchors.verticalCenter: parent.verticalCenter
+                        text:"Date:"
+                    }
+
+                    TextField{
+                        id:date
+                        placeholderText: "Visit Date"
+
+                    }
+                }
+                Column{
+                    Text{
+                        text:"Description:"
+                    }
+
+                    TextArea{
+                        id:description
+                        width: container.width * 0.9
+                        height: 200
+                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    }
+                }
+            }
         }
 
-        Row{
-            id: destinationRow
-            anchors.top: uploadPhoto.bottom
-            anchors.topMargin: 10
-            spacing: 10
-
-            Text{
-                anchors.verticalCenter: parent.verticalCenter
-                text:"Title:"
-            }
-
-            TextField{
-                id:title
-                placeholderText: "Destination Name"
-
-            }
-        }
-
-        Row{
-            id: dateRow
-            anchors.top: destinationRow.bottom
-            anchors.topMargin: 10
-            spacing: 10
-
-            Text{
-                anchors.verticalCenter: parent.verticalCenter
-                text:"Date:"
-            }
-
-            TextField{
-                id:date
-                placeholderText: "Visit Date"
-
-            }
-        }
-
-        Column{
-            id: descriptionCol
-            anchors.top: dateRow.bottom
-            anchors.topMargin: 20
-
-            Text{
-                text:"Description:"
-            }
-
-            TextArea{
-                id:description
-                width: 400
-                height: 200
-                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            }
-        }
     }
 
     Row{
         id: bottomRow
-        anchors.bottom: container.bottom
+        height:30
+        anchors.bottom: parent.bottom
         anchors.left: container.left
         anchors.bottomMargin: 10
         spacing: 10
@@ -121,6 +123,7 @@ Rectangle {
         Button{
             text:"apply"
             onClicked: {
+
                 console.log("\n----------------------------\nInsert New Destination:"+"\nImage:"+photo.source+"\nTitle:"+title.text+"\nDate:"+date.text+"\nDescription:"+description.text+"\n----------------------------")
                 if(photo.source == ""){
                     photo.source = "images/images/noImage.png"
@@ -151,5 +154,4 @@ Rectangle {
             console.log("Canceled")
         }
     }
-
 }

@@ -47,6 +47,7 @@ Rectangle{
         Label{text:desc}
         Image{
             source: img
+            asynchronous: true
             width: 200
             height:100
             fillMode: Image.PreserveAspectFit
