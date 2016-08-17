@@ -19,5 +19,6 @@
         <file>images/editOff.png</file>
         <file>images/editOn.png</file>
         <file>images/save.png</file>
+        <file>images/marker.png</file>
     </qresource>
 </RCC>

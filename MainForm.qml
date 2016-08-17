@@ -132,6 +132,10 @@ Rectangle
                     {
                         stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,date:date}});
                     }
+                    onPressAndHold:
+                    {
+                        stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                    }
                 }
                 width:myGridView.cellWidth-10
                 height:width
