@@ -35,12 +35,14 @@ Rectangle {
             Column
             {
                 id:col
+                width:parent.width
                 spacing: 20
                 Button
                 {
                     id: uploadPhoto
-                    width: 200
+                    width: 150
                     height:25
+                    anchors.horizontalCenter: parent.horizontalCenter
 
                     Text
                     {
@@ -55,6 +57,7 @@ Rectangle {
                 Image
                 {
                     id:photo
+                    anchors.horizontalCenter: parent.horizontalCenter
                     asynchronous: true
                     fillMode: Image.PreserveAspectFit
                     height:0
@@ -62,6 +65,7 @@ Rectangle {
                     source:""
                 }
                 Row{
+                    anchors.horizontalCenter: parent.horizontalCenter
                     spacing: 10
                     Text{
                         anchors.verticalCenter: parent.verticalCenter
@@ -69,29 +73,28 @@ Rectangle {
                     }
                     TextField{
                         id:title
-                        placeholderText: "Destination Name"
-
-                    }
-                }
-                Row{
-                    spacing: 10
-
-                    Text{
-                        anchors.verticalCenter: parent.verticalCenter
-                        text:"Date:"
-                    }
-
-                    TextField{
-                        id:date
-                        placeholderText: "Visit Date"
+                        placeholderText: "The destination title"
 
                     }
                 }
                 Column{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: 10
+
+                    Text{
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text:"Date:"
+                    }
+                    Calendar{
+                        id: calendar
+                        frameVisible: false
+                    }
+                }
+                Column{
+                    anchors.horizontalCenter: parent.horizontalCenter
                     Text{
                         text:"Description:"
                     }
-
                     TextArea{
                         id:description
                         width: container.width * 0.9
@@ -124,12 +127,12 @@ Rectangle {
             text:"apply"
             onClicked: {
 
-                console.log("\n----------------------------\nInsert New Destination:"+"\nImage:"+photo.source+"\nTitle:"+title.text+"\nDate:"+date.text+"\nDescription:"+description.text+"\n----------------------------")
+                console.log("\n----------------------------\nInsert New Destination:"+"\nImage:"+photo.source+"\nTitle:"+title.text+"\nDate:"+calendar.selectedDate+"\nDescription:"+description.text+"\n----------------------------")
                 if(photo.source == ""){
                     photo.source = "images/images/noImage.png"
                 }
                 if(!mediator.isDuplicateDestination(title.text,photo.source)){
-                    mediator.insertDestination(title.text,photo.source,description.text,date.text);
+                    mediator.insertDestination(title.text,photo.source,description.text,calendar.selectedDate);
                     stack.pop()
                 }else{
                     console.log("Inform the user that there is an existing destination with the same (name,imgNAME) values. This entry he is trying to save is considered a duplicate. \n(Note: ///C:/aaa/bbb/brazil.jpg) is the same as ///C:/ccc/ddd/eee/brazil.jpg")

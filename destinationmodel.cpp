@@ -44,7 +44,7 @@ void DestinationModel::loadModel(){
         QString name = in.readLine();
         QString imgPath = in.readLine();
         QString desc = in.readLine();
-        QString date = in.readLine();
+        QDate date = QDate::fromString(in.readLine(),"ddd dd MMM yyyy");
         insertDestination(name,imgPath,desc,date);
     }
     qf.close();
@@ -64,12 +64,12 @@ void DestinationModel::saveModel(){
         out<< it->getName()    <<endl;
         out<< it->getImgPath() <<endl;
         out<< it->getDesc()    <<endl;
-        out<< it->getDate()    <<endl;
+        out<< it->getDate().toString("ddd dd MMM yyyy")    <<endl;
     }
     qf.close();
 }
 
-void DestinationModel::insertDestination(QString name, QString imPath, QString desc, QString date)
+void DestinationModel::insertDestination(QString name, QString imPath, QString desc, QDate date)
 {
     beginResetModel();
 
@@ -92,7 +92,7 @@ void DestinationModel::deleteDestination(int index)
     endResetModel();
 }
 
-void DestinationModel::editDestination(int index,QString name,QString imPath,QString desc,QString date){
+void DestinationModel::editDestination(int index,QString name,QString imPath,QString desc,QDate date){
 
     beginResetModel();
     /*vector<Destination>::size_type*/int size = this->myDestinationData.size();

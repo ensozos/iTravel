@@ -10,7 +10,7 @@ Rectangle{
     property string name
     property string img
     property string desc
-    property string date
+    property date date
     property int indexOfDestInModel //The position of this Destination inside the vector of thie "destinationModel"
 
     CustomToolBar{

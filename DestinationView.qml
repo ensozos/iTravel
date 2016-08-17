@@ -12,7 +12,7 @@ Rectangle{
     property string name
     property string img
     property string desc
-    property string date
+    property date date
 
     property bool isEditingEnabled : false
 
@@ -23,7 +23,7 @@ Rectangle{
         }else{
             //Set the new values to the nonEditable elements
             name = nameField.text
-            date = dateField.text
+            date = dateField.selectedDate
             desc = descField.text
             //"img" has already been set in the "uploadButton" onClicked listener
 
@@ -53,9 +53,9 @@ Rectangle{
             {
                 console.log("Save Changes")
                 if(isEditingEnabled){
-                    mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.text)
+                    mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                 }else{
-                    mediator.editDestination(indexInModel,name,img,desc,date)
+                    mediator.editDestination(indexInModel,nameField.text,img,descField.text,dateField.selectedDate)
                 }
             }
         }
@@ -111,48 +111,65 @@ Rectangle{
         }
     }
 
-    Column{
-        id: nonEditableColumn
-        anchors.top: myToolBar.bottom
-        anchors.left: parent.left
-        anchors.margins: 20
-        spacing: 10
+    Flickable{
 
-        Label{id:nameLabel; text:name}
-        Label{id:dateLabel; text:date}
-        Label{id:descLabel; text:desc}
-        Image{
-            source: img
-            asynchronous: true
-            width: 200
-            height:100
-            fillMode: Image.PreserveAspectFit
+        anchors{
+            top:myToolBar.bottom
+            right:parent.right
+            left:parent.left
+            bottom:parent.bottom
         }
-    }
+        contentWidth: parent.width
+        contentHeight: nonEditableColumn.visible ? nonEditableColumn.height : editableColumn.height
+        clip:true
 
-    Column{
-        id: editableColumn
-        visible: false
-        anchors.top: myToolBar.bottom
-        anchors.left: parent.left
-        anchors.margins: 20
-        spacing: 10
+        Column{
+            id: nonEditableColumn
+            spacing: 10
 
-        TextField{id:nameField; text:name}
-        TextField{id:dateField; text:date}
-        TextArea{id:descField; text:desc}
-        Image{
-            source: img
-            asynchronous: true
-            width: 200
-            height:100
-            fillMode: Image.PreserveAspectFit
+            Label{id:nameLabel; text:name}
+            Calendar
+            {
+                id:dateLabel
+                selectedDate: date
+                enabled: false
+            }
+            Label{id:descLabel; text:desc}
+            Image{
+                source: img
+                asynchronous: true
+                width: 200
+                height:100
+                fillMode: Image.PreserveAspectFit
+            }
         }
-        Button{
-            id: uploadButton
-            text: "Upload another photo"
-            onClicked: {
-                fileDialog.open()
+
+        Column{
+            id: editableColumn
+            visible: false
+            spacing: 10
+
+            TextField{id:nameField; text:name}
+            Calendar
+            {
+                id:dateField
+                selectedDate: date
+            }
+
+            TextArea{id:descField; text:desc}
+            Image{
+                source: img
+                asynchronous: true
+                width: 200
+                height:100
+                fillMode: Image.PreserveAspectFit
+            }
+            Button{
+                id: uploadButton
+                text: "Upload another photo"
+                onClicked: {
+                    fileDialog.open()
+                }
             }
         }
     }

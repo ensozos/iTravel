@@ -28,10 +28,10 @@ signals:
     void destinationModelChanged();
 
 public slots:
-    void insertDestination(QString name,QString imPath,QString desc,QString date);
+    void insertDestination(QString name,QString imPath,QString desc,QDate date);
     void deleteDestination(int index);
     bool isDuplicateDestination(QString name,QString imPath);
-    void editDestination(int index,QString name,QString imPath,QString desc,QString date);
+    void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
     void saveAll();
 };
 

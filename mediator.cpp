@@ -6,7 +6,7 @@ Mediator::Mediator(QObject *parent):QObject(parent)
     _destionationModel = new DestinationModel();
 }
 
-void Mediator::insertDestination(QString name,QString imPath,QString desc,QString date)
+void Mediator::insertDestination(QString name,QString imPath,QString desc,QDate date)
 {
     _destionationModel->insertDestination(name,imPath,desc,date);
 }
@@ -21,7 +21,7 @@ bool Mediator::isDuplicateDestination(QString name,QString imPath)
     return _destionationModel->isDuplicateDestination(name,imPath);
 }
 
-void Mediator::editDestination(int index,QString name,QString imPath,QString desc,QString date){
+void Mediator::editDestination(int index,QString name,QString imPath,QString desc,QDate date){
     _destionationModel->editDestination(index,name,imPath,desc,date);
 }
 

@@ -1,6 +1,6 @@
 #include "destination.h"
 
-Destination::Destination(QString name, QString imPath, QString desc, QString date)
+Destination::Destination(QString name, QString imPath, QString desc, QDate date)
 {
     this->name = name;
     this->imgPath = imPath;
