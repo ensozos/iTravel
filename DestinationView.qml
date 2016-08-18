@@ -1,4 +1,3 @@
-import QtQml 2.0
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
@@ -14,7 +13,6 @@ Rectangle{
     property string img
     property string desc
     property date date
-
 
     property bool isEditingEnabled : false
 
