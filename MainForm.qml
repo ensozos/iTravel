@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
+import QtQml.Models 2.1
+
 Rectangle
 {    
     property bool deleteDelegateButtonsAreVisible : false
@@ -125,16 +127,35 @@ Rectangle
         anchors.top: myToolBar.bottom
         anchors.bottom: parent.bottom
         anchors.margins: 1
-        model:mediator.destinationModel
         cellWidth:210
         cellHeight:210
         clip:true
-        delegate:
-            Rectangle
-            {
-                MouseArea
-                {
-                    anchors.fill: parent
+
+        //When we interact with a GridView item and some other items are forced to relocate, this is the animation that they do for their "x,y" change.
+        displaced: Transition {
+            NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad; duration:500 }
+        }
+
+        model: DelegateModel{
+            id: visualModel
+            model: mediator.destinationModel
+            delegate:
+                MouseArea{
+                    id: delegateRoot
+
+                    property int visualIndex: DelegateModel.itemsIndex //The index as shown in the screen
+                    property int vectorIndex: index  //The index inside the vector
+
+                    width:myGridView.cellWidth; height:myGridView.cellHeight
+                    drag.target: delegateRect
+
+                    //This delegate is also a DropArea. When the "item" that is being dragged enters this delegate's space, then we reposition this item with the dragged inside the Grid.
+                    DropArea {
+                        anchors { fill: parent; margins: 15 }
+                        onEntered: {visualModel.items.move(drag.source.visualIndex, delegateRoot.visualIndex); console.log("dragged:"+drag.source.vectorIndex)}
+                    }
+
+                    //What happens when you click on the delegate MouseArea (or pressAndHold)
                     onClicked:
                     {
                         stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,date:date}});
@@ -143,42 +164,74 @@ Rectangle
                     {
                         stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
                     }
-                }
-                width:myGridView.cellWidth-10
-                height:width
 
-                Column
-                {
-                    width:parent.width
-
-                    Image
+                    Rectangle
                     {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        id:img
-                        asynchronous: true
-                        height:(parent.width-5)*0.8
-                        width:height
-                        fillMode: Image.PreserveAspectFit
-                        source:image
-                    }
-                    Label{
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        id:l
-                        verticalAlignment: Text.AlignVCenter
-                        height:(parent.width-5)/5
-                        text:name
-                    }
-                    Button{
-                        id: deleteDelegateButton
-                        visible: isDelegateDeleteButtonVisible()
-                        text:"Delete"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                        id: delegateRect
+                        color: "transparent"
+                        width:myGridView.cellWidth*0.9 //The tile size in the Grid
+                        height:width
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter;
+                            verticalCenter: parent.verticalCenter
                         }
+                        //Make the delegate Draggable
+                        Drag.active: delegateRoot.drag.active
+                        Drag.source: delegateRoot
+                        Drag.hotSpot.x: width/2
+                        Drag.hotSpot.y: height/2
+
+                        //Make the delegate move around the screen when "icon.Drag.active" (the dragging effect).
+                        //When the event "icon.Drag.active" happens, then we set (for the target: "icon") "root" as the target's parent and we "un-anchor" the target's horiz/vertic centers.
+                        states: [
+                            State {
+                                when: delegateRect.Drag.active
+                                ParentChange {
+                                    target: delegateRect
+                                    parent: myGridView
+                                }
+
+                                AnchorChanges {
+                                    target: delegateRect;
+                                    anchors.horizontalCenter: undefined;
+                                    anchors.verticalCenter: undefined
+                                }
+                            }
+                        ]
+
+                        //The actual Data of the delegate -----------------------------
+                        Column
+                        {
+                            anchors.fill: parent
+                            Image
+                            {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                id:img
+                                asynchronous: true
+                                height:(parent.width-5)*0.8
+                                width:height
+                                fillMode: Image.PreserveAspectFit
+                                source:image
+                            }
+                            Label{
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                verticalAlignment: Text.AlignVCenter
+                                text:name
+                            }
+                            Button{
+                                id: deleteDelegateButton
+                                visible: isDelegateDeleteButtonVisible()
+                                text:"Delete"
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                onClicked: {
+                                    stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                                }
+                            }
+                        }
+                        //--------------------------------------------------------------
                     }
-                }
             }
+        }
     }
 
     function isDelegateDeleteButtonVisible(){
