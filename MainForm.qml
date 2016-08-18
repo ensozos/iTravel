@@ -1,3 +1,4 @@
+import QtQml 2.0
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
@@ -167,6 +168,7 @@ Rectangle
                         verticalAlignment: Text.AlignVCenter
                         height:(parent.width-5)/5
                         text:name
+                        Component.onCompleted: getDateColor(date)
                     }
                     Button{
                         id: deleteDelegateButton
@@ -179,6 +181,28 @@ Rectangle
                     }
                 }
             }
+    }
+
+    function getDateColor(date){
+
+        var unix_time = (new Date).getTime()
+        var current_time = parseInt(unix_time.toString().substring(0,10),10)
+        var travel_date = parseInt(date.getTime().toString().substring(0,10),10)
+
+
+        if (current_time > travel_date)
+        {
+            console.log("Red")
+        } else if (current_time + 604800 >= travel_date ){ //one week
+            console.log("Blue")
+        } else {
+            console.log("Green")
+        }
+
+
+        console.log(current_time+ " " + travel_date)
+
+
     }
 
     function isDelegateDeleteButtonVisible(){
