@@ -9,6 +9,7 @@
         <file>CustomToolBar.qml</file>
         <file>Splash.qml</file>
         <file>DeleteDestinationView.qml</file>
+        <file>About.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>
