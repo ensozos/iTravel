@@ -13,6 +13,7 @@ Rectangle{
     property string img
     property string desc
     property date date
+    property int score
 
     property bool isEditingEnabled : false
 
@@ -29,6 +30,12 @@ Rectangle{
 
             editableColumn.visible    = false
             nonEditableColumn.visible = true
+        }
+    }
+
+    function setScore(){
+        if (first_generic.checked) {
+            score = 10
         }
     }
 
@@ -55,6 +62,7 @@ Rectangle{
                 if(isEditingEnabled){
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                 }else{
+                    mediator.editDestinationScore(indexInModel,score)
                     mediator.editDestination(indexInModel,nameField.text,img,descField.text,dateField.selectedDate)
                 }
             }
@@ -127,6 +135,18 @@ Rectangle{
             id: nonEditableColumn
             spacing: 10
 
+            Text {
+                id: te
+                text: score
+            }
+
+            Image{
+                source: img
+                asynchronous: true
+                width: 200
+                height:100
+                fillMode: Image.PreserveAspectFit
+            }
             Label{id:nameLabel; text:name}
             Calendar
             {
@@ -135,13 +155,25 @@ Rectangle{
                 enabled: false
             }
             Label{id:descLabel; text:desc}
-            Image{
-                source: img
-                asynchronous: true
-                width: 200
-                height:100
-                fillMode: Image.PreserveAspectFit
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Did you visit a museum?")
+                }
+
+                CheckBox {
+                        id:first_generic
+                        checked: false
+                }
+
             }
+
+            Button{
+                text: "set score"
+                onClicked: setScore()
+            }
+
         }
 
         Column{

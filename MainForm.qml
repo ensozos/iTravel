@@ -158,7 +158,7 @@ Rectangle
                     //What happens when you click on the delegate MouseArea (or pressAndHold)
                     onClicked:
                     {
-                        stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,date:date}});
+                        stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,score:score,date:date}});
                     }
                     onPressAndHold:
                     {
