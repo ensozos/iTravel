@@ -10,6 +10,7 @@
         <file>Splash.qml</file>
         <file>DeleteDestinationView.qml</file>
         <file>About.qml</file>
+        <file>Ellipse.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>

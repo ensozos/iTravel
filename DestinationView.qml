@@ -124,6 +124,7 @@ Rectangle{
         clip:true
 
         Column{
+            width: parent.width * 0.7
             id: nonEditableColumn
             spacing: 10
 
@@ -135,12 +136,50 @@ Rectangle{
                 enabled: false
             }
             Label{id:descLabel; text:desc}
-            Image{
+            Image
+            {
                 source: img
                 asynchronous: true
                 width: 200
                 height:100
                 fillMode: Image.PreserveAspectFit
+            }
+
+            Component
+            {
+                id: delegate
+                Column
+                {
+                    scale: PathView.iconScale
+                    opacity: PathView.iconOpacity
+                    rotation: PathView.itemRotation
+                    id: wrapper
+                    Image
+                    {
+                        anchors.horizontalCenter: nameText.horizontalCenter
+                        width: 64; height: 64
+                        source: icon
+                    }
+                    Text
+                    {
+                        id: nameText
+                        text: name
+                        font.pointSize: 16
+                    }
+                }
+            }
+
+            PathView
+            {
+                id:view
+                width: parent.width
+                height: 200
+                model: myPhotosModel
+                delegate: delegate
+                path:Ellipse {
+                    width: view.width
+                    height: view.height
+                    }
             }
         }
 
@@ -171,6 +210,30 @@ Rectangle{
                     fileDialog.open()
                 }
             }
+        }
+    }
+
+    ListModel {
+        id: myPhotosModel
+        ListElement {
+            name: "Brazil"
+            icon: "images/images/brazil.jpg"
+        }
+        ListElement {
+            name: "New York"
+            icon: "images/images/newyork.jpg"
+        }
+        ListElement {
+            name: "Greece"
+            icon: "images/images/greece.jpg"
+        }
+        ListElement {
+            name: "No Image"
+            icon: "images/images/noImage.png"
+        }
+        ListElement {
+            name: "Save"
+            icon: "images/images/save.png"
         }
     }
 
