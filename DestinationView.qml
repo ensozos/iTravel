@@ -44,11 +44,11 @@ Rectangle{
             console.log("photos!")
         }
         if (traditional_food.checked) {
-            score+=15
+            score+=10
             console.log("tradion")
         }
         if (vacation_days.text.length > 0){
-            score+= parseInt(vacation_days.text)
+            score+= parseInt(vacation_days.text)*2
             console.log("vacation")
         }
         if (first_time.checked) {
@@ -67,6 +67,32 @@ Rectangle{
 
     CustomToolBar{
         id:myToolBar
+
+
+        ProgressBar {
+            anchors.centerIn: parent
+            value:score/100
+            style: ProgressBarStyle {
+                background: Rectangle {
+                    radius: 10
+                    color: "lightgray"
+                    border.color: "gray"
+                    border.width: 1
+                    implicitWidth: 200
+                    implicitHeight: 24
+                }
+                progress: Rectangle {
+                    radius: 10
+                    color: "lightsteelblue"
+                    border.color: "steelblue"
+                    Text {
+                        id: progr_title
+                        anchors.centerIn: parent
+                        text: score.toString()
+                    }
+                }
+            }
+        }
 
         ToolButton{
             id:saveDestIcon
@@ -161,11 +187,6 @@ Rectangle{
             width: parent.width * 0.7
             id: nonEditableColumn
             spacing: 10
-
-            Text {
-                id: te
-                text: score
-            }
 
             Image{
                 source: img
