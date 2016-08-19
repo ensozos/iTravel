@@ -23,7 +23,7 @@ QHash<int, QByteArray> DestinationModel::roleNames() const
     roles[DescriptionRole] = "desc";
     roles[ImgPathRole] = "image";
     roles[DateRole] = "date";
-
+    roles[ScoreRole] = "score";
     return roles;
 }
 int DestinationModel::rowCount(const QModelIndex &parent) const
@@ -44,8 +44,9 @@ void DestinationModel::loadModel(){
         QString name = in.readLine();
         QString imgPath = in.readLine();
         QString desc = in.readLine();
+        quint16 score = in.readLine().toInt();
         QDate date = QDate::fromString(in.readLine(),"ddd dd MMM yyyy");
-        insertDestination(name,imgPath,desc,date);
+        insertDestination(name,imgPath,desc,score,date);
     }
     qf.close();
 }
@@ -64,17 +65,18 @@ void DestinationModel::saveModel(){
         out<< it->getName()    <<endl;
         out<< it->getImgPath() <<endl;
         out<< it->getDesc()    <<endl;
+        out<< it->getScore()   <<endl;
         out<< it->getDate().toString("ddd dd MMM yyyy")    <<endl;
     }
     qf.close();
 }
 
-void DestinationModel::insertDestination(QString name, QString imPath, QString desc, QDate date)
+void DestinationModel::insertDestination(QString name, QString imPath, QString desc,quint16 score, QDate date)
 {
     beginResetModel();
 
     Destination *destination_obj;
-    destination_obj = new Destination(name,imPath,desc,date);
+    destination_obj = new Destination(name,imPath,desc,score,date);
     this->myDestinationData.push_back(*destination_obj);
 
     endResetModel();
@@ -90,6 +92,15 @@ void DestinationModel::deleteDestination(int index)
         this->myDestinationData.erase(it);
     }
     endResetModel();
+}
+
+void DestinationModel::editDestinationScore(int index,quint16 score){
+    beginResetModel();
+    int size = this->myDestinationData.size();
+    if(index>-1 && index<size){
+        this->myDestinationData[index].setScore(score);
+    }
+
 }
 
 void DestinationModel::editDestination(int index,QString name,QString imPath,QString desc,QDate date){
@@ -140,6 +151,7 @@ QVariant DestinationModel::data(const QModelIndex &index, int role) const
         case NameRole: return i.getName();
         case ImgPathRole: return i.getImgPath();
         case DescriptionRole: return i.getDesc();
+        case ScoreRole: return i.getScore();
         case DateRole: return i.getDate();
         default: return QVariant();
         }

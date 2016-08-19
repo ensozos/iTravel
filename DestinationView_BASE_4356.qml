@@ -13,7 +13,6 @@ Rectangle{
     property string img
     property string desc
     property date date
-    property int score
 
     property bool isEditingEnabled : false
 
@@ -30,12 +29,6 @@ Rectangle{
 
             editableColumn.visible    = false
             nonEditableColumn.visible = true
-        }
-    }
-
-    function setScore(){
-        if (first_generic.checked) {
-            score = 10
         }
     }
 
@@ -62,7 +55,6 @@ Rectangle{
                 if(isEditingEnabled){
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                 }else{
-                    mediator.editDestinationScore(indexInModel,score)
                     mediator.editDestination(indexInModel,nameField.text,img,descField.text,dateField.selectedDate)
                 }
             }
@@ -132,22 +124,9 @@ Rectangle{
         clip:true
 
         Column{
-            width: parent.width * 0.7
             id: nonEditableColumn
             spacing: 10
 
-            Text {
-                id: te
-                text: score
-            }
-
-            Image{
-                source: img
-                asynchronous: true
-                width: 200
-                height:100
-                fillMode: Image.PreserveAspectFit
-            }
             Label{id:nameLabel; text:name}
             Calendar
             {
@@ -156,60 +135,12 @@ Rectangle{
                 enabled: false
             }
             Label{id:descLabel; text:desc}
-
-            Component
-            {
-                id: delegate
-                Column
-                {
-                    scale: PathView.iconScale
-                    opacity: PathView.iconOpacity
-                    rotation: PathView.itemRotation
-                    id: wrapper
-                    Image
-                    {
-                        anchors.horizontalCenter: nameText.horizontalCenter
-                        width: 64; height: 64
-                        source: icon
-                    }
-                    Text
-                    {
-                        id: nameText
-                        text: name
-                        font.pointSize: 16
-                    }
-                }
-            }
-
-            PathView
-            {
-                id:view
-                width: parent.width
-                height: 200
-                model: myPhotosModel
-                delegate: delegate
-                path:Ellipse {
-                    width: view.width
-                    height: view.height
-                    }
-            }
-
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("Did you visit a museum?")
-                }
-
-                CheckBox {
-                        id:first_generic
-                        checked: false
-                }
-
-            }
-
-            Button{
-                text: "set score"
-                onClicked: setScore()
+            Image{
+                source: img
+                asynchronous: true
+                width: 200
+                height:100
+                fillMode: Image.PreserveAspectFit
             }
         }
 
@@ -240,30 +171,6 @@ Rectangle{
                     fileDialog.open()
                 }
             }
-        }
-    }
-
-    ListModel {
-        id: myPhotosModel
-        ListElement {
-            name: "Brazil"
-            icon: "images/images/brazil.jpg"
-        }
-        ListElement {
-            name: "New York"
-            icon: "images/images/newyork.jpg"
-        }
-        ListElement {
-            name: "Greece"
-            icon: "images/images/greece.jpg"
-        }
-        ListElement {
-            name: "No Image"
-            icon: "images/images/noImage.png"
-        }
-        ListElement {
-            name: "Save"
-            icon: "images/images/save.png"
         }
     }
 

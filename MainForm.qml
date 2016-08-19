@@ -158,7 +158,7 @@ Rectangle
                     //What happens when you click on the delegate MouseArea (or pressAndHold)
                     onClicked:
                     {
-                        stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,date:date}});
+                        stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,score:score,date:date}});
                     }
                     onPressAndHold:
                     {
@@ -171,6 +171,9 @@ Rectangle
                         color: "transparent"
                         width:myGridView.cellWidth*0.9 //The tile size in the Grid
                         height:width
+                        border.width:1
+                        border.color: getDateColor(date)
+                        radius: 10
                         anchors {
                             horizontalCenter: parent.horizontalCenter;
                             verticalCenter: parent.verticalCenter
@@ -195,6 +198,7 @@ Rectangle
                                     target: delegateRect;
                                     anchors.horizontalCenter: undefined;
                                     anchors.verticalCenter: undefined
+
                                 }
                             }
                         ]
@@ -217,6 +221,7 @@ Rectangle
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 verticalAlignment: Text.AlignVCenter
                                 text:name
+                                Component.onCompleted: getDateColor(date)
                             }
                             Button{
                                 id: deleteDelegateButton
@@ -243,15 +248,12 @@ Rectangle
 
             if (current_time > travel_date)
             {
-                console.log("Red")
-            } else if (current_time + 604800 >= travel_date ){ //one week
-                console.log("Blue")
+                return "red"
+            } else if (current_time + 604800 >= travel_date ){ //one weak
+                return "blue"
             } else {
-                console.log("Green")
+                return "green"
             }
-
-
-            console.log(current_time+ " " + travel_date)
 
 
         }

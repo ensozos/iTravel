@@ -156,6 +156,15 @@ Rectangle{
                 enabled: false
             }
             Label{id:descLabel; text:desc}
+<<<<<<< HEAD
+            Image
+            {
+                source: img
+                asynchronous: true
+                width: 200
+                height:100
+                fillMode: Image.PreserveAspectFit
+            }
 
             Component
             {
@@ -193,6 +202,7 @@ Rectangle{
                     height: view.height
                     }
             }
+=======
 
             Row{
                 spacing: 5
@@ -211,6 +221,8 @@ Rectangle{
                 text: "set score"
                 onClicked: setScore()
             }
+
+>>>>>>> 0d395f75fb189018deb9cee24c9522df4dbcca4b
         }
 
         Column{

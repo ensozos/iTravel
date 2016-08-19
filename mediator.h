@@ -13,24 +13,25 @@ class Mediator : public QObject
 public:
     Mediator(QObject *parent=0);
     void setDestinationModel(DestinationModel *model){
-        _destionationModel = model;
+        _destinationModel = model;
         emit destinationModelChanged();
     }
 
     DestinationModel* destinationModel(){
-        return _destionationModel;
+        return _destinationModel;
     }
 
 private:
-    DestinationModel *_destionationModel;
+    DestinationModel *_destinationModel;
 
 signals:
     void destinationModelChanged();
 
 public slots:
-    void insertDestination(QString name,QString imPath,QString desc,QDate date);
+    void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date);
     void deleteDestination(int index);
     bool isDuplicateDestination(QString name,QString imPath);
+    void editDestinationScore(int index,quint16 score);
     void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
     void saveAll();
 };
