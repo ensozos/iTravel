@@ -34,9 +34,35 @@ Rectangle{
     }
 
     function setScore(){
-        if (first_generic.checked) {
-            score = 10
+        score = 0
+        if (museum_number.checked) {
+            score+=25
+            console.log("museum!")
         }
+        if (photos_number.text.length > 0){
+            score+= parseInt(photos_number.text)
+            console.log("photos!")
+        }
+        if (traditional_food.checked) {
+            score+=15
+            console.log("tradion")
+        }
+        if (vacation_days.text.length > 0){
+            score+= parseInt(vacation_days.text)
+            console.log("vacation")
+        }
+        if (first_time.checked) {
+            score+= 50
+            console.log("first time here")
+        }else {
+            score+=10
+            console.log("not first time here")
+        }
+        if(souvenir.checked){
+            score+=5
+            console.log("souvenir")
+        }
+        mediator.editDestinationScore(indexInModel,score)
     }
 
     CustomToolBar{
@@ -62,7 +88,7 @@ Rectangle{
                 if(isEditingEnabled){
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                 }else{
-                    mediator.editDestinationScore(indexInModel,score)
+                    setScore()
                     mediator.editDestination(indexInModel,nameField.text,img,descField.text,dateField.selectedDate)
                 }
             }
@@ -201,16 +227,82 @@ Rectangle{
                 }
 
                 CheckBox {
-                        id:first_generic
+                        id:museum_number
                         checked: false
                 }
 
             }
 
-            Button{
-                text: "set score"
-                onClicked: setScore()
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("How many photos did you get?")
+                }
+
+                TextField{
+                   id:photos_number
+                   validator: IntValidator{}
+                   placeholderText: qsTr("Enter number")
+                   inputMethodHints: Qt.ImhDigitsOnly
+                }
+
             }
+
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Did you ate any tradionotal food?")
+                }
+
+                CheckBox{
+                    id:traditional_food
+                    checked:false
+                }
+
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Days of vacation?")
+                }
+
+                TextField{
+                    id:vacation_days
+                    validator: IntValidator{}
+                    placeholderText: qsTr("Number of days")
+                    inputMethodHints: Qt.ImhDigitsOnly
+                }
+
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("First time here?")
+                }
+
+                CheckBox{
+                    id:first_time
+                    checked: false
+                }
+
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Did you buy any souvenir?")
+                }
+
+                CheckBox{
+                    id:souvenir
+                    checked: false
+                }
+
+            }
+
         }
 
         Column{
