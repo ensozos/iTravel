@@ -41,7 +41,7 @@ void DestinationModel::loadModel(){
         quint16 score = in.readLine().toInt();
         QDate date = QDate::fromString(in.readLine(),"ddd dd MMM yyyy");
 
-        QStringList urlStrings = in.readLine().split( "," );
+        QStringList urlStrings = in.readLine().split( "|" );
         urlStrings.removeLast();//It is an empty string due to the "saveModel()" loop.
         QList<QUrl> photos = QList<QUrl>();
         photos = QUrl::fromStringList(urlStrings);
@@ -77,7 +77,7 @@ void DestinationModel::saveModel(){
         if(!album.isEmpty()){
             //Save the photo album as a csv line.
             for (QList<QUrl>::iterator i = album.begin();i != album.end(); ++i) {
-                out << i->toString().toUtf8() << ",";
+                out << i->toString().toUtf8() << "|";
             }
             out << endl;
         }else{
