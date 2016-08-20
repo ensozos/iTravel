@@ -104,6 +104,71 @@ Rectangle {
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     }
                 }
+
+                Component
+                {
+                    id: delegateEditable
+
+                    Column{
+                        spacing: 10
+                        scale: PathView.iconScale
+                        opacity: PathView.iconOpacity
+                        rotation: PathView.itemRotation
+
+                        MouseArea
+                        {
+                            width:photoAlbumItemEditable.width; height:photoAlbumItemEditable.height
+                            Image
+                            {
+                                id:photoAlbumItemEditable
+                                width: 64; height: 64
+                                source: icon
+                            }
+                            onClicked: {
+                                console.log("Clicked:"+index);
+                                if(!deletePhoto.visible){
+                                    deletePhoto.visible = true;
+                                }else{
+                                    deletePhoto.visible = false;
+                                }
+                            }
+                        }
+
+                        Button{
+                            id: deletePhoto
+                            visible: false
+                            text:"Remove It?"
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked:{
+                                console.log("Deleted:"+index);
+                                if(index > -1){
+                                    //Attention: Because the "js array" and "qml ListModel" are implemented as a "stack" -> All elements have the same position in the js array AND the qml ListModel.
+                                    //We take advantage of this feature and we delete elements at a specific "index" taken from the "myPhotoModel".
+                                    photos.splice(index, 1)      //Delete the photo at "index" inside the myPhotosModel from the javascript array "photos".
+                                    myPhotosModel.remove(index,1)//Delete the photo at "index" inside the myPhotosModel from the qml model "myPhotosModel".
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ListModel {
+                    id: myPhotosModel
+                }
+
+                PathView
+                {
+                    id:viewEditable
+                    width: parent.width
+                    height: 200
+                    model: myPhotosModel
+                    delegate: delegateEditable
+                    path:Ellipse {
+                        width: viewEditable.width
+                        height: viewEditable.height
+                        }
+                }
+
                 Button{
                     text: "Add photos to the photo album"
                     onClicked:{
@@ -179,6 +244,9 @@ Rectangle {
             //Push each selected element inside the "photos" list
             for (var i = 0; i < photoAlbumDialog.fileUrls.length; ++i){
                 photos.push(Qt.resolvedUrl(photoAlbumDialog.fileUrls[i]))
+
+                //Put each selected element in the PathView also
+                myPhotosModel.append({"icon":photoAlbumDialog.fileUrls[i]})
             }
         }
         onRejected: {
