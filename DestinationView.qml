@@ -239,6 +239,7 @@ Rectangle{
                         id: photoAlbumItem
                         width: 64; height: 64
                         source: icon
+                        asynchronous: true
                     }
                 }
             }
@@ -388,6 +389,7 @@ Rectangle{
                             id:photoAlbumItemEditable
                             width: 64; height: 64
                             source: icon
+                            asynchronous: true
                         }
                         onClicked: {
                             console.log("Clicked:"+index);

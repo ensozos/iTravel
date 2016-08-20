@@ -123,6 +123,7 @@ Rectangle {
                                 id:photoAlbumItemEditable
                                 width: 64; height: 64
                                 source: icon
+                                asynchronous: true
                             }
                             onClicked: {
                                 console.log("Clicked:"+index);
@@ -214,6 +215,7 @@ Rectangle {
         }
     }
 
+    //FileDialogs slow down the startup time due to this known qml bug: https://bugreports.qt.io/browse/QTBUG-46477
     FileDialog {
         id: fileDialog
         title: "Please choose a file"
