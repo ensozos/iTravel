@@ -13,7 +13,7 @@ class DestinationModel : public QAbstractListModel
 public:
     enum DestinationRoles {
         NameRole = Qt::UserRole + 1,
-        ImgPathRole, DescriptionRole,DateRole,ScoreRole
+        ImgPathRole, DescriptionRole,DateRole,ScoreRole,PhotoAlbumRole
     };
     QHash<int, QByteArray> roleNames() const;
 
@@ -21,11 +21,12 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date);
+    void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date,QList<QUrl> photos);
     void deleteDestination(int index);
     bool isDuplicateDestination(QString name,QString imPath);
     void editDestinationScore(int index,quint16 score);
     void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
+    void setPhotoAlbum(int index, QList<QUrl> photos);
     void loadModel();
     void saveModel();
 

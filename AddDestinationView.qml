@@ -7,6 +7,8 @@ import QtQuick.Dialogs 1.0
 
 Rectangle {
 
+   property var photos : [];
+
     CustomToolBar{
         id:myToolBar
     }
@@ -102,6 +104,12 @@ Rectangle {
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     }
                 }
+                Button{
+                    text: "Add photos to the photo album"
+                    onClicked:{
+                        photoAlbumDialog.open()
+                    }
+                }
             }
         }
 
@@ -132,7 +140,7 @@ Rectangle {
                     photo.source = "images/images/noImage.png"
                 }
                 if(!mediator.isDuplicateDestination(title.text,photo.source)){
-                    mediator.insertDestination(title.text,photo.source,description.text,0,calendar.selectedDate);
+                    mediator.insertDestination(title.text,photo.source,description.text,0,calendar.selectedDate,photos);
                     stack.pop()
                 }else{
                     console.log("Inform the user that there is an existing destination with the same (name,imgNAME) values. This entry he is trying to save is considered a duplicate. \n(Note: ///C:/aaa/bbb/brazil.jpg) is the same as ///C:/ccc/ddd/eee/brazil.jpg")
@@ -152,6 +160,26 @@ Rectangle {
             photo.height = 100
             photo.width = 200
             photo.source = fileDialog.fileUrl
+        }
+        onRejected: {
+            console.log("Canceled")
+        }
+    }
+
+    FileDialog {
+        id: photoAlbumDialog
+        selectMultiple: true
+        title: "Choose some photos for the photo album"
+        folder: shortcuts.pictures
+        nameFilters: [ "Image files (*.jpg *.png)" ]
+        onAccepted: {
+
+            console.log("You chose: " + photoAlbumDialog.fileUrls)
+
+            //Push each selected element inside the "photos" list
+            for (var i = 0; i < photoAlbumDialog.fileUrls.length; ++i){
+                photos.push(Qt.resolvedUrl(photoAlbumDialog.fileUrls[i]))
+            }
         }
         onRejected: {
             console.log("Canceled")

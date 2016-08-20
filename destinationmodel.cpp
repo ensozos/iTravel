@@ -6,13 +6,6 @@
 
 DestinationModel::DestinationModel()
 {
-    /*Destination greece("Greece","images/images/greece.jpg","mpla mpla mpla mpla","9/9/16");
-    Destination rio("Rio","images/images/brazil.jpg","mpla mpla mpla mpla","10/9/16");
-    Destination new_york("New York","images/images/newyork.jpg","mpla mpla mpla mpla","6/9/16");
-    myDestinationData.push_back(greece);
-    myDestinationData.push_back(rio);
-    myDestinationData.push_back(new_york);*/
-
     loadModel();
 }
 
@@ -24,6 +17,7 @@ QHash<int, QByteArray> DestinationModel::roleNames() const
     roles[ImgPathRole] = "image";
     roles[DateRole] = "date";
     roles[ScoreRole] = "score";
+    roles[PhotoAlbumRole] = "photoAlbum";
     return roles;
 }
 int DestinationModel::rowCount(const QModelIndex &parent) const
@@ -46,7 +40,18 @@ void DestinationModel::loadModel(){
         QString desc = in.readLine();
         quint16 score = in.readLine().toInt();
         QDate date = QDate::fromString(in.readLine(),"ddd dd MMM yyyy");
-        insertDestination(name,imgPath,desc,score,date);
+
+        QStringList urlStrings = in.readLine().split( "," );
+        urlStrings.removeLast();//It is an empty string due to the "saveModel()" loop.
+        QList<QUrl> photos = QList<QUrl>();
+        photos = QUrl::fromStringList(urlStrings);
+
+        //Print photo album
+        for (QList<QUrl>::iterator i = photos.begin();i != photos.end(); ++i) {
+            cout << "Read:" << i->toString().toStdString() << endl;
+        }
+
+        insertDestination(name,imgPath,desc,score,date,photos);
     }
     qf.close();
 }
@@ -66,17 +71,28 @@ void DestinationModel::saveModel(){
         out<< it->getImgPath() <<endl;
         out<< it->getDesc()    <<endl;
         out<< it->getScore()   <<endl;
-        out<< it->getDate().toString("ddd dd MMM yyyy")    <<endl;
+        out<< it->getDate().toString("ddd dd MMM yyyy") <<endl;
+
+        QList<QUrl> album = it->getPhotoAlbum();
+        if(!album.isEmpty()){
+            //Save the photo album as a csv line.
+            for (QList<QUrl>::iterator i = album.begin();i != album.end(); ++i) {
+                out << i->toString().toUtf8() << ",";
+            }
+            out << endl;
+        }else{
+            out << endl;
+        }
     }
     qf.close();
 }
 
-void DestinationModel::insertDestination(QString name, QString imPath, QString desc,quint16 score, QDate date)
+void DestinationModel::insertDestination(QString name, QString imPath, QString desc,quint16 score, QDate date,QList<QUrl> photos)
 {
     beginResetModel();
 
     Destination *destination_obj;
-    destination_obj = new Destination(name,imPath,desc,score,date);
+    destination_obj = new Destination(name,imPath,desc,score,date,photos);
     this->myDestinationData.push_back(*destination_obj);
 
     endResetModel();
@@ -100,7 +116,18 @@ void DestinationModel::editDestinationScore(int index,quint16 score){
     if(index>-1 && index<size){
         this->myDestinationData[index].setScore(score);
     }
+    endResetModel();
+}
 
+/** Appends every element of the "photos" parameter to the photoAlbum of the destination that is stored at "index" inside the model's vector. */
+void DestinationModel::setPhotoAlbum(int index, QList<QUrl> photos){
+
+    beginResetModel();
+    int size = this->myDestinationData.size();
+    if(index>-1 && index<size){
+        this->myDestinationData[index].setPhotoAlbum(photos);
+    }
+    endResetModel();
 }
 
 void DestinationModel::editDestination(int index,QString name,QString imPath,QString desc,QDate date){
@@ -143,7 +170,7 @@ bool DestinationModel::isDuplicateDestination(QString name,QString imgPath){
 QVariant DestinationModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
-    if (myDestinationData.size()>row && row>=0)
+    if ((int)myDestinationData.size()>row && row>=0)
     {
         Destination i = myDestinationData[row];
         switch (role)
@@ -153,6 +180,7 @@ QVariant DestinationModel::data(const QModelIndex &index, int role) const
         case DescriptionRole: return i.getDesc();
         case ScoreRole: return i.getScore();
         case DateRole: return i.getDate();
+        case PhotoAlbumRole:    return QVariant::fromValue(i.getPhotoAlbum());
         default: return QVariant();
         }
     }

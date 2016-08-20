@@ -6,9 +6,9 @@ Mediator::Mediator(QObject *parent):QObject(parent)
     _destinationModel = new DestinationModel();
 }
 
-void Mediator::insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date)
+void Mediator::insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date, QList<QUrl> photos)
 {
-    _destinationModel->insertDestination(name,imPath,desc,score,date);
+    _destinationModel->insertDestination(name,imPath,desc,score,date,photos);
 }
 
 void Mediator::deleteDestination(int index)
@@ -33,5 +33,9 @@ void Mediator::editDestination(int index,QString name,QString imPath,QString des
 void Mediator::saveAll()
 {
     _destinationModel->saveModel();
+}
+
+void Mediator::setPhotoAlbum(int index, QList<QUrl> photos){
+    _destinationModel->setPhotoAlbum(index,photos);
 }
 
