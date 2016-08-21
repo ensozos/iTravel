@@ -126,8 +126,8 @@ Rectangle
         anchors.right: parent.right
         anchors.top: myToolBar.bottom
         anchors.bottom: parent.bottom
-        anchors.margins: 1
-        cellWidth:210
+        //anchors.margins: 1
+        cellWidth:parent.width
         cellHeight:210
         clip:true
 
@@ -165,76 +165,145 @@ Rectangle
                         stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
                     }
 
-                    Rectangle
-                    {
-                        id: delegateRect
-                        color: "transparent"
-                        width:myGridView.cellWidth*0.9 //The tile size in the Grid
-                        height:width
-                        border.width:1
-                        border.color: getDateColor(date)
-                        radius: 10
-                        anchors {
-                            horizontalCenter: parent.horizontalCenter;
-                            verticalCenter: parent.verticalCenter
-                        }
-                        //Make the delegate Draggable
-                        Drag.active: delegateRoot.drag.active
-                        Drag.source: delegateRoot
-                        Drag.hotSpot.x: width/2
-                        Drag.hotSpot.y: height/2
+                    Rectangle{
+                                            id: delegateRect
+                                            color: "transparent"
 
-                        //Make the delegate move around the screen when "icon.Drag.active" (the dragging effect).
-                        //When the event "icon.Drag.active" happens, then we set (for the target: "icon") "root" as the target's parent and we "un-anchor" the target's horiz/vertic centers.
-                        states: [
-                            State {
-                                when: delegateRect.Drag.active
-                                ParentChange {
-                                    target: delegateRect
-                                    parent: myGridView
-                                }
+                                            width:myGridView.cellWidth//*0.9 //The tile size in the Grid
+                                            height:210
+                                            border.width:1
+                                            border.color: getDateColor(date)
+                                            radius: 10
+                                            anchors {
+                                                horizontalCenter: parent.horizontalCenter;
+                                                verticalCenter: parent.verticalCenter
+                                            }
+                                            //Make the delegate Draggable
+                                            Drag.active: delegateRoot.drag.active
+                                            Drag.source: delegateRoot
+                                            Drag.hotSpot.x: width/2
+                                            Drag.hotSpot.y: height/2
 
-                                AnchorChanges {
-                                    target: delegateRect;
-                                    anchors.horizontalCenter: undefined;
-                                    anchors.verticalCenter: undefined
+                                            //Make the delegate move around the screen when "icon.Drag.active" (the dragging effect).
+                                            //When the event "icon.Drag.active" happens, then we set (for the target: "icon") "root" as the target's parent and we "un-anchor" the target's horiz/vertic centers.
+                                            states: [
+                                                State {
+                                                    when: delegateRect.Drag.active
+                                                    ParentChange {
+                                                        target: delegateRect
+                                                        parent: myGridView
+                                                    }
 
-                                }
-                            }
-                        ]
+                                                    AnchorChanges {
+                                                        target: delegateRect;
+                                                        anchors.horizontalCenter: undefined;
+                                                        anchors.verticalCenter: undefined
 
-                        //The actual Data of the delegate -----------------------------
-                        Column
-                        {
-                            anchors.fill: parent
-                            Image
-                            {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                id:img
-                                asynchronous: true
-                                height:(parent.width-5)*0.8
-                                width:height
-                                fillMode: Image.PreserveAspectFit
-                                source:image
-                            }
-                            Label{
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                verticalAlignment: Text.AlignVCenter
-                                text:name
-                                Component.onCompleted: getDateColor(date)
-                            }
-                            Button{
-                                id: deleteDelegateButton
-                                visible: isDelegateDeleteButtonVisible()
-                                text:"Delete"
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                onClicked: {
-                                    stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
-                                }
-                            }
-                        }
-                        //--------------------------------------------------------------
-                    }
+                                                    }
+                                                }
+                                            ]
+
+                                            //The actual Data of the delegate -----------------------------
+                                            Column
+                                            {
+                                                anchors.fill: parent
+                                                Image
+                                                {
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    id:img
+                                                    asynchronous: true
+                                                    height:210 //(parent.width-5)*0.8
+                                                    width:parent.width
+                                                    fillMode: Image.PreserveAspectCrop
+                                                    source:image
+
+
+
+
+                                                    Label{
+                                                        anchors.left: parent.left
+                                                        anchors.bottom: parent.bottom
+                                                        anchors.margins:2
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        text:name
+                                                        font.family:"Helvetica Neue"
+                                                        font.capitalization:Font.AllUppercase
+                                                        color: "#ffffff"
+                                                        font.weight: Font.Bold
+                                                        font.pointSize: 18
+                                                        Component.onCompleted: getDateColor(date)
+
+                                                        }
+
+                                                    Image{
+                                                        id: editIcon
+                                                        visible: isDelegateDeleteButtonVisible()
+                                                        width:25
+                                                        height:25
+                                                        source:"images/images/editOn.png"
+                                                        anchors.bottom: parent.bottom
+                                                        anchors.right:deleteDelegateButton.left
+                                                        anchors.margins: 2
+
+
+                                                        MouseArea {
+                                                                   anchors.fill: parent
+                                                                   propagateComposedEvents: true
+                                                                   onClicked: {
+
+                                                                   }
+                                                               }
+
+
+                                                     }
+
+
+
+
+
+                                                 Image{
+                                                     id: deleteDelegateButton
+                                                     visible: isDelegateDeleteButtonVisible()
+                                                     width:25
+                                                     height:25
+                                                     source:"images/Desktop/ic_delete_white_24dp.png"
+                                                     anchors.bottom: parent.bottom
+                                                     anchors.right:parent.right
+                                                     anchors.margins: 2
+
+
+                                                     MouseArea {
+                                                                anchors.fill: parent
+                                                                propagateComposedEvents: true
+                                                                onClicked: {
+                                                                    stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+
+                                                                }
+                                                            }
+
+
+                                                  }
+
+
+
+
+                                                /*Button{
+
+                                                    //id: deleteDelegateButton
+                                                    visible: isDelegateDeleteButtonVisible()
+                                                    text:"Delete"
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    onClicked: {
+                                                        stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                                                    }
+                                                }*/
+                                            }
+
+
+
+
+                                            //--------------------------------------------------------------
+                                        }
             }
         }
     }
@@ -261,4 +330,5 @@ Rectangle
     function isDelegateDeleteButtonVisible(){
         return deleteDelegateButtonsAreVisible;
     }
+}
 }
