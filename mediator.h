@@ -28,10 +28,11 @@ signals:
     void destinationModelChanged();
 
 public slots:
-    void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date,QList<QUrl> photos);
+    void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date,QList<QUrl> photos,QString questions);
     void deleteDestination(int index);
     bool isDuplicateDestination(QString name,QString imPath);
     void editDestinationScore(int index,quint16 score);
+    void editDestinationQuestions(int index,QString questions);
     void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
     void setPhotoAlbum(int index, QList<QUrl> photos);
     void saveAll();

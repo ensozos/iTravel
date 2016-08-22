@@ -206,7 +206,7 @@ Rectangle {
                     photo.source = "images/images/noImage.png"
                 }
                 if(!mediator.isDuplicateDestination(title.text,photo.source)){
-                    mediator.insertDestination(title.text,photo.source,description.text,0,calendar.selectedDate,photos);
+                    mediator.insertDestination(title.text,photo.source,description.text,0,calendar.selectedDate,photos,"");
                     stack.pop()
                 }else{
                     console.log("Inform the user that there is an existing destination with the same (name,imgNAME) values. This entry he is trying to save is considered a duplicate. \n(Note: ///C:/aaa/bbb/brazil.jpg) is the same as ///C:/ccc/ddd/eee/brazil.jpg")

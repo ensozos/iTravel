@@ -18,6 +18,7 @@ QHash<int, QByteArray> DestinationModel::roleNames() const
     roles[DateRole] = "date";
     roles[ScoreRole] = "score";
     roles[PhotoAlbumRole] = "photoAlbum";
+    roles[QuestionsRole] = "questions";
     return roles;
 }
 int DestinationModel::rowCount(const QModelIndex &parent) const
@@ -39,6 +40,7 @@ void DestinationModel::loadModel(){
         QString imgPath = in.readLine();
         QString desc = in.readLine();
         quint16 score = in.readLine().toInt();
+        QString questions = in.readLine();
         QDate date = QDate::fromString(in.readLine(),"ddd dd MMM yyyy");
 
         QStringList urlStrings = in.readLine().split( "|" );
@@ -51,7 +53,7 @@ void DestinationModel::loadModel(){
             cout << "Read:" << i->toString().toStdString() << endl;
         }
 
-        insertDestination(name,imgPath,desc,score,date,photos);
+        insertDestination(name,imgPath,desc,score,questions,date,photos);
     }
     qf.close();
 }
@@ -71,6 +73,7 @@ void DestinationModel::saveModel(){
         out<< it->getImgPath() <<endl;
         out<< it->getDesc()    <<endl;
         out<< it->getScore()   <<endl;
+        out<< it->getQuestions()   <<endl;
         out<< it->getDate().toString("ddd dd MMM yyyy") <<endl;
 
         QList<QUrl> album = it->getPhotoAlbum();
@@ -87,12 +90,12 @@ void DestinationModel::saveModel(){
     qf.close();
 }
 
-void DestinationModel::insertDestination(QString name, QString imPath, QString desc,quint16 score, QDate date,QList<QUrl> photos)
+void DestinationModel::insertDestination(QString name, QString imPath, QString desc,quint16 score,QString questions, QDate date,QList<QUrl> photos)
 {
     beginResetModel();
 
     Destination *destination_obj;
-    destination_obj = new Destination(name,imPath,desc,score,date,photos);
+    destination_obj = new Destination(name,imPath,desc,score,date,photos,questions);
     this->myDestinationData.push_back(*destination_obj);
 
     endResetModel();
@@ -139,6 +142,17 @@ void DestinationModel::editDestination(int index,QString name,QString imPath,QSt
         this->myDestinationData[index].setImgPath(imPath);
         this->myDestinationData[index].setDesc(desc);
         this->myDestinationData[index].setDate(date);
+
+    }
+    endResetModel();
+}
+
+void DestinationModel::editDestinationQuestions(int index, QString questions)
+{
+    beginResetModel();
+    int size = this->myDestinationData.size();
+    if(index>-1 && index<size){
+        this->myDestinationData[index].setQuestions(questions);
     }
     endResetModel();
 }
@@ -179,6 +193,7 @@ QVariant DestinationModel::data(const QModelIndex &index, int role) const
         case ImgPathRole: return i.getImgPath();
         case DescriptionRole: return i.getDesc();
         case ScoreRole: return i.getScore();
+        case QuestionsRole: return i.getQuestions();
         case DateRole: return i.getDate();
         case PhotoAlbumRole:    return QVariant::fromValue(i.getPhotoAlbum());
         default: return QVariant();

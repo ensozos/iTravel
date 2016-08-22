@@ -15,10 +15,19 @@ Rectangle{
     property date date
     property int score
     property var photos
+    property string questions
+    //for questions
+    property string number_of_photos
+    property bool museum
+    property bool traditional
+    property string vacation
+    property bool first_here
+    property bool souv
 
     property bool isEditingEnabled : false
 
     Component.onCompleted: {
+        parseQuestions(questions.toString())
         fillListModelWithPhotos()
     }
 
@@ -34,6 +43,29 @@ Rectangle{
         }
     }
 
+    function parseQuestions(q){
+
+        if (Boolean(q)){
+            var ans = questions.split('-')
+            museum = (ans[0] === "true")
+            number_of_photos = ans[1]
+            traditional = (ans[2] === "true")
+            vacation = ans[3]
+            first_here = (ans[4] === "true")
+            souv = (ans[5] === "true")
+
+        }else{
+
+            museum = false
+            number_of_photos = '0'
+            traditional = false
+            vacation = '0'
+            first_here = false
+            souv = false
+
+       }
+    }
+
     function makeElementsEditable(makeThemEditable){
         if(makeThemEditable){
             editableColumn.visible    = true
@@ -43,6 +75,14 @@ Rectangle{
             name = nameField.text
             date = dateField.selectedDate
             desc = descField.text
+
+            museum = museum_number_edit.checked
+            number_of_photos = photos_number_edit.text
+            traditional = traditional_food_edit.checked
+            vacation = vacation_days_edit.text
+            first_here = first_time_edit.checked
+            souv = souvenir_edit.checked
+
             //"img" has already been set in the "uploadButton" onClicked listener
 
             editableColumn.visible    = false
@@ -50,35 +90,59 @@ Rectangle{
         }
     }
 
+
     function setScore(){
         score = 0
-        if (museum_number.checked) {
+        if (museum_number_edit.checked) {
             score+=25
+            questions = "true" + "-"
             console.log("museum!")
+        }else{
+            questions = "false" + "-"
         }
-        if (photos_number.text.length > 0){
-            score+= parseInt(photos_number.text)
+
+        if (photos_number_edit.text.length > 0){
+            score+= parseInt(photos_number_edit.text)
+            questions += photos_number_edit.text + "-"
             console.log("photos!")
+        }else{
+            questions += "0" + "-"
         }
-        if (traditional_food.checked) {
+
+        if (traditional_food_edit.checked) {
             score+=10
+            questions += "true" + "-"
             console.log("tradion")
+        }else{
+            questions += "false" + "-"
         }
-        if (vacation_days.text.length > 0){
-            score+= parseInt(vacation_days.text)*2
+
+        if (vacation_days_edit.text.length > 0){
+            score+= parseInt(vacation_days_edit.text)*2
+            questions += vacation_days_edit.text + "-"
             console.log("vacation")
+        }else{
+            questions += "0" + "-"
         }
-        if (first_time.checked) {
+
+        if (first_time_edit.checked) {
             score+= 50
+            questions += "true" + "-"
             console.log("first time here")
         }else {
             score+=10
+            questions +="false" + "-"
             console.log("not first time here")
         }
-        if(souvenir.checked){
+        if(souvenir_edit.checked){
             score+=5
+            questions += "true"
             console.log("souvenir")
+        }else{
+            questions += "false"
         }
+        console.log(questions)
+        mediator.editDestinationQuestions(indexInModel,questions)
         mediator.editDestinationScore(indexInModel,score)
     }
 
@@ -131,9 +195,9 @@ Rectangle{
                 if(isEditingEnabled){
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                 }else{
-                    setScore()
                     mediator.editDestination(indexInModel,nameField.text,img,descField.text,dateField.selectedDate)
                 }
+                setScore()
                 mediator.setPhotoAlbum(indexInModel,photos);
             }
         }
@@ -265,7 +329,8 @@ Rectangle{
 
                 CheckBox {
                         id:museum_number
-                        checked: false
+                        enabled: false
+                        checked: museum
                 }
             }
 
@@ -277,9 +342,10 @@ Rectangle{
 
                 TextField{
                    id:photos_number
-                   validator: IntValidator{}
-                   placeholderText: qsTr("Enter number")
+                   enabled: false
+                   validator: IntValidator{bottom:0}
                    inputMethodHints: Qt.ImhDigitsOnly
+                   text: number_of_photos
                 }
 
             }
@@ -293,7 +359,8 @@ Rectangle{
 
                 CheckBox{
                     id:traditional_food
-                    checked:false
+                    enabled: false
+                    checked:traditional
                 }
 
             }
@@ -306,9 +373,10 @@ Rectangle{
 
                 TextField{
                     id:vacation_days
-                    validator: IntValidator{}
-                    placeholderText: qsTr("Number of days")
+                    validator: IntValidator{bottom:0}
+                    enabled: false
                     inputMethodHints: Qt.ImhDigitsOnly
+                    text: vacation
                 }
 
             }
@@ -321,7 +389,8 @@ Rectangle{
 
                 CheckBox{
                     id:first_time
-                    checked: false
+                    enabled: false
+                    checked: first_here
                 }
 
             }
@@ -334,7 +403,8 @@ Rectangle{
 
                 CheckBox{
                     id:souvenir
-                    checked: false
+                    enabled:false
+                    checked: souv
                 }
 
             }
@@ -419,6 +489,7 @@ Rectangle{
                 }
             }
 
+
             PathView
             {
                 id:viewEditable
@@ -432,12 +503,96 @@ Rectangle{
                     }
             }
 
+
             Button{
                 text: "Add photos to photo album"
                 onClicked: {
                     photoAlbumDialog.open();
                 }
             }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Did you visit a museum?")
+                }
+
+                CheckBox {
+                        id:museum_number_edit
+                        checked: museum
+                }
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("How many photos did you get?")
+                }
+
+                TextField{
+                   id:photos_number_edit
+                   validator: IntValidator{bottom:0}
+                   text: number_of_photos
+                   inputMethodHints: Qt.ImhDigitsOnly
+                }
+
+            }
+
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Did you ate any tradionotal food?")
+                }
+
+                CheckBox{
+                    id:traditional_food_edit
+                    checked:traditional
+                }
+
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Days of vacation?")
+                }
+
+                TextField{
+                    id:vacation_days_edit
+                    validator: IntValidator{bottom:0}
+                    text: vacation
+                    inputMethodHints: Qt.ImhDigitsOnly
+                }
+
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("First time here?")
+                }
+
+                CheckBox{
+                    id:first_time_edit
+                    checked: first_here
+                }
+
+            }
+
+            Row{
+                spacing: 5
+                Text {
+                    text: qsTr("Did you buy any souvenir?")
+                }
+
+                CheckBox{
+                    id:souvenir_edit
+                    checked: souv
+                }
+
+            }
+
         }
     }
 //-------------------------------------------------------------------------------------------------
