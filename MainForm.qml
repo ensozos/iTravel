@@ -165,11 +165,13 @@ Rectangle
                     {
                         //Make the delegate draggable for repositioning
                         delegateRoot.drag.target = delegateRect
+                        delegateRect.scale = 0.95
                         //stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
                     }
                     onReleased: {
                         //Make the delegate not draggable for repositioning (only for scrolling)
                         delegateRoot.drag.target = undefined
+                        delegateRect.scale = 1
                     }
 
                     Rectangle
@@ -186,6 +188,10 @@ Rectangle
                             horizontalCenter: parent.horizontalCenter;
                             verticalCenter: parent.verticalCenter
                         }
+
+                        //Animate the "scale" changes
+                        Behavior on scale { PropertyAnimation{duration: 100} }
+
                         //Make the delegate Draggable
                         Drag.active: delegateRoot.drag.active
                         Drag.source: delegateRoot
