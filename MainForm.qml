@@ -149,7 +149,6 @@ Rectangle
                     property int vectorIndex: index  //The index inside the vector
 
                     width:myGridView.cellWidth; height:myGridView.cellHeight
-                    drag.target: delegateRect
 
                     //This delegate is also a DropArea. When the "item" that is being dragged enters this delegate's space, then we reposition this item with the dragged inside the Grid.
                     DropArea {
@@ -164,7 +163,13 @@ Rectangle
                     }
                     onPressAndHold:
                     {
-                        stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                        //Make the delegate draggable for repositioning
+                        delegateRoot.drag.target = delegateRect
+                        //stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                    }
+                    onReleased: {
+                        //Make the delegate not draggable for repositioning (only for scrolling)
+                        delegateRoot.drag.target = undefined
                     }
 
                     Rectangle
