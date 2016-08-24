@@ -269,24 +269,50 @@ Rectangle{
         Column
         {
             id: nonEditableColumn
-            width: parent.width * 0.7
+            width: parent.width //* 0.7
             spacing: 10
 
             Image{
                 source: img
                 asynchronous: true
-                width: 200
-                height:100
-                fillMode: Image.PreserveAspectFit
+                width: parent.width
+                height:200
+                fillMode: Image.PreserveAspectCrop
             }
-            Label{id:nameLabel; text:name}
+            Label{id:nameLabel
+                 text:name
+                 font.family: "Helvetica Neue"
+                 font.pixelSize: 32
+                 anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Label{id:descLabel
+                text:desc
+                font.family: "Helvetica Neue"
+                font.pixelSize: 12
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+            }
+
+
+
+
             Calendar
             {
                 id:dateLabel
                 selectedDate: date
                 enabled: false
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+
+
+
+
             }
-            Label{id:descLabel; text:desc}
+
+
 
             Component
             {
@@ -321,10 +347,28 @@ Rectangle{
                     }
             }
 
-            Row{
-                spacing: 5
+
+
+
+
+            Column{
+
+
+
+
+
+
+                anchors.horizontalCenter:parent.horizontalCenter
+
+
+                Row{
+                    spacing: 5
+
                 Text {
                     text: qsTr("Did you visit a museum?")
+
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox {
@@ -332,12 +376,20 @@ Rectangle{
                         enabled: false
                         checked: museum
                 }
-            }
+                }
 
-            Row{
+
+
+
+
+
+               Row{
                 spacing: 5
                 Text {
                     text: qsTr("How many photos did you get?")
+
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 TextField{
@@ -351,10 +403,15 @@ Rectangle{
             }
 
 
+
             Row{
                 spacing: 5
+
                 Text {
                     text: qsTr("Did you ate any tradionotal food?")
+
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox{
@@ -369,6 +426,9 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("Days of vacation?")
+
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 TextField{
@@ -385,6 +445,9 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("First time here?")
+
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox{
@@ -399,6 +462,9 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("Did you buy any souvenir?")
+
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox{
@@ -408,38 +474,56 @@ Rectangle{
                 }
 
             }
+            }
+
 
         }
 //EDIT ON-------------------------------------------------------------------------------------------------
 
         Column{
             id: editableColumn
-            width: parent.width * 0.7
+            width: parent.width //* 0.7
             visible: false
             spacing: 10
 
             Image{
                 source: img
                 asynchronous: true
-                width: 200
-                height:100
-                fillMode: Image.PreserveAspectFit
-            }
+                width: parent.width
+                height:200
+                fillMode: Image.PreserveAspectCrop
+
             Button{
                 id: uploadButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: Image.bottom
                 text: "Upload another photo"
                 onClicked: {
                     fileDialog.open()
                 }
             }
-            TextField{id:nameField; text:name}
+            }
+            TextField{id:nameField
+                text:name
+                font.family: "Helvetica Neue"
+                font.pixelSize: 32
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            TextArea{id:descField
+                text:desc
+                font.pixelSize: 12
+                anchors.horizontalCenter: parent.horizontalCenter
+
+            }
+
             Calendar
             {
                 id:dateField
                 selectedDate: date
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            TextArea{id:descField; text:desc}
+
 
             Component
             {
@@ -509,12 +593,20 @@ Rectangle{
                 onClicked: {
                     photoAlbumDialog.open();
                 }
+                anchors.horizontalCenter: parent.horizontalCenter
             }
+
+
+
+            Column{
+                 anchors.horizontalCenter:parent.horizontalCenter
 
             Row{
                 spacing: 5
                 Text {
                     text: qsTr("Did you visit a museum?")
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox {
@@ -527,6 +619,8 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("How many photos did you get?")
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 TextField{
@@ -543,6 +637,8 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("Did you ate any tradionotal food?")
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox{
@@ -556,6 +652,8 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("Days of vacation?")
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 TextField{
@@ -571,6 +669,8 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("First time here?")
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox{
@@ -584,12 +684,16 @@ Rectangle{
                 spacing: 5
                 Text {
                     text: qsTr("Did you buy any souvenir?")
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
                 }
 
                 CheckBox{
                     id:souvenir_edit
                     checked: souv
                 }
+
+            }
 
             }
 
