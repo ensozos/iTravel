@@ -35,9 +35,9 @@ Rectangle
         id:myToolBar
 
         Text{
-            text: "iTravel"
-            font.pixelSize: 20
-            font.family: "Arial"
+            //text: "iTravel"
+            //font.pixelSize: 20
+            //font.family: "Arial"
             anchors.left:parent.left
         }
 

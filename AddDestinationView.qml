@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
+import QtQuick.Controls 2.0
 
 //SUGGESTION: We could have a photo gallery for each destination. (Ex. When we click on "Rio" we see the image,title,date,description and a photo gallery)
 
@@ -15,7 +16,7 @@ Rectangle {
 
     Rectangle{
         id: container
-        color:"light blue"
+        //color:"light blue"
         width: (parent.width>1000) ? 900 : (parent.width * 0.9) //If the width is <1200 then set is as "90% of parent" else set it as "1080"
         anchors{
             top: myToolBar.bottom;
@@ -44,6 +45,7 @@ Rectangle {
                     id: uploadPhoto
                     width: 150
                     height:25
+                    flat:true
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     Text
@@ -51,6 +53,9 @@ Rectangle {
                         text: "Upload Photo"
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                        opacity:0.7
                     }
                     onClicked: {
                         fileDialog.open()
@@ -61,48 +66,99 @@ Rectangle {
                     id:photo
                     anchors.horizontalCenter: parent.horizontalCenter
                     asynchronous: true
-                    fillMode: Image.PreserveAspectFit
-                    height:0
-                    width :0
+                    fillMode: Image.PreserveAspectCrop
+                    height:200
+                    width :parent.width
                     source:""
                 }
-                Row{
+
+
+                Column{
+                    id:nameTxf
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: 10
+                    //spacing: 10
+                    //anchors.top: photo.bottom
                     Text{
-                        anchors.verticalCenter: parent.verticalCenter
-                        text:"Title:"
+                        id:text
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text:"My dreaming trip"
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 12
+                        opacity:0.7
                     }
                     TextField{
                         id:title
-                        placeholderText: "The destination title"
+                        placeholderText: "Destination name"
+                        //anchors.top:text.bottom
 
                     }
+
+
+
+
+               }
+
+                Rectangle{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width:parent.width
+                    height:1
+                    opacity:0.7
+                    color:"gray"
+
                 }
+
                 Column{
+                    id:dateCol
                     anchors.horizontalCenter: parent.horizontalCenter
                     spacing: 10
+                    //anchors.top:nameTxf.bottom
 
                     Text{
                         anchors.horizontalCenter: parent.horizontalCenter
                         text:"Date:"
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 12
+                        opacity:0.7
                     }
                     Calendar{
                         id: calendar
                         frameVisible: false
                     }
                 }
+
+                Rectangle{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width:parent.width
+                    height:1
+                    opacity:0.7
+                    color:"gray"
+                }
+
+
                 Column{
                     anchors.horizontalCenter: parent.horizontalCenter
                     Text{
-                        text:"Description:"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text:"Things i want to do there:"
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 12
+                        opacity:0.7
                     }
                     TextArea{
                         id:description
                         width: container.width * 0.9
-                        height: 200
+                        height: 150
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     }
+                }
+
+                Rectangle{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width:parent.width
+                    height:1
+                    opacity:0.7
+                    color:"gray"
+
                 }
 
                 Component
@@ -153,6 +209,19 @@ Rectangle {
                     }
                 }
 
+
+                Button{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Add photos to the photo album"
+                    onClicked:{
+                        photoAlbumDialog.open()
+                    }
+                    font.family:"Helvetica Neue"
+                    font.pixelSize: 16
+                    opacity:0.7
+                    flat: true
+                }
+
                 ListModel {
                     id: myPhotosModel
                 }
@@ -161,7 +230,7 @@ Rectangle {
                 {
                     id:viewEditable
                     width: parent.width
-                    height: 200
+                    height: 150
                     model: myPhotosModel
                     delegate: delegateEditable
                     path:Ellipse {
@@ -170,12 +239,7 @@ Rectangle {
                         }
                 }
 
-                Button{
-                    text: "Add photos to the photo album"
-                    onClicked:{
-                        photoAlbumDialog.open()
-                    }
-                }
+
             }
         }
 

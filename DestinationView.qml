@@ -513,6 +513,7 @@ Rectangle{
                 text:desc
                 font.pixelSize: 12
                 anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 
             }
 
