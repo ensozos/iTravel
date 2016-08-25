@@ -7,6 +7,7 @@ import QtQuick.Dialogs 1.0
 
 Rectangle{
 
+    id:rootRectangle
     //The values of a Destination
     property int indexInModel
     property string name
@@ -24,11 +25,12 @@ Rectangle{
     property bool first_here
     property bool souv
 
-    property bool isEditingEnabled : false
+    property bool isEditingEnabled
 
     Component.onCompleted: {
         parseQuestions(questions.toString())
         fillListModelWithPhotos()
+        makeElementsEditable(isEditingEnabled)
     }
 
     /**
@@ -261,6 +263,7 @@ Rectangle{
         text: "Duplicate detected."
         font.family: "Helvetica Neue"
         font.pixelSize: 16
+        visible: duplicateAnimation.running
         height: 0
     }
 

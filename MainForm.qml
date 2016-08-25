@@ -6,7 +6,7 @@ import QtQml.Models 2.1
 
 Rectangle
 {    
-    property bool deleteDelegateButtonsAreVisible : false
+    property bool delegateButtonsAreVisible : false
 
     Component
     {
@@ -90,13 +90,13 @@ Rectangle
         }
 
         ToolButton{
-            id:deleteDestIcon
+            id:toggleOperationsIcon
             anchors.right: addDestIcon.left
             anchors.rightMargin: 5
             width:parent.height
             height:width
             Text{
-                text: "x"
+                text: "..."
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 //font.pointSize: 15
@@ -108,13 +108,13 @@ Rectangle
                         radius: 18
                         gradient: Gradient {
                             GradientStop { position: 0 ; color:{ if(control.pressed)   {"#ccc"}else{"#eee"}}}
-                            GradientStop { position: 1 ; color:{ if(control.pressed || deleteDelegateButtonsAreVisible){"#aaa"}else{"#ccc"}}}
+                            GradientStop { position: 1 ; color:{ if(control.pressed || delegateButtonsAreVisible){"#aaa"}else{"#ccc"}}}
                         }
                     }
                 }
             onClicked:
             {
-                deleteDelegateButtonsAreVisible = !deleteDelegateButtonsAreVisible
+                delegateButtonsAreVisible = !delegateButtonsAreVisible
             }
         }
     }
@@ -248,7 +248,7 @@ Rectangle
                                 Image
                                 {
                                     id: editIcon
-                                    visible: isDelegateDeleteButtonVisible()
+                                    visible: areDelegateButtonsVisible()
                                     width:25
                                     height:25
                                     source:"images/images/editOn.png"
@@ -261,14 +261,16 @@ Rectangle
                                     {
                                        anchors.fill: parent
                                        propagateComposedEvents: true
-                                       onClicked: {}
+                                       onClicked: {
+                                           stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,score:score,date:date,photos:photoAlbum,questions:questions,isEditingEnabled:true}});
+                                       }
                                     }
                                 }
 
                                 Image
                                 {
                                      id: deleteDelegateButton
-                                     visible: isDelegateDeleteButtonVisible()
+                                     visible: areDelegateButtonsVisible()
                                      width:25
                                      height:25
                                      source:"images/images/marker.png"
@@ -286,20 +288,8 @@ Rectangle
                                         }
                                     }
                                 }
-
-                                /*Button{
-
-                                    //id: deleteDelegateButton
-                                    visible: isDelegateDeleteButtonVisible()
-                                    text:"Delete"
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    onClicked: {
-                                        stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
-                                    }
-                                }*/
                             }
-                        //--------------------------------------------------------------
-                        }
+                        }//-------------------------------------------------------------------------
                     }
                 }
         }
@@ -322,7 +312,7 @@ Rectangle
         }
     }
 
-    function isDelegateDeleteButtonVisible(){
-        return deleteDelegateButtonsAreVisible;
+    function areDelegateButtonsVisible(){
+        return delegateButtonsAreVisible;
     }
 }
