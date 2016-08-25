@@ -127,7 +127,7 @@ Rectangle
         anchors.top: myToolBar.bottom
         anchors.bottom: parent.bottom
         //anchors.margins: 1
-        cellWidth:parent.width
+        cellWidth: parent.width
         cellHeight:210
         clip:true
 
@@ -148,7 +148,8 @@ Rectangle
                     property int visualIndex: DelegateModel.itemsIndex //The index as shown in the screen
                     property int vectorIndex: index  //The index inside the vector
 
-                    width:myGridView.cellWidth; height:myGridView.cellHeight
+                    width:myGridView.cellWidth;
+                    height:myGridView.cellHeight
 
                     //This delegate is also a DropArea. When the "item" that is being dragged enters this delegate's space, then we reposition this item with the dragged inside the Grid.
                     DropArea {
@@ -179,8 +180,8 @@ Rectangle
                         id: delegateRect
                         color: "transparent"
 
-                        width:myGridView.cellWidth//*0.9 //The tile size in the Grid
-                        height:210
+                        width:myGridView.cellWidth//The tile size in the Grid
+                        height:myGridView.cellHeight
                         anchors {
                             horizontalCenter: parent.horizontalCenter;
                             verticalCenter: parent.verticalCenter
@@ -224,7 +225,7 @@ Rectangle
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 id:img
                                 asynchronous: true
-                                height:210 //(parent.width-5)*0.8
+                                height:parent.height
                                 width:parent.width
                                 fillMode: Image.PreserveAspectCrop
                                 source:image
