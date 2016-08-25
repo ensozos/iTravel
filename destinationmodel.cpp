@@ -157,8 +157,8 @@ void DestinationModel::editDestinationQuestions(int index, QString questions)
     endResetModel();
 }
 
-/** Checks weather a Destination with the specific (name,imgPath) values exists in the model. */
-bool DestinationModel::isDuplicateDestination(QString name,QString imgPath){
+/** Checks weather a Destination (different from "myIndex") with the specific (name,imgPath) values exists in the model. */
+bool DestinationModel::isDuplicateDestination(QString name,QString imgPath, int myIndex){
 
     //Extract the imageName from the imgPath
     QStringList tokens = imgPath.split( QRegExp("/") ); //Tokenize the imgPath using "/" as a delimiter (applies to Unix paths and Windows URI paths which covers our file paths)
@@ -167,14 +167,17 @@ bool DestinationModel::isDuplicateDestination(QString name,QString imgPath){
 
     //Linear search over all destinations
     vector<Destination>::iterator it;
-    for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
+    int i=0;
+    for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it, i++) {
 
         if(name == it->getName()){
             //Extract the imageName
             tokens = it->getImgPath().split( QRegExp("/") );
             img2Name = tokens.value( tokens.length() - 1 );
             if(img1Name == img2Name){
-                return true;
+                if(i != myIndex){ //Don't find yourself as a duplicate!
+                    return true;
+                }
             }
         }
     }

@@ -269,7 +269,7 @@ Rectangle {
                 if(photo.source == ""){
                     photo.source = "images/images/noImage.png"
                 }
-                if(!mediator.isDuplicateDestination(title.text,photo.source)){
+                if(!mediator.isDuplicateDestination(title.text,photo.source, -1)){
                     mediator.insertDestination(title.text,photo.source,description.text,0,calendar.selectedDate,photos,"");
                     stack.pop()
                 }else{

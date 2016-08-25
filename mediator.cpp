@@ -16,9 +16,9 @@ void Mediator::deleteDestination(int index)
     _destinationModel->deleteDestination(index);
 }
 
-bool Mediator::isDuplicateDestination(QString name,QString imPath)
+bool Mediator::isDuplicateDestination(QString name,QString imPath,int myIndex)
 {
-    return _destinationModel->isDuplicateDestination(name,imPath);
+    return _destinationModel->isDuplicateDestination(name,imPath, myIndex);
 }
 
 void Mediator::editDestinationScore(int index,quint16 score)

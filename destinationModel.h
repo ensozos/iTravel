@@ -23,7 +23,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     void insertDestination(QString name,QString imPath,QString desc,quint16 score,QString questions,QDate date,QList<QUrl> photos);
     void deleteDestination(int index);
-    bool isDuplicateDestination(QString name,QString imPath);
+    bool isDuplicateDestination(QString name,QString imPath, int myIndex);
     void editDestinationScore(int index,quint16 score);
     void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
     void editDestinationQuestions(int index,QString questions);

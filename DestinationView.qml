@@ -192,7 +192,7 @@ Rectangle{
             onClicked:
             {
                 console.log("Save Changes")
-                if(!mediator.isDuplicateDestination(nameField.text,img)){
+                if(!mediator.isDuplicateDestination(nameField.text,img, indexInModel)){
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                     setScore()
                     mediator.setPhotoAlbum(indexInModel,photos);

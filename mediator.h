@@ -30,7 +30,7 @@ signals:
 public slots:
     void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date,QList<QUrl> photos,QString questions);
     void deleteDestination(int index);
-    bool isDuplicateDestination(QString name,QString imPath);
+    bool isDuplicateDestination(QString name,QString imPath, int myIndex);
     void editDestinationScore(int index,quint16 score);
     void editDestinationQuestions(int index,QString questions);
     void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
