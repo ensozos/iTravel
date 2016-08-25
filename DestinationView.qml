@@ -192,13 +192,13 @@ Rectangle{
             onClicked:
             {
                 console.log("Save Changes")
-                if(isEditingEnabled){
+                if(!mediator.isDuplicateDestination(nameField.text,img)){
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
+                    setScore()
+                    mediator.setPhotoAlbum(indexInModel,photos);
                 }else{
-                    mediator.editDestination(indexInModel,nameField.text,img,descField.text,dateField.selectedDate)
+                    console.log("Inform the user that a destination with the same (name,imgName) exists, so this entry he is trying to save is a duplicate.")
                 }
-                setScore()
-                mediator.setPhotoAlbum(indexInModel,photos);
             }
         }
 
