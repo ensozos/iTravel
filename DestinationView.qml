@@ -192,13 +192,14 @@ Rectangle{
             style: addDestIcon.style
             onClicked:
             {
-                console.log("Save Changes")
                 if(!mediator.isDuplicateDestination(nameField.text,img, indexInModel)){
+                    console.log("Save Changes")
                     mediator.editDestination(indexInModel,nameField.text,/*SET THIS img VALUE TO WHATEVER WE PICK FROM THE FILE CHOOSER*/img,descField.text,dateField.selectedDate)
                     setScore()
                     mediator.setPhotoAlbum(indexInModel,photos);
                 }else{
                     console.log("Inform the user that a destination with the same (name,imgName) exists, so this entry he is trying to save is a duplicate.")
+                    duplicateAnimation.start()
                 }
             }
         }
@@ -254,10 +255,19 @@ Rectangle{
         }
     }
 
+    Label{
+        id: duplicateMessage
+        anchors.top: myToolBar.bottom
+        text: "Duplicate detected."
+        font.family: "Helvetica Neue"
+        font.pixelSize: 16
+        height: 0
+    }
+
     Flickable{
 
         anchors{
-            top:myToolBar.bottom
+            top:duplicateMessage.bottom
             right:parent.right
             left:parent.left
             bottom:parent.bottom
@@ -702,6 +712,14 @@ Rectangle{
 
     ListModel {
         id: myPhotosModel
+    }
+
+    ParallelAnimation{
+        id: duplicateAnimation
+        running: false
+        PropertyAnimation {id:duplicateColorAnimation; target: rootRectangle ; properties: "color"; from:"#ff4d4d"; to: target.color; duration: 1600}
+        PropertyAnimation {target: duplicateMessage; properties: "opacity"; from:1; to: 0; duration: 2200}
+        PropertyAnimation {target: duplicateMessage; properties: "height"; from:30; to: 0; duration: 2300; easing.type: Easing.InBack}
     }
 
     FileDialog {
