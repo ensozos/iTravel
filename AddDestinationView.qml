@@ -14,12 +14,19 @@ Rectangle {
         id:myToolBar
     }
 
+    Label{
+        id: duplicateMessage
+        anchors.top: myToolBar.bottom
+        text: "Duplicate detected."
+        visible: duplicateAnimation.running
+    }
+
     Rectangle{
         id: container
         //color:"light blue"
         width: (parent.width>1000) ? 900 : (parent.width * 0.9) //If the width is <1200 then set is as "90% of parent" else set it as "1080"
         anchors{
-            top: myToolBar.bottom;
+            top: duplicateMessage.bottom;
             left: parent.left;
             bottom: bottomRow.top;
             leftMargin: 10;
@@ -274,11 +281,18 @@ Rectangle {
                     stack.pop()
                 }else{
                     console.log("Inform the user that there is an existing destination with the same (name,imgNAME) values. This entry he is trying to save is considered a duplicate. \n(Note: ///C:/aaa/bbb/brazil.jpg) is the same as ///C:/ccc/ddd/eee/brazil.jpg")
+                    duplicateAnimation.start()
                 }
             }
         }
     }
 
+    ParallelAnimation{
+        id: duplicateAnimation
+        running: false
+        PropertyAnimation {id:duplicateColorAnimation; target: container; properties: "color"; from:"#ff4d4d"; to: container.color; duration: 1600}
+        PropertyAnimation {target: duplicateMessage; properties: "opacity"; from:1; to: 0; duration: 2200}
+    }
     //FileDialogs slow down the startup time due to this known qml bug: https://bugreports.qt.io/browse/QTBUG-46477
     FileDialog {
         id: fileDialog
