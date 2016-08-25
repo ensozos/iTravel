@@ -3,7 +3,6 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 
-
 Rectangle{
 
     //The values of a Destination
@@ -36,29 +35,53 @@ Rectangle{
         }
     }
 
+    Flickable{
+        id:flick
+        anchors{
+            top: myToolBar.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
+        contentHeight: deleteData.height
+        contentWidth: width
+        interactive:true
+        //boundsBehavior: Flickable.StopAtBounds
+        clip:true
     Column{
-        anchors.top: myToolBar.bottom
-        anchors.left: parent.left
-        anchors.margins: 20
+
+        id: deleteData
+        width: parent.width
         spacing: 10
 
-        Label{text:name}
-        Label{text:Qt.formatDate(date,"ddd dd MMM yyyy")}
-        Label{text:desc}
+        Label{
+            text:name;
+            font.pixelSize: 32
+            anchors.horizontalCenter: parent.horizontalCenter}
+        Label{
+            text:Qt.formatDate(date,"ddd dd MMM yyyy");
+            font.pixelSize: 16
+            anchors.horizontalCenter: parent.horizontalCenter}
+        Label{
+            text:desc;
+            font.pixelSize: 16
+            anchors.horizontalCenter: parent.horizontalCenter}
         Image{
+            anchors.horizontalCenter: parent.horizontalCenter
             source: img
             asynchronous: true
-            width: 200
-            height:100
-            fillMode: Image.PreserveAspectFit
+            width: flick.width * 0.8
+            height:flick.height * 0.7
+            fillMode: Image.PreserveAspectCrop
         }
         Button{
             text:"Delete"
+            anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
                 console.log("Delete Button Pressed")
                 mediator.deleteDestination(indexOfDestInModel)
                 stack.pop()
             }
         }
-    }
+    }}
 }
