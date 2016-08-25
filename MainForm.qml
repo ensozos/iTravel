@@ -241,7 +241,7 @@ Rectangle
                                     text:name
                                     font.family:"Helvetica Neue"
                                     font.capitalization:Font.AllUppercase
-                                    color: "#ffffff"
+                                    color: getDateColor(date)
                                     font.weight: Font.Bold
                                     font.pointSize: 18
                                     Component.onCompleted: getDateColor(date)
