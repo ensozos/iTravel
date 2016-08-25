@@ -130,7 +130,7 @@ Rectangle{
             questions += "true" + "-"
             console.log("first time here")
         }else {
-            score+=10
+            score+= 10
             questions +="false" + "-"
             console.log("not first time here")
         }
@@ -173,6 +173,7 @@ Rectangle{
                     }
                 }
             }
+            Component.onCompleted: setScore()
         }
 
         ToolButton{

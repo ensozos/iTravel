@@ -181,9 +181,6 @@ Rectangle
 
                         width:myGridView.cellWidth//*0.9 //The tile size in the Grid
                         height:210
-                        border.width:1
-                        border.color: getDateColor(date)
-                        radius: 10
                         anchors {
                             horizontalCenter: parent.horizontalCenter;
                             verticalCenter: parent.verticalCenter
