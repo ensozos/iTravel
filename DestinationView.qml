@@ -354,16 +354,12 @@ Rectangle{
 
             Column{
 
-
-
-
-
-
+                spacing: 15
                 anchors.horizontalCenter:parent.horizontalCenter
 
 
                 Row{
-                    spacing: 5
+                    spacing: 10
 
                 Text {
                     text: qsTr("Did you visit a museum?")
@@ -385,7 +381,7 @@ Rectangle{
 
 
                Row{
-                spacing: 5
+                spacing: 10
                 Text {
                     text: qsTr("How many photos did you get?")
 
@@ -406,7 +402,7 @@ Rectangle{
 
 
             Row{
-                spacing: 5
+                spacing: 10
 
                 Text {
                     text: qsTr("Did you ate any tradionotal food?")
@@ -424,7 +420,7 @@ Rectangle{
             }
 
             Row{
-                spacing: 5
+                spacing: 10
                 Text {
                     text: qsTr("Days of vacation?")
 
@@ -443,7 +439,7 @@ Rectangle{
             }
 
             Row{
-                spacing: 5
+                spacing: 10
                 Text {
                     text: qsTr("First time here?")
 
@@ -460,7 +456,7 @@ Rectangle{
             }
 
             Row{
-                spacing: 5
+                spacing: 10
                 Text {
                     text: qsTr("Did you buy any souvenir?")
 
@@ -601,101 +597,101 @@ Rectangle{
 
 
             Column{
-                 anchors.horizontalCenter:parent.horizontalCenter
+                anchors.horizontalCenter:parent.horizontalCenter
+                spacing:15
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("Did you visit a museum?")
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                    }
 
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("Did you visit a museum?")
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox {
+                    CheckBox {
                         id:museum_number_edit
                         checked: museum
-                }
-            }
-
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("How many photos did you get?")
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
+                    }
                 }
 
-                TextField{
-                   id:photos_number_edit
-                   validator: IntValidator{bottom:0}
-                   text: number_of_photos
-                   inputMethodHints: Qt.ImhDigitsOnly
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("How many photos did you get?")
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                    }
+
+                    TextField{
+                        id:photos_number_edit
+                        validator: IntValidator{bottom:0}
+                        text: number_of_photos
+                        inputMethodHints: Qt.ImhDigitsOnly
+                    }
+
                 }
 
-            }
 
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("Did you ate any tradionotal food?")
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                    }
 
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("Did you ate any tradionotal food?")
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
+                    CheckBox{
+                        id:traditional_food_edit
+                        checked:traditional
+                    }
+
                 }
 
-                CheckBox{
-                    id:traditional_food_edit
-                    checked:traditional
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("Days of vacation?")
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                    }
+
+                    TextField{
+                        id:vacation_days_edit
+                        validator: IntValidator{bottom:0}
+                        text: vacation
+                        inputMethodHints: Qt.ImhDigitsOnly
+                    }
+
                 }
 
-            }
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("First time here?")
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                    }
 
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("Days of vacation?")
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
+                    CheckBox{
+                        id:first_time_edit
+                        checked: first_here
+                    }
+
                 }
 
-                TextField{
-                    id:vacation_days_edit
-                    validator: IntValidator{bottom:0}
-                    text: vacation
-                    inputMethodHints: Qt.ImhDigitsOnly
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("Did you buy any souvenir?")
+                        font.family:"Helvetica Neue"
+                        font.pixelSize: 16
+                    }
+
+                    CheckBox{
+                        id:souvenir_edit
+                        checked: souv
+                    }
+
                 }
-
-            }
-
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("First time here?")
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox{
-                    id:first_time_edit
-                    checked: first_here
-                }
-
-            }
-
-            Row{
-                spacing: 5
-                Text {
-                    text: qsTr("Did you buy any souvenir?")
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox{
-                    id:souvenir_edit
-                    checked: souv
-                }
-
-            }
 
             }
 
