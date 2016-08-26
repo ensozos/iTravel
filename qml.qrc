@@ -23,4 +23,8 @@
         <file>images/save.png</file>
         <file>images/marker.png</file>
     </qresource>
+    <qresource prefix="/styles">
+        <file>styles/qmldir</file>
+        <file>styles/Style1.qml</file>
+    </qresource>
 </RCC>
