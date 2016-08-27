@@ -17,7 +17,6 @@
         <file>images/brazil.jpg</file>
         <file>images/newyork.jpg</file>
         <file>images/planet-earth.png</file>
-        <file>images/noImage.png</file>
         <file>images/marker.png</file>
         <file>images/add.png</file>
         <file>images/settings.png</file>
@@ -27,6 +26,7 @@
         <file>images/editOn.png</file>
         <file>images/delete.png</file>
         <file>images/selectImage.gif</file>
+        <file>images/noImage.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>

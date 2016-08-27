@@ -120,12 +120,17 @@ Rectangle
     GridView
     {
         id:myGridView
-        anchors.left: parent.left
-        anchors.right: parent.right
+        width: {
+            var w = parent.width
+            if(w<500)               return w;
+            else if(w>500 & w<1000) return 500;
+            else if(w>=1000)         return 1000;
+        }
+        cellWidth: parent.width>=1000? 500 : width
+        cellHeight:210
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: myToolBar.bottom
         anchors.bottom: parent.bottom
-        cellWidth: parent.width
-        cellHeight:210
         clip:true
 
         //When we interact with a GridView item and some other items are forced to relocate, this is the animation that they do for their "x,y" change.
@@ -242,46 +247,44 @@ Rectangle
                                     Component.onCompleted: getDateColor(date)
                                 }
 
-                                Image
-                                {
-                                    id: editIcon
-                                    visible: areDelegateButtonsVisible()
-                                    width:25
-                                    height:25
-                                    source:"images/images/editOn.png"
+                                Row{
                                     anchors.bottom: parent.bottom
-                                    anchors.right:deleteDelegateButton.left
+                                    anchors.right:parent.right
                                     anchors.margins: 2
 
-
-                                    MouseArea
+                                    Image
                                     {
-                                       anchors.fill: parent
-                                       propagateComposedEvents: true
-                                       onClicked: {
-                                           stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,score:score,date:date,photos:photoAlbum,questions:questions,isEditingEnabled:true}});
-                                       }
+                                        id: editIcon
+                                        visible: areDelegateButtonsVisible()
+                                        width:25
+                                        height:25
+                                        source:"images/images/editOn.png"
+
+                                        MouseArea
+                                        {
+                                           anchors.fill: parent
+                                           propagateComposedEvents: true
+                                           onClicked: {
+                                               stack.push({item:destination_view,properties:{indexInModel:index,name:name,img:image,desc:desc,score:score,date:date,photos:photoAlbum,questions:questions,isEditingEnabled:true}});
+                                           }
+                                        }
                                     }
-                                }
 
-                                Image
-                                {
-                                     id: deleteDelegateButton
-                                     visible: areDelegateButtonsVisible()
-                                     width:25
-                                     height:25
-                                     source:"images/images/delete.png"
-                                     anchors.bottom: parent.bottom
-                                     anchors.right:parent.right
-                                     anchors.margins: 2
+                                    Image
+                                    {
+                                         id: deleteDelegateButton
+                                         visible: areDelegateButtonsVisible()
+                                         width:25
+                                         height:25
+                                         source:"images/images/delete.png"
 
-
-                                     MouseArea
-                                     {
-                                        anchors.fill: parent
-                                        propagateComposedEvents: true
-                                        onClicked: {
-                                            stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                                         MouseArea
+                                         {
+                                            anchors.fill: parent
+                                            propagateComposedEvents: true
+                                            onClicked: {
+                                                stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                                            }
                                         }
                                     }
                                 }

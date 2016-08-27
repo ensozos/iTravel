@@ -11,6 +11,31 @@ Rectangle {
 
     CustomToolBar{
         id:myToolBar
+
+        ToolButton{
+            id:backIcon
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            width:parent.height
+            height:width
+            Image{
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                source:"images/images/back.png"
+                width:parent.width * 0.7
+                height:width
+            }
+            background: Rectangle {
+                color: backIcon.pressed? Style.color.accentDark : Style.color.accent
+                border.width: 1
+                border.color: Style.color.accentDark
+                radius: 18
+            }
+            onClicked:
+            {
+                stack.pop();
+            }
+        }
     }
 
     Label{
@@ -266,7 +291,17 @@ Rectangle {
         spacing: 10
 
         Button{
-            text:"cancel"
+            contentItem:Text{
+                text:"Cancel"
+                font.family: Style.text.font
+                font.pointSize: Style.text.size.normal
+                color: Style.color.textOnAccent
+            }
+            background: Rectangle {
+                color: parent.pressed? Style.color.accentDark : Style.color.accent
+                border.width: 1
+                border.color: Style.color.accentDark
+            }
             onClicked: {
                 console.log("Canceled")
                 stack.pop()
@@ -274,7 +309,17 @@ Rectangle {
         }
 
         Button{
-            text:"apply"
+            contentItem:Text{
+                text:"Apply"
+                font.family: Style.text.font
+                font.pointSize: Style.text.size.normal
+                color: Style.color.textOnAccent
+            }
+            background: Rectangle {
+                color: parent.pressed? Style.color.accentDark : Style.color.accent
+                border.width: 1
+                border.color: Style.color.accentDark
+            }
             onClicked: {
 
                 console.log("\n----------------------------\nInsert New Destination:"+"\nImage:"+photo.source+"\nTitle:"+title.text+"\nDate:"+calendar.selectedDate+"\nDescription:"+description.text+"\n----------------------------")

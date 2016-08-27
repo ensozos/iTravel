@@ -89,8 +89,21 @@ Rectangle{
             }
             Button
             {
-                text:"Delete"
+                id: deleteButton
                 anchors.horizontalCenter: parent.horizontalCenter
+                style: ButtonStyle {
+                    background: Rectangle {
+                        color: deleteButton.pressed? Style.color.accentDark : Style.color.accent
+                        border.width: 1
+                        border.color: Style.color.accentDark
+                    }
+                    label: Text{
+                        text:"Delete"
+                        font.family: Style.text.font
+                        font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnAccent
+                    }
+                }
                 onClicked: {
                     console.log("Delete Button Pressed")
                     mediator.deleteDestination(indexOfDestInModel)
