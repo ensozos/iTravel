@@ -38,7 +38,7 @@ Rectangle {
         {
             anchors.fill:parent
             contentWidth: parent.width
-            contentHeight: col.height
+            contentHeight: col.height + 50
             interactive:true
             boundsBehavior: Flickable.StopAtBounds
 
@@ -164,25 +164,40 @@ Rectangle {
                     color:"gray"
                 }
 
+                Button{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Add photos to the photo album"
+                    onClicked:{
+                        photoAlbumDialog.open()
+                    }
+                    font.family:Style.text.font
+                    font.pointSize: Style.text.size.big
+                    opacity:0.7
+                    flat: true
+                }
+
                 Component
                 {
                     id: delegateEditable
 
                     Column{
-                        spacing: 10
+                        spacing: 2
                         scale: PathView.iconScale
                         opacity: PathView.iconOpacity
                         rotation: PathView.itemRotation
 
                         MouseArea
                         {
-                            width:photoAlbumItemEditable.width; height:photoAlbumItemEditable.height
+                            id:photoAlbumImageArea
+                            width:64
+                            height:64
                             Image
                             {
-                                id:photoAlbumItemEditable
-                                width: 64; height: 64
+                                width: parent.width
+                                height: parent.height
                                 source: icon
                                 asynchronous: true
+                                fillMode: Image.PreserveAspectCrop
                             }
                             onClicked: {
                                 console.log("Clicked:"+index);
@@ -197,8 +212,18 @@ Rectangle {
                         Button{
                             id: deletePhoto
                             visible: false
-                            text:"Remove It?"
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.horizontalCenter: photoAlbumImageArea.horizontalCenter
+                            background: Rectangle {
+                                color: Style.color.accent
+                                border.width: 1
+                                border.color: Style.color.accentDark
+                            }
+                            contentItem:Text{
+                                text:"Remove It?"
+                                font.family: Style.text.font
+                                font.pointSize: Style.text.size.normal
+                                color: Style.color.textOnAccent
+                            }
                             onClicked:{
                                 console.log("Deleted:"+index);
                                 if(index > -1){
@@ -212,18 +237,6 @@ Rectangle {
                     }
                 }
 
-                Button{
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Add photos to the photo album"
-                    onClicked:{
-                        photoAlbumDialog.open()
-                    }
-                    font.family:Style.text.font
-                    font.pointSize: Style.text.size.big
-                    opacity:0.7
-                    flat: true
-                }
-
                 ListModel {
                     id: myPhotosModel
                 }
@@ -232,7 +245,7 @@ Rectangle {
                 {
                     id:viewEditable
                     width: parent.width
-                    height: 150
+                    height: 250
                     model: myPhotosModel
                     delegate: delegateEditable
                     path:Ellipse {

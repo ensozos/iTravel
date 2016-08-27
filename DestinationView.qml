@@ -333,6 +333,7 @@ Rectangle{
                         width: 64; height: 64
                         source: icon
                         asynchronous: true
+                        fillMode: Image.PreserveAspectCrop
                     }
                 }
             }
@@ -463,18 +464,33 @@ Rectangle{
             visible: false
             spacing: 10
 
-            Image{
-                source: img
-                asynchronous: true
+            Item{
                 width: parent.width
                 height:200
-                fillMode: Image.PreserveAspectCrop
+                Image{
+                    id: destinationImage
+                    source: img
+                    asynchronous: true
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectCrop
+                    opacity: 0.2
+                }
+                MouseArea{
+                    anchors.fill: destinationImage
+                    Rectangle{
+                        anchors.fill: parent
+                        color: Style.color.primary
+                        opacity: 0.6
+                    }
+                    Image{
+                        anchors.top : parent.top
+                        anchors.left : parent.left
+                        width: 50
+                        height : 50
+                        source: "images/images/selectImage.gif"
+                        fillMode: Image.PreserveAspectFit
+                    }
 
-                Button{
-                    id: uploadButton
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: Image.bottom
-                    text: "Upload another photo"
                     onClicked: {
                         fileDialog.open()
                     }
@@ -507,20 +523,23 @@ Rectangle{
 
                 Column
                 {
-                    spacing: 10
+                    spacing: 2
                     scale: PathView.iconScale
                     opacity: PathView.iconOpacity
                     rotation: PathView.itemRotation
 
                     MouseArea
                     {
-                        width:photoAlbumItemEditable.width; height:photoAlbumItemEditable.height
+                        id:photoAlbumItemEditable
+                        width:64
+                        height:64
                         Image
                         {
-                            id:photoAlbumItemEditable
-                            width: 64; height: 64
+                            width: parent.width
+                            height: parent.height
                             source: icon
                             asynchronous: true
+                            fillMode: Image.PreserveAspectCrop
                         }
                         onClicked: {
                             console.log("Clicked:"+index);
@@ -534,9 +553,23 @@ Rectangle{
 
                     Button{
                         id: deletePhoto
+                        anchors.horizontalCenter: photoAlbumItemEditable.horizontalCenter
                         visible: false
-                        text:"Remove It?"
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        style: ButtonStyle {
+                                background: Rectangle {
+                                    implicitWidth: deletePhoto.width
+                                    implicitHeight: deletePhoto.height
+                                    color: Style.color.accent
+                                    border.width: 1
+                                    border.color: Style.color.accentDark
+                                }
+                                label: Text{
+                                    text:"Remove It?"
+                                    font.family: Style.text.font
+                                    font.pointSize: Style.text.size.normal
+                                    color: Style.color.textOnAccent
+                                }
+                        }
                         onClicked:{
                             console.log("Deleted:"+index);
                             if(index > -1){
@@ -564,7 +597,19 @@ Rectangle{
             }
 
             Button{
-                text: "Add photos to photo album"
+                style: ButtonStyle {
+                    background: Rectangle {
+                        color: Style.color.accent
+                        border.width: 1
+                        border.color: Style.color.accentDark
+                    }
+                    label: Text{
+                        text: "Add photos to photo album"
+                        font.family: Style.text.font
+                        font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnAccent
+                    }
+                }
                 onClicked: {
                     photoAlbumDialog.open();
                 }

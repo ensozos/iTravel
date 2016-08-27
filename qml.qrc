@@ -26,6 +26,7 @@
         <file>images/editOff.png</file>
         <file>images/editOn.png</file>
         <file>images/delete.png</file>
+        <file>images/selectImage.gif</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>
