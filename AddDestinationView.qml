@@ -52,7 +52,7 @@ Rectangle {
         width: (parent.width>1000) ? 900 : (parent.width * 0.9) //If the width is <1200 then set is as "90% of parent" else set it as "1080"
         anchors{
             top: duplicateMessage.bottom;
-            left: parent.left;
+            horizontalCenter: parent.horizontalCenter
             bottom: bottomRow.top;
             leftMargin: 10;
             topMargin: 10
@@ -103,7 +103,6 @@ Rectangle {
                     width :parent.width
                     source:""
                 }
-
 
                 Column{
                     id:nameTxf

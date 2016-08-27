@@ -289,10 +289,11 @@ Rectangle{
             spacing: 10
 
             Image{
+                anchors.horizontalCenter: parent.horizontalCenter
                 source: img
                 asynchronous: true
-                width: parent.width
-                height:200
+                width: parent.width>500? 500 : parent.width
+                height:300
                 fillMode: Image.PreserveAspectCrop
             }
             Label{id:nameLabel

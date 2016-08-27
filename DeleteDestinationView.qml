@@ -83,7 +83,7 @@ Rectangle{
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: img
                 asynchronous: true
-                width: flick.width * 0.8
+                width: flick.width>500? 500 : flick.width
                 height:flick.height * 0.7
                 fillMode: Image.PreserveAspectCrop
             }
