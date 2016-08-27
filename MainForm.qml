@@ -9,7 +9,6 @@ Rectangle
 {    
     property bool delegateButtonsAreVisible : false
 
-    color: Style.color.background
     Component
     {
         id:map_view
@@ -127,7 +126,7 @@ Rectangle
             else if(w>=1000)         return 1000;
         }
         cellWidth: parent.width>=1000? 500 : width
-        cellHeight:210
+        cellHeight:250
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: myToolBar.bottom
         anchors.bottom: parent.bottom
@@ -247,7 +246,14 @@ Rectangle
                                     Component.onCompleted: getDateColor(date)
                                 }
 
+                                Rectangle{
+                                    anchors.fill: iconsRow
+                                    color: Style.color.accent
+                                    opacity:0.3
+                                }
+
                                 Row{
+                                    id: iconsRow
                                     anchors.bottom: parent.bottom
                                     anchors.right:parent.right
                                     anchors.margins: 2
