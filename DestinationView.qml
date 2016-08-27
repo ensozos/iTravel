@@ -172,7 +172,7 @@ Rectangle{
                         id: progr_title
                         anchors.centerIn: parent
                         text: score.toString()
-                        color: Style.color.primaryDark
+                        color: Style.color.textOnAccent
                     }
                 }
             }
