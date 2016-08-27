@@ -20,5 +20,3 @@ HEADERS += \
     mediator.h \
     destinationModel.h \
     destination.h
-
-DISTFILES +=

@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.0
-
+import "qrc:/styles/styles/" 1.0
 
 Rectangle{
 
@@ -158,20 +158,21 @@ Rectangle{
             style: ProgressBarStyle {
                 background: Rectangle {
                     radius: 10
-                    color: "lightgray"
-                    border.color: "gray"
+                    color       : Style.color.textOnPrimary
+                    border.color: Style.color.primaryDark
                     border.width: 1
                     implicitWidth: 200
                     implicitHeight: 24
                 }
                 progress: Rectangle {
                     radius: 10
-                    color: "lightsteelblue"
-                    border.color: "steelblue"
+                    color       : Style.color.accent
+                    border.color: Style.color.accentDark
                     Text {
                         id: progr_title
                         anchors.centerIn: parent
                         text: score.toString()
+                        color: Style.color.primaryDark
                     }
                 }
             }
@@ -188,7 +189,7 @@ Rectangle{
                 anchors.verticalCenter: saveDestIcon.verticalCenter
                 anchors.horizontalCenter: saveDestIcon.horizontalCenter
                 source:"images/images/save.png"
-                width:parent.width * 0.6
+                width:parent.width * 0.7
                 height:width
             }
             style: addDestIcon.style
@@ -212,11 +213,12 @@ Rectangle{
             anchors.rightMargin: 5
             width:parent.height
             height:width
+            clip:true
             Image{
                 id:editImage
                 anchors.verticalCenter: editDestIcon.verticalCenter
                 anchors.horizontalCenter: editDestIcon.horizontalCenter
-                source:"images/images/editOn.png"
+                source: isEditingEnabled? "images/images/editOff.png" : "images/images/editOn.png"
                 width:parent.width * 0.75
                 height:width
             }
@@ -226,12 +228,10 @@ Rectangle{
                 if(!isEditingEnabled){
                     console.log("Enable Editing")
                     isEditingEnabled = true
-                    editImage.source = "images/images/editOff.png"
                     makeElementsEditable(true)
                 }else{
                     console.log("Disable Editing")
                     isEditingEnabled = false
-                    editImage.source = "images/images/editOn.png"
                     makeElementsEditable(false)
                 }
             }
@@ -243,11 +243,12 @@ Rectangle{
             anchors.rightMargin: 5
             width:parent.height
             height:width
-            Text{
-                text: "<-"
+            Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                //font.pointSize: 15
+                source:"images/images/back.png"
+                width:parent.width * 0.7
+                height:width
             }
             style: addDestIcon.style
             onClicked:
@@ -261,8 +262,9 @@ Rectangle{
         id: duplicateMessage
         anchors.top: myToolBar.bottom
         text: "Duplicate detected."
-        font.family: "Helvetica Neue"
-        font.pixelSize: 16
+        font.family: Style.text.font
+        color: Style.color.textOnBackground
+        font.pointSize: Style.text.size.normal
         visible: duplicateAnimation.running
         height: 0
     }
@@ -283,7 +285,7 @@ Rectangle{
         Column
         {
             id: nonEditableColumn
-            width: parent.width //* 0.7
+            width: parent.width
             spacing: 10
 
             Image{
@@ -295,38 +297,25 @@ Rectangle{
             }
             Label{id:nameLabel
                  text:name
-                 font.family: "Helvetica Neue"
-                 font.pixelSize: 32
+                 font.family: Style.text.font
+                 font.pointSize: Style.text.size.big
                  anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Label{id:descLabel
                 text:desc
-                font.family: "Helvetica Neue"
-                font.pixelSize: 12
-
+                font.family: Style.text.font
+                font.pointSize: Style.text.size.normal
                 anchors.horizontalCenter: parent.horizontalCenter
-
             }
-
-
-
 
             Calendar
             {
                 id:dateLabel
                 selectedDate: date
                 enabled: false
-
                 anchors.horizontalCenter: parent.horizontalCenter
-
-
-
-
-
             }
-
-
 
             Component
             {
@@ -361,138 +350,116 @@ Rectangle{
                     }
             }
 
-
-
-
-
             Column{
 
                 spacing: 15
                 anchors.horizontalCenter:parent.horizontalCenter
 
+                Row{
+                    spacing: 10
+
+                    Text {
+                        text: qsTr("Did you visit a museum?")
+                        font.family: Style.text.font
+                        font.pointSize: Style.text.size.normal
+                    }
+
+                    CheckBox {
+                            id:museum_number
+                            enabled: false
+                            checked: museum
+                    }
+                }
+
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("How many photos did you get?")
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
+                    }
+
+                    TextField{
+                       id:photos_number
+                       enabled: false
+                       validator: IntValidator{bottom:0}
+                       inputMethodHints: Qt.ImhDigitsOnly
+                       text: number_of_photos
+                    }
+                }
 
                 Row{
                     spacing: 10
 
-                Text {
-                    text: qsTr("Did you visit a museum?")
+                    Text {
+                        text: qsTr("Did you ate any tradionotal food?")
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
+                    }
 
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox {
-                        id:museum_number
+                    CheckBox{
+                        id:traditional_food
                         enabled: false
-                        checked: museum
-                }
-                }
-
-
-
-
-
-
-               Row{
-                spacing: 10
-                Text {
-                    text: qsTr("How many photos did you get?")
-
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
+                        checked:traditional
+                    }
                 }
 
-                TextField{
-                   id:photos_number
-                   enabled: false
-                   validator: IntValidator{bottom:0}
-                   inputMethodHints: Qt.ImhDigitsOnly
-                   text: number_of_photos
+                Row{
+                    spacing: 10
+
+                    Text {
+                        text: qsTr("Days of vacation?")
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
+                    }
+
+                    TextField{
+                        id:vacation_days
+                        validator: IntValidator{bottom:0}
+                        enabled: false
+                        inputMethodHints: Qt.ImhDigitsOnly
+                        text: vacation
+                    }
                 }
 
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("First time here?")
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
+                    }
+
+                    CheckBox{
+                        id:first_time
+                        enabled: false
+                        checked: first_here
+                    }
+                }
+
+                Row{
+                    spacing: 10
+                    Text {
+                        text: qsTr("Did you buy any souvenir?")
+
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
+                    }
+
+                    CheckBox{
+                        id:souvenir
+                        enabled:false
+                        checked: souv
+                    }
+                }
             }
-
-
-
-            Row{
-                spacing: 10
-
-                Text {
-                    text: qsTr("Did you ate any tradionotal food?")
-
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox{
-                    id:traditional_food
-                    enabled: false
-                    checked:traditional
-                }
-
-            }
-
-            Row{
-                spacing: 10
-                Text {
-                    text: qsTr("Days of vacation?")
-
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                TextField{
-                    id:vacation_days
-                    validator: IntValidator{bottom:0}
-                    enabled: false
-                    inputMethodHints: Qt.ImhDigitsOnly
-                    text: vacation
-                }
-
-            }
-
-            Row{
-                spacing: 10
-                Text {
-                    text: qsTr("First time here?")
-
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox{
-                    id:first_time
-                    enabled: false
-                    checked: first_here
-                }
-
-            }
-
-            Row{
-                spacing: 10
-                Text {
-                    text: qsTr("Did you buy any souvenir?")
-
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
-                }
-
-                CheckBox{
-                    id:souvenir
-                    enabled:false
-                    checked: souv
-                }
-
-            }
-            }
-
-
         }
 //EDIT ON-------------------------------------------------------------------------------------------------
 
-        Column{
+        Column
+        {
             id: editableColumn
-            width: parent.width //* 0.7
+            width: parent.width
             visible: false
             spacing: 10
 
@@ -503,28 +470,28 @@ Rectangle{
                 height:200
                 fillMode: Image.PreserveAspectCrop
 
-            Button{
-                id: uploadButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: Image.bottom
-                text: "Upload another photo"
-                onClicked: {
-                    fileDialog.open()
+                Button{
+                    id: uploadButton
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: Image.bottom
+                    text: "Upload another photo"
+                    onClicked: {
+                        fileDialog.open()
+                    }
                 }
-            }
             }
             TextField{id:nameField
                 text:name
-                font.family: "Helvetica Neue"
-                font.pixelSize: 32
+                font.family: Style.text.font
+                font.pointSize: Style.text.size.big
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             TextArea{id:descField
                 text:desc
-                font.pixelSize: 12
+                font.family: Style.text.font
+                font.pointSize: Style.text.size.normal
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-
             }
 
             Calendar
@@ -534,13 +501,12 @@ Rectangle{
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
-
-
             Component
             {
                 id: delegateEditable
 
-                Column{
+                Column
+                {
                     spacing: 10
                     scale: PathView.iconScale
                     opacity: PathView.iconOpacity
@@ -584,7 +550,6 @@ Rectangle{
                 }
             }
 
-
             PathView
             {
                 id:viewEditable
@@ -598,7 +563,6 @@ Rectangle{
                     }
             }
 
-
             Button{
                 text: "Add photos to photo album"
                 onClicked: {
@@ -607,17 +571,16 @@ Rectangle{
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
-
-
-            Column{
+            Column
+            {
                 anchors.horizontalCenter:parent.horizontalCenter
                 spacing:15
                 Row{
                     spacing: 10
                     Text {
                         text: qsTr("Did you visit a museum?")
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
 
                     CheckBox {
@@ -630,8 +593,8 @@ Rectangle{
                     spacing: 10
                     Text {
                         text: qsTr("How many photos did you get?")
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
 
                     TextField{
@@ -640,31 +603,28 @@ Rectangle{
                         text: number_of_photos
                         inputMethodHints: Qt.ImhDigitsOnly
                     }
-
                 }
-
 
                 Row{
                     spacing: 10
                     Text {
                         text: qsTr("Did you ate any tradionotal food?")
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
 
                     CheckBox{
                         id:traditional_food_edit
                         checked:traditional
                     }
-
                 }
 
                 Row{
                     spacing: 10
                     Text {
                         text: qsTr("Days of vacation?")
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
 
                     TextField{
@@ -673,41 +633,36 @@ Rectangle{
                         text: vacation
                         inputMethodHints: Qt.ImhDigitsOnly
                     }
-
                 }
 
                 Row{
                     spacing: 10
                     Text {
                         text: qsTr("First time here?")
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
 
                     CheckBox{
                         id:first_time_edit
                         checked: first_here
                     }
-
                 }
 
                 Row{
                     spacing: 10
                     Text {
                         text: qsTr("Did you buy any souvenir?")
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
 
                     CheckBox{
                         id:souvenir_edit
                         checked: souv
                     }
-
                 }
-
             }
-
         }
     }
 //-------------------------------------------------------------------------------------------------

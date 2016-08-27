@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
+import "qrc:/styles/styles/" 1.0
 
 Rectangle{
 
@@ -21,11 +22,12 @@ Rectangle{
             anchors.rightMargin: 5
             width:parent.height
             height:width
-            Text{
-                text: "<-"
+            Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                //font.pointSize: 15
+                source:"images/images/back.png"
+                width:parent.width * 0.7
+                height:width
             }
             style: addDestIcon.style
             onClicked:
@@ -35,7 +37,8 @@ Rectangle{
         }
     }
 
-    Flickable{
+    Flickable
+    {
         id:flick
         anchors{
             top: myToolBar.bottom
@@ -48,40 +51,52 @@ Rectangle{
         interactive:true
         //boundsBehavior: Flickable.StopAtBounds
         clip:true
-    Column{
+        Column
+        {
+            id: deleteData
+            width: parent.width
+            spacing: 10
 
-        id: deleteData
-        width: parent.width
-        spacing: 10
-
-        Label{
-            text:name;
-            font.pixelSize: 32
-            anchors.horizontalCenter: parent.horizontalCenter}
-        Label{
-            text:Qt.formatDate(date,"ddd dd MMM yyyy");
-            font.pixelSize: 16
-            anchors.horizontalCenter: parent.horizontalCenter}
-        Label{
-            text:desc;
-            font.pixelSize: 16
-            anchors.horizontalCenter: parent.horizontalCenter}
-        Image{
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: img
-            asynchronous: true
-            width: flick.width * 0.8
-            height:flick.height * 0.7
-            fillMode: Image.PreserveAspectCrop
-        }
-        Button{
-            text:"Delete"
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: {
-                console.log("Delete Button Pressed")
-                mediator.deleteDestination(indexOfDestInModel)
-                stack.pop()
+            Label
+            {
+                text:name;
+                font.family:Style.text.font
+                font.pointSize: Style.text.size.huge
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Label
+            {
+                text:Qt.formatDate(date,"ddd dd MMM yyyy");
+                font.family:Style.text.font
+                font.pointSize: Style.text.size.normal
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Label
+            {
+                text:desc;
+                font.family:Style.text.font
+                font.pointSize: Style.text.size.normal
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Image
+            {
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: img
+                asynchronous: true
+                width: flick.width * 0.8
+                height:flick.height * 0.7
+                fillMode: Image.PreserveAspectCrop
+            }
+            Button
+            {
+                text:"Delete"
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    console.log("Delete Button Pressed")
+                    mediator.deleteDestination(indexOfDestInModel)
+                    stack.pop()
+                }
             }
         }
-    }}
+    }
 }

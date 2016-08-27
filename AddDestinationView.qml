@@ -3,8 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
 import QtQuick.Controls 2.0
-
-//SUGGESTION: We could have a photo gallery for each destination. (Ex. When we click on "Rio" we see the image,title,date,description and a photo gallery)
+import "qrc:/styles/styles/" 1.0
 
 Rectangle {
 
@@ -17,13 +16,14 @@ Rectangle {
     Label{
         id: duplicateMessage
         anchors.top: myToolBar.bottom
+        font.family:Style.text.font
+        font.pointSize: Style.text.size.normal
         text: "Duplicate detected."
         visible: duplicateAnimation.running
     }
 
     Rectangle{
         id: container
-        //color:"light blue"
         width: (parent.width>1000) ? 900 : (parent.width * 0.9) //If the width is <1200 then set is as "90% of parent" else set it as "1080"
         anchors{
             top: duplicateMessage.bottom;
@@ -60,8 +60,8 @@ Rectangle {
                         text: "Upload Photo"
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 16
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.big
                         opacity:0.7
                     }
                     onClicked: {
@@ -83,48 +83,42 @@ Rectangle {
                 Column{
                     id:nameTxf
                     anchors.horizontalCenter: parent.horizontalCenter
-                    //spacing: 10
-                    //anchors.top: photo.bottom
+
                     Text{
                         id:text
                         anchors.horizontalCenter: parent.horizontalCenter
                         text:"My dreaming trip"
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 12
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                         opacity:0.7
                     }
                     TextField{
                         id:title
                         placeholderText: "Destination name"
-                        //anchors.top:text.bottom
-
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
-
-
-
-
                }
 
+                //Gray Line
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width
                     height:1
                     opacity:0.7
                     color:"gray"
-
                 }
 
                 Column{
                     id:dateCol
                     anchors.horizontalCenter: parent.horizontalCenter
                     spacing: 10
-                    //anchors.top:nameTxf.bottom
 
                     Text{
                         anchors.horizontalCenter: parent.horizontalCenter
                         text:"Date:"
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 12
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                         opacity:0.7
                     }
                     Calendar{
@@ -133,6 +127,7 @@ Rectangle {
                     }
                 }
 
+                //Gray Line
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width
@@ -141,14 +136,13 @@ Rectangle {
                     color:"gray"
                 }
 
-
                 Column{
                     anchors.horizontalCenter: parent.horizontalCenter
                     Text{
                         anchors.horizontalCenter: parent.horizontalCenter
                         text:"Things i want to do there:"
-                        font.family:"Helvetica Neue"
-                        font.pixelSize: 12
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                         opacity:0.7
                     }
                     TextArea{
@@ -156,16 +150,18 @@ Rectangle {
                         width: container.width * 0.9
                         height: 150
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.normal
                     }
                 }
 
+                //Gray Line
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width
                     height:1
                     opacity:0.7
                     color:"gray"
-
                 }
 
                 Component
@@ -216,15 +212,14 @@ Rectangle {
                     }
                 }
 
-
                 Button{
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Add photos to the photo album"
                     onClicked:{
                         photoAlbumDialog.open()
                     }
-                    font.family:"Helvetica Neue"
-                    font.pixelSize: 16
+                    font.family:Style.text.font
+                    font.pointSize: Style.text.size.big
                     opacity:0.7
                     flat: true
                 }
@@ -245,11 +240,8 @@ Rectangle {
                         height: viewEditable.height
                         }
                 }
-
-
             }
         }
-
     }
 
     Row{

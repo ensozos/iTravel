@@ -3,13 +3,13 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import QtQml.Models 2.1
-import "styles/styles/"
+import "qrc:/styles/styles/" 1.0
 
 Rectangle
 {    
     property bool delegateButtonsAreVisible : false
 
-    color: Style1.color.background
+    color: Style.color.background
     Component
     {
         id:map_view
@@ -36,13 +36,6 @@ Rectangle
     CustomToolBar{
         id:myToolBar
 
-        Text{
-            //text: "iTravel"
-            //font.pixelSize: 20
-            //font.family: "Arial"
-            anchors.left:parent.left
-        }
-
         ToolButton{
             anchors.right: parent.right
             id:mapIcon
@@ -68,20 +61,22 @@ Rectangle
             anchors.rightMargin: 5
             width:parent.height
             height:width
-            Text{
-                text: "+"
+
+            Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                //font.pointSize: 15
+                source:"images/images/add.png"
+                width:parent.width * 0.7
+                height:width
             }
             style: ButtonStyle {
                     background: Rectangle {
-                        border.width: control.activeFocus ? 2 : 1
-                        border.color: "#888"
+                        border.width: 1
+                        border.color: Style.color.accentDark
                         radius: 18
                         gradient: Gradient {
-                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                            GradientStop { position: 0 ; color: control.pressed ? Style.color.accent : Style.color.accentDark }
+                            GradientStop { position: 1 ; color: control.pressed ? Style.color.accentDark : Style.color.accent }
                         }
                     }
                 }
@@ -97,20 +92,21 @@ Rectangle
             anchors.rightMargin: 5
             width:parent.height
             height:width
-            Text{
-                text: "..."
+            Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                //font.pointSize: 15
+                source:"images/images/settings.png"
+                width:parent.width * 0.6
+                height:width
             }
             style: ButtonStyle {
                     background: Rectangle {
-                        border.width: control.activeFocus ? 2 : 1
-                        border.color: "#888"
+                        border.width: 1
+                        border.color: Style.color.accentDark
                         radius: 18
                         gradient: Gradient {
-                            GradientStop { position: 0 ; color:{ if(control.pressed)   {"#ccc"}else{"#eee"}}}
-                            GradientStop { position: 1 ; color:{ if(control.pressed || delegateButtonsAreVisible){"#aaa"}else{"#ccc"}}}
+                            GradientStop { position: 0 ; color:{ if(control.pressed)   {Style.color.accent}else{Style.color.accentDark}}}
+                            GradientStop { position: 1 ; color:{ if(control.pressed || delegateButtonsAreVisible){Style.color.accentDark}else{Style.color.accent}}}
                         }
                     }
                 }
@@ -128,7 +124,6 @@ Rectangle
         anchors.right: parent.right
         anchors.top: myToolBar.bottom
         anchors.bottom: parent.bottom
-        //anchors.margins: 1
         cellWidth: parent.width
         cellHeight:210
         clip:true
@@ -239,11 +234,11 @@ Rectangle
                                     anchors.margins:2
                                     verticalAlignment: Text.AlignVCenter
                                     text:name
-                                    font.family:"Helvetica Neue"
+                                    font.family:Style.text.font
                                     font.capitalization:Font.AllUppercase
                                     color: getDateColor(date)
                                     font.weight: Font.Bold
-                                    font.pointSize: 18
+                                    font.pointSize: Style.text.size.huge
                                     Component.onCompleted: getDateColor(date)
                                 }
 
@@ -275,7 +270,7 @@ Rectangle
                                      visible: areDelegateButtonsVisible()
                                      width:25
                                      height:25
-                                     source:"images/images/marker.png"
+                                     source:"images/images/delete.png"
                                      anchors.bottom: parent.bottom
                                      anchors.right:parent.right
                                      anchors.margins: 2

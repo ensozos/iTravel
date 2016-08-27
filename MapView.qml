@@ -16,11 +16,12 @@ Rectangle{
             anchors.rightMargin: 5
             width:parent.height
             height:width
-            Text{
-                text: "<-"
+            Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                //font.pointSize: 15
+                source:"images/images/back.png"
+                width:parent.width * 0.7
+                height:width
             }
             style: addDestIcon.style
             onClicked:
