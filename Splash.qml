@@ -8,7 +8,7 @@ Window {
     title: "Splash Window"
     modality: Qt.ApplicationModal
     flags: Qt.SplashScreen
-    property int timeoutInterval: 2000
+    property int timeoutInterval: 5000
     signal timeout
 //! [splash-properties]
 //! [screen-properties]
@@ -19,7 +19,12 @@ Window {
 
     Image {
         id: splashImage
-        source: "images/images/brazil.jpg"
+        source: "images/images/logoTravel.png"
+        width:parent.width
+        height:parent.height
+        fillMode: Image.Stretch
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         MouseArea {
             anchors.fill: parent
             onClicked: Qt.quit()
