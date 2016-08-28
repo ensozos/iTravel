@@ -4,6 +4,7 @@ import QtLocation 5.6
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
+import "qrc:/styles/styles/" 1.0
 
 Rectangle{
 
