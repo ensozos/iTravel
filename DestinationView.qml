@@ -352,6 +352,7 @@ Rectangle{
                     }
             }
 
+
             Column{
 
                 spacing: 15
@@ -367,9 +368,9 @@ Rectangle{
                     }
 
                     CheckBox {
-                            id:museum_number
-                            enabled: false
-                            checked: museum
+                        id:museum_number
+                        enabled: false
+                        checked: museum
                     }
                 }
 
@@ -382,11 +383,11 @@ Rectangle{
                     }
 
                     TextField{
-                       id:photos_number
-                       enabled: false
-                       validator: IntValidator{bottom:0}
-                       inputMethodHints: Qt.ImhDigitsOnly
-                       text: number_of_photos
+                        id:photos_number
+                        enabled: false
+                        validator: IntValidator{bottom:0}
+                        inputMethodHints: Qt.ImhDigitsOnly
+                        text: number_of_photos
                     }
                 }
 
@@ -455,6 +456,9 @@ Rectangle{
                     }
                 }
             }
+
+
+
         }
 //EDIT ON-------------------------------------------------------------------------------------------------
 

@@ -78,17 +78,16 @@ Rectangle {
                     width: 150
                     height:25
                     flat:true
+                    text: "Upload Photo"
                     anchors.horizontalCenter: parent.horizontalCenter
-
-                    Text
-                    {
-                        text: "Upload Photo"
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.family:Style.text.font
-                        font.pointSize: Style.text.size.big
-                        opacity:0.7
+                    background: Rectangle {
+                        color: Style.color.accent
+                        border.width: 1
+                        border.color: Style.color.accentDark
                     }
+                    font.family:Style.text.font
+                    font.pointSize: Style.text.size.big
+                    opacity:0.7
                     onClicked: {
                         fileDialog.open()
                     }
@@ -191,6 +190,11 @@ Rectangle {
 
                 Button{
                     anchors.horizontalCenter: parent.horizontalCenter
+                    background: Rectangle {
+                        color: Style.color.accent
+                        border.width: 1
+                        border.color: Style.color.accentDark
+                    }
                     text: "Add photos to the photo album"
                     onClicked:{
                         photoAlbumDialog.open()
