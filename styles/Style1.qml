@@ -12,6 +12,7 @@ QtObject {
         property color textOnPrimary    : "white"
         property color textOnAccent     : "white"
         property color textOnBackground : "black"
+        property color textOnImages     : "light gray"
     }
 
     property QtObject text: QtObject{

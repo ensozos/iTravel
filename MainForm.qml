@@ -265,7 +265,7 @@ Rectangle
                                         text:name
                                         font.family:Style.text.font
                                         font.capitalization:Font.AllUppercase
-
+                                        color: Style.color.textOnImages
                                         font.weight: Font.Bold
                                         font.pointSize: Style.text.size.huge
                                     }
