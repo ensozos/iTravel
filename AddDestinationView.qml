@@ -93,6 +93,7 @@ Rectangle {
                         fileDialog.open()
                     }
                 }
+
                 Image
                 {
                     id:photo
@@ -100,7 +101,7 @@ Rectangle {
                     asynchronous: true
                     fillMode: Image.PreserveAspectCrop
                     height:200
-                    width :parent.width
+                    width :parent.width * 0.8
                     source:""
                 }
 
@@ -285,39 +286,34 @@ Rectangle {
         id: bottomRow
         height:30
         anchors.bottom: parent.bottom
-        anchors.left: container.left
+        anchors.right: container.right
         anchors.bottomMargin: 10
         spacing: 10
 
-        Button{
-            contentItem:Text{
-                text:"Cancel"
-                font.family: Style.text.font
-                font.pointSize: Style.text.size.normal
-                color: Style.color.textOnAccent
-            }
-            background: Rectangle {
-                color: parent.pressed? Style.color.accentDark : Style.color.accent
-                border.width: 1
-                border.color: Style.color.accentDark
-            }
-            onClicked: {
-                console.log("Canceled")
-                stack.pop()
-            }
+        Text{
+            text:"Done?"
+            anchors.verticalCenter: parent.verticalCenter
+            opacity: 0.2
+            color:Style.color.textOnBackground
+            font.family: Style.text.font
+            font.pointSize: Style.text.size.small
         }
 
         Button{
-            contentItem:Text{
-                text:"Apply"
-                font.family: Style.text.font
-                font.pointSize: Style.text.size.normal
-                color: Style.color.textOnAccent
+            height: myToolBar.height - 5
+            width: height
+
+            contentItem:Image{
+                anchors.centerIn: parent
+                width: parent.width * 0.9
+                height:width
+                source:"images/images/done.png"
             }
             background: Rectangle {
                 color: parent.pressed? Style.color.accentDark : Style.color.accent
                 border.width: 1
                 border.color: Style.color.accentDark
+                radius: 20
             }
             onClicked: {
 
@@ -351,8 +347,6 @@ Rectangle {
         nameFilters: [ "Image files (*.jpg *.png)" ]
         onAccepted: {
             console.log("You chose: " + fileDialog.fileUrl)
-            photo.height = 100
-            photo.width = 200
             photo.source = fileDialog.fileUrl
         }
         onRejected: {

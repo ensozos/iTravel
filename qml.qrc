@@ -27,6 +27,7 @@
         <file>images/delete.png</file>
         <file>images/selectImage.gif</file>
         <file>images/noImage.png</file>
+        <file>images/done.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>
