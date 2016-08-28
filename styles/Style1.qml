@@ -34,6 +34,7 @@ QtObject {
         property string back        : "images/images/icons/white/back.png"
         property string save        : "images/images/icons/white/save.png"
         property string done        : "images/images/icons/white/done.png"
+        property string time        : "images/images/icons/white/time.png"
 
     }
 }

@@ -231,19 +231,44 @@ Rectangle
                                 fillMode: Image.PreserveAspectCrop
                                 source:image
 
-                                Label
-                                {
-                                    anchors.left: parent.left
+                                Row{
                                     anchors.bottom: parent.bottom
-                                    anchors.margins:2
-                                    verticalAlignment: Text.AlignVCenter
-                                    text:name
-                                    font.family:Style.text.font
-                                    font.capitalization:Font.AllUppercase
-                                    color: getDateColor(date)
-                                    font.weight: Font.Bold
-                                    font.pointSize: Style.text.size.huge
-                                    Component.onCompleted: getDateColor(date)
+                                    anchors.left:parent.left
+                                    anchors.margins: 2
+                                    spacing: 5
+
+                                    Item{
+                                        height: parent.height
+                                        width: height
+                                        Image{
+                                            id:timeIcon
+                                            width: parent.width
+                                            height: parent.height
+                                            source : Style.icons.time
+                                            z:1
+                                        }
+                                        Rectangle{
+                                            anchors.centerIn: parent
+                                            width: timeIcon.width - 4
+                                            height: timeIcon.height - 4
+                                            radius:15
+                                            z:0
+                                            //opacity: 0.6
+                                            color: getDateColor(date)
+                                            Component.onCompleted: getDateColor(date)
+                                        }
+                                    }
+
+                                    Label
+                                    {
+                                        verticalAlignment: Text.AlignVCenter
+                                        text:name
+                                        font.family:Style.text.font
+                                        font.capitalization:Font.AllUppercase
+
+                                        font.weight: Font.Bold
+                                        font.pointSize: Style.text.size.huge
+                                    }
                                 }
 
                                 Rectangle{

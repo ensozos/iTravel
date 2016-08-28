@@ -36,6 +36,8 @@
         <file>images/icons/white/editOn.png</file>
         <file>images/icons/white/save.png</file>
         <file>images/icons/white/settings.png</file>
+        <file>images/icons/white/time.png</file>
+        <file>images/icons/black/time.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>
