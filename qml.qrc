@@ -9,7 +9,6 @@
         <file>CustomToolBar.qml</file>
         <file>Splash.qml</file>
         <file>DeleteDestinationView.qml</file>
-        <file>About.qml</file>
         <file>Ellipse.qml</file>
     </qresource>
     <qresource prefix="/images">
@@ -38,6 +37,7 @@
         <file>images/icons/white/settings.png</file>
         <file>images/icons/white/time.png</file>
         <file>images/icons/black/time.png</file>
+        <file>images/logoTravel.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>
