@@ -25,7 +25,7 @@ Rectangle{
             Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:"images/images/back.png"
+                source:Style.icons.back
                 width:parent.width * 0.7
                 height:width
             }

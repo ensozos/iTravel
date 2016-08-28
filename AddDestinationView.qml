@@ -21,7 +21,7 @@ Rectangle {
             Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:"images/images/back.png"
+                source:Style.icons.back
                 width:parent.width * 0.7
                 height:width
             }
@@ -307,7 +307,7 @@ Rectangle {
                 anchors.centerIn: parent
                 width: parent.width * 0.9
                 height:width
-                source:"images/images/done.png"
+                source:Style.icons.done
             }
             background: Rectangle {
                 color: parent.pressed? Style.color.accentDark : Style.color.accent

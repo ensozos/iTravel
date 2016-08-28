@@ -18,16 +18,24 @@
         <file>images/newyork.jpg</file>
         <file>images/planet-earth.png</file>
         <file>images/marker.png</file>
-        <file>images/add.png</file>
-        <file>images/settings.png</file>
-        <file>images/back.png</file>
-        <file>images/save.png</file>
-        <file>images/editOff.png</file>
-        <file>images/editOn.png</file>
-        <file>images/delete.png</file>
         <file>images/selectImage.gif</file>
         <file>images/noImage.png</file>
-        <file>images/done.png</file>
+        <file>images/icons/black/add.png</file>
+        <file>images/icons/black/back.png</file>
+        <file>images/icons/black/delete.png</file>
+        <file>images/icons/black/done.png</file>
+        <file>images/icons/black/editOff.png</file>
+        <file>images/icons/black/editOn.png</file>
+        <file>images/icons/black/save.png</file>
+        <file>images/icons/black/settings.png</file>
+        <file>images/icons/white/add.png</file>
+        <file>images/icons/white/back.png</file>
+        <file>images/icons/white/delete.png</file>
+        <file>images/icons/white/done.png</file>
+        <file>images/icons/white/editOff.png</file>
+        <file>images/icons/white/editOn.png</file>
+        <file>images/icons/white/save.png</file>
+        <file>images/icons/white/settings.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>

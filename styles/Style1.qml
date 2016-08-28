@@ -24,4 +24,16 @@ QtObject {
         }
         property string font : "Helvetica Neue"
     }
+
+    property QtObject icons : QtObject{
+        property string add         : "images/images/icons/white/add.png"
+        property string settings    : "images/images/icons/white/settings.png"
+        property string editOn      : "images/images/icons/white/editOn.png"
+        property string editOff      : "images/images/icons/white/editOff.png"
+        property string delete_     : "images/images/icons/white/delete.png"
+        property string back        : "images/images/icons/white/back.png"
+        property string save        : "images/images/icons/white/save.png"
+        property string done        : "images/images/icons/white/done.png"
+
+    }
 }

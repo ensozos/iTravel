@@ -64,7 +64,7 @@ Rectangle
             Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:"images/images/add.png"
+                source:Style.icons.add
                 width:parent.width * 0.7
                 height:width
             }
@@ -94,7 +94,7 @@ Rectangle
             Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:"images/images/settings.png"
+                source:Style.icons.settings
                 width:parent.width * 0.6
                 height:width
             }
@@ -264,7 +264,7 @@ Rectangle
                                         visible: areDelegateButtonsVisible()
                                         width:25
                                         height:25
-                                        source:"images/images/editOn.png"
+                                        source:Style.icons.editOn
 
                                         MouseArea
                                         {
@@ -282,7 +282,7 @@ Rectangle
                                          visible: areDelegateButtonsVisible()
                                          width:25
                                          height:25
-                                         source:"images/images/delete.png"
+                                         source:Style.icons.delete_
 
                                          MouseArea
                                          {

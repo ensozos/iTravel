@@ -188,7 +188,7 @@ Rectangle{
             Image{
                 anchors.verticalCenter: saveDestIcon.verticalCenter
                 anchors.horizontalCenter: saveDestIcon.horizontalCenter
-                source:"images/images/save.png"
+                source:Style.icons.save
                 width:parent.width * 0.7
                 height:width
             }
@@ -218,7 +218,7 @@ Rectangle{
                 id:editImage
                 anchors.verticalCenter: editDestIcon.verticalCenter
                 anchors.horizontalCenter: editDestIcon.horizontalCenter
-                source: isEditingEnabled? "images/images/editOff.png" : "images/images/editOn.png"
+                source: isEditingEnabled? Style.icons.editOff : Style.icons.editOn
                 width:parent.width * 0.75
                 height:width
             }
@@ -246,7 +246,7 @@ Rectangle{
             Image{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:"images/images/back.png"
+                source:Style.icons.back
                 width:parent.width * 0.7
                 height:width
             }
