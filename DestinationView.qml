@@ -466,8 +466,9 @@ Rectangle{
             spacing: 10
 
             Item{
-                width: parent.width
-                height:200
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width>500? 500 : parent.width
+                height:300
                 Image{
                     id: destinationImage
                     source: img
