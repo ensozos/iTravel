@@ -42,5 +42,6 @@
     <qresource prefix="/styles">
         <file>styles/qmldir</file>
         <file>styles/Style1.qml</file>
+        <file>styles/Style2.qml</file>
     </qresource>
 </RCC>
