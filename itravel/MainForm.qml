@@ -273,6 +273,7 @@ Rectangle
                                     anchors.left:parent.left
                                     anchors.margins: 2
                                     spacing: 5
+                                    height: Style.text.size.huge * 1.34 //1point = 1.33pixels
 
                                     Item{
                                         height: parent.height
