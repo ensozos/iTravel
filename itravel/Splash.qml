@@ -8,7 +8,7 @@ Window {
     title: "Splash Window"
     modality: Qt.ApplicationModal
     flags: Qt.SplashScreen
-    property int timeoutInterval: 5000
+    property int timeoutInterval: 3000
     signal timeout
 //! [splash-properties]
 //! [screen-properties]
@@ -25,6 +25,14 @@ Window {
         fillMode: Image.Stretch
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
+        NumberAnimation on opacity {
+                id: createAnimation
+                from: 0
+                to: 1
+                duration: 3000
+            }
+        Component.onCompleted: createAnimation.start()
+
         MouseArea {
             anchors.fill: parent
             onClicked: Qt.quit()
