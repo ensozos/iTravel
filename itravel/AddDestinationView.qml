@@ -126,6 +126,7 @@ Rectangle {
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
                         color: Style.color.textOnBackground
+                        validator: RegExpValidator { regExp: /[a-zA-Z,]{1,20}/ }
                         background: Rectangle{
                             color:Style.color.backgroundDark
                         }
