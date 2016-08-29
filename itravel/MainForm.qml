@@ -41,6 +41,7 @@ Rectangle
 
         ProgressBar {
 
+            id:progressBarScore
             anchors.centerIn: parent
             value:totalScore/100
             width : parent.width * 0.3
@@ -383,7 +384,18 @@ Rectangle
         return delegateButtonsAreVisible;
     }
 
+    //Receive a "scoreSignal" from the target component with id:"controlWindow"
+    Connections {
+        target: controlWindow
+        onScoreSignal: {
+          handleScoreSignal()
+        }
+    }
+
     function handleScoreSignal(){
-        console.log("---AAA---")
+        console.log("Signal Cought!")
+        var randomScore = (Math.random() * 100)/100;
+        totalScore = randomScore
+        progressBarScore.value = randomScore
     }
 }
