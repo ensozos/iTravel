@@ -7,7 +7,7 @@ QtObject {
         property color primaryDark      : "#1A237E"
         property color accent           : "#F44336"
         property color accentDark       : "#B71C1C"
-        property color background       : "light gray"
+        property color background       : "white"
         property color backgroundDark   : "gray"
         property color textOnPrimary    : "white"
         property color textOnAccent     : "white"
