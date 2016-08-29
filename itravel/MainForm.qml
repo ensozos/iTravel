@@ -60,7 +60,7 @@ Rectangle
                     color       : Style.color.accent
                     border.color: Style.color.accentDark
 
-                    //Cast the child th "Component"
+                    //Cast the child to "Component"
                     Component{
 
                         //Load a component from another line of code
@@ -80,10 +80,6 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 text: totalScore
                 color: Style.color.textOnAccent
-            }
-
-            Component.onCompleted: {
-                mediator.updateTotalScore(0,10);
             }
         }
 
@@ -410,9 +406,12 @@ Rectangle
 
     function handleScoreSignal(){
         console.log("Signal Cought!")
-        var randomScore = (Math.random() * 100)/100;
-        totalScore = randomScore
-        progressBarScore.value = randomScore
-        progr_title.text = Math.round(randomScore * 100)
+        //var randomScore = (Math.random() * 100)/100;
+        //totalScore = randomScore
+        //progressBarScore.value = randomScore
+        //progr_title.text = Math.round(randomScore * 100)
+        totalScore = mediator.getTotalScore()
+        progressBarScore.value = totalScore/100
+        progr_title.text = totalScore
     }
 }

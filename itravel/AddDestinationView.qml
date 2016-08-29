@@ -338,11 +338,12 @@ Rectangle {
             onClicked: {
 
                 console.log("\n----------------------------\nInsert New Destination:"+"\nImage:"+photo.source+"\nTitle:"+title.text+"\nDate:"+calendar.selectedDate+"\nDescription:"+description.text+"\n----------------------------")
-                if(photo.source == ""){
+                if(photo.source === ""){
                     photo.source = "images/images/noImage.png"
                 }
                 if(!mediator.isDuplicateDestination(title.text,photo.source, -1)){
                     mediator.insertDestination(title.text,photo.source,description.text,0,calendar.selectedDate,photos,"");
+                    mediator.updateTotalScore(0,10);//The initial score of a destination is 10
                     stack.pop()
                 }else{
                     console.log("Inform the user that there is an existing destination with the same (name,imgNAME) values. This entry he is trying to save is considered a duplicate. \n(Note: ///C:/aaa/bbb/brazil.jpg) is the same as ///C:/ccc/ddd/eee/brazil.jpg")

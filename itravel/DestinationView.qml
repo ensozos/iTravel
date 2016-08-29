@@ -96,6 +96,8 @@ Rectangle{
 
 
     function setScore(){
+
+        var oldScore = score
         score = 0
         if (museum_number_edit.checked) {
             score+=25
@@ -148,6 +150,7 @@ Rectangle{
         console.log(questions)
         mediator.editDestinationQuestions(indexInModel,questions)
         mediator.editDestinationScore(indexInModel,score)
+        mediator.updateTotalScore(oldScore,score)
     }
 
     CustomToolBar{

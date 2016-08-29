@@ -41,6 +41,9 @@ void DestinationModel::loadModel(){
     QFile qf(s);
     qf.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&qf);
+    if(!in.atEnd()){
+        totalScore = in.readLine().toInt();
+    }
     while (!in.atEnd())
     {
         QString name = in.readLine();
@@ -72,6 +75,8 @@ void DestinationModel::saveModel(){
     QFile qf(s);
     QTextStream out(&qf);
     qf.open(QIODevice::WriteOnly | QIODevice::Text);
+
+    out << totalScore << endl;
 
     //Linear pass over all destinations
     vector<Destination>::iterator it;
