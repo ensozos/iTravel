@@ -519,6 +519,7 @@ Rectangle{
                 font.family: Style.text.font
                 font.pointSize: Style.text.size.big
                 anchors.horizontalCenter: parent.horizontalCenter
+                validator: RegExpValidator { regExp: /[a-zA-Z,]{1,20}/ }
                 style: TextFieldStyle {
                     textColor: Style.color.textOnBackground
                     background: Rectangle {
