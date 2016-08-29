@@ -10,6 +10,7 @@
         <file>Splash.qml</file>
         <file>DeleteDestinationView.qml</file>
         <file>Ellipse.qml</file>
+        <file>CustomCalendar.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/greece.jpg</file>

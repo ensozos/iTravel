@@ -316,6 +316,7 @@ Rectangle{
                 selectedDate: date
                 enabled: false
                 anchors.horizontalCenter: parent.horizontalCenter
+                style : CustomCalendar{}
             }
 
             Component
@@ -521,6 +522,7 @@ Rectangle{
                 id:dateField
                 selectedDate: date
                 anchors.horizontalCenter: parent.horizontalCenter
+                style : CustomCalendar{}
             }
 
             Component
