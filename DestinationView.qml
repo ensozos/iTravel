@@ -533,6 +533,7 @@ Rectangle{
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 style: TextAreaStyle {
+                    frame: null
                     backgroundColor: Style.color.backgroundDark
                     textColor: Style.color.textOnBackground
                     selectionColor: Style.color.background

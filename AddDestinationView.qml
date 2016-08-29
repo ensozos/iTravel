@@ -126,6 +126,10 @@ Rectangle {
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
                         color: Style.color.textOnBackground
+                        background: Rectangle{
+                            color:Style.color.backgroundDark
+                        }
+
                     }
                }
 
@@ -179,11 +183,14 @@ Rectangle {
                     TextArea{
                         id:description
                         width: container.width * 0.9
-                        height: 150
+                        height: contentHeight <150 ? 150 : contentHeight + Style.text.size.normal
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
                         color: Style.color.textOnBackground
+                        background: Rectangle{
+                            color:Style.color.backgroundDark
+                        }
                     }
                 }
 
