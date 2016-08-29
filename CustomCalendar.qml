@@ -7,13 +7,13 @@ CalendarStyle{
 
     dayDelegate:Rectangle{
 
-        color: styleData.selected ? Style.color.accentDark : (styleData.visibleMonth && styleData.valid ? Style.color.accent : Style.color.backgroundDark);
+        color: styleData.selected ? Style.color.accentDark : (styleData.visibleMonth && styleData.valid ? Style.color.accent : Qt.darker(Style.color.background,1.2));
         Label {
             text: styleData.date.getDate()
             //font.pointSize: Style.text.size.normal
             //font.family: Style.text.font
             anchors.centerIn: parent
-            color: styleData.valid ? Style.color.textOnAccent : Style.color.textOnBackground
+            color: styleData.visibleMonth && styleData.valid ? Style.color.textOnAccent : Style.color.textOnBackground
         }
     }
 

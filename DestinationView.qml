@@ -8,6 +8,8 @@ import "qrc:/styles/styles/" 1.0
 Rectangle{
 
     id:rootRectangle
+    color : Style.color.background
+
     //The values of a Destination
     property int indexInModel
     property string name
@@ -150,7 +152,6 @@ Rectangle{
 
     CustomToolBar{
         id:myToolBar
-
 
         ProgressBar {
             anchors.centerIn: parent
@@ -300,6 +301,7 @@ Rectangle{
                  text:name
                  font.family: Style.text.font
                  font.pointSize: Style.text.size.big
+                 color:Style.color.textOnBackground
                  anchors.horizontalCenter: parent.horizontalCenter
             }
 
@@ -307,6 +309,7 @@ Rectangle{
                 text:desc
                 font.family: Style.text.font
                 font.pointSize: Style.text.size.normal
+                color:Style.color.textOnBackground
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
@@ -366,12 +369,14 @@ Rectangle{
                         text: qsTr("Did you visit a museum?")
                         font.family: Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox {
                         id:museum_number
                         enabled: false
                         checked: museum
+                        style:museum_number_edit.style
                     }
                 }
 
@@ -381,6 +386,7 @@ Rectangle{
                         text: qsTr("How many photos did you get?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     TextField{
@@ -389,6 +395,7 @@ Rectangle{
                         validator: IntValidator{bottom:0}
                         inputMethodHints: Qt.ImhDigitsOnly
                         text: number_of_photos
+                        style: nameField.style
                     }
                 }
 
@@ -399,12 +406,14 @@ Rectangle{
                         text: qsTr("Did you ate any tradionotal food?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox{
                         id:traditional_food
                         enabled: false
                         checked:traditional
+                        style:museum_number_edit.style
                     }
                 }
 
@@ -415,6 +424,7 @@ Rectangle{
                         text: qsTr("Days of vacation?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     TextField{
@@ -423,6 +433,7 @@ Rectangle{
                         enabled: false
                         inputMethodHints: Qt.ImhDigitsOnly
                         text: vacation
+                        style: nameField.style
                     }
                 }
 
@@ -432,12 +443,14 @@ Rectangle{
                         text: qsTr("First time here?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox{
                         id:first_time
                         enabled: false
                         checked: first_here
+                        style:museum_number_edit.style
                     }
                 }
 
@@ -445,21 +458,19 @@ Rectangle{
                     spacing: 10
                     Text {
                         text: qsTr("Did you buy any souvenir?")
-
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox{
                         id:souvenir
                         enabled:false
                         checked: souv
+                        style:museum_number_edit.style
                     }
                 }
             }
-
-
-
         }
 //EDIT ON-------------------------------------------------------------------------------------------------
 
@@ -508,6 +519,12 @@ Rectangle{
                 font.family: Style.text.font
                 font.pointSize: Style.text.size.big
                 anchors.horizontalCenter: parent.horizontalCenter
+                style: TextFieldStyle {
+                    textColor: Style.color.textOnBackground
+                    background: Rectangle {
+                        color:Style.color.backgroundDark
+                    }
+                }
             }
             TextArea{id:descField
                 text:desc
@@ -515,6 +532,12 @@ Rectangle{
                 font.pointSize: Style.text.size.normal
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                style: TextAreaStyle {
+                    backgroundColor: Style.color.backgroundDark
+                    textColor: Style.color.textOnBackground
+                    selectionColor: Style.color.background
+                    selectedTextColor: Style.color.textOnBackground
+                }
             }
 
             Calendar
@@ -634,11 +657,25 @@ Rectangle{
                         text: qsTr("Did you visit a museum?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox {
                         id:museum_number_edit
                         checked: museum
+                        style: CheckBoxStyle {
+                            indicator: Rectangle {
+                                implicitWidth: 15
+                                implicitHeight: 15
+                                radius: 5
+                                color:control.pressed? Style.color.accent : Style.color.backgroundDark
+                                Image{
+                                    anchors.fill:parent
+                                    source:Style.icons.done
+                                    visible: control.checked
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -648,6 +685,7 @@ Rectangle{
                         text: qsTr("How many photos did you get?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     TextField{
@@ -655,6 +693,7 @@ Rectangle{
                         validator: IntValidator{bottom:0}
                         text: number_of_photos
                         inputMethodHints: Qt.ImhDigitsOnly
+                        style: nameField.style
                     }
                 }
 
@@ -664,11 +703,13 @@ Rectangle{
                         text: qsTr("Did you ate any tradionotal food?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox{
                         id:traditional_food_edit
                         checked:traditional
+                        style:museum_number_edit.style
                     }
                 }
 
@@ -678,6 +719,7 @@ Rectangle{
                         text: qsTr("Days of vacation?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     TextField{
@@ -685,6 +727,7 @@ Rectangle{
                         validator: IntValidator{bottom:0}
                         text: vacation
                         inputMethodHints: Qt.ImhDigitsOnly
+                        style: nameField.style
                     }
                 }
 
@@ -694,11 +737,13 @@ Rectangle{
                         text: qsTr("First time here?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox{
                         id:first_time_edit
                         checked: first_here
+                        style:museum_number_edit.style
                     }
                 }
 
@@ -708,11 +753,13 @@ Rectangle{
                         text: qsTr("Did you buy any souvenir?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color:Style.color.textOnBackground
                     }
 
                     CheckBox{
                         id:souvenir_edit
                         checked: souv
+                        style:museum_number_edit.style
                     }
                 }
             }
@@ -728,7 +775,7 @@ Rectangle{
     ParallelAnimation{
         id: duplicateAnimation
         running: false
-        PropertyAnimation {id:duplicateColorAnimation; target: rootRectangle ; properties: "color"; from:"#ff4d4d"; to: target.color; duration: 1600}
+        PropertyAnimation {id:duplicateColorAnimation; target: rootRectangle ; properties: "color"; from:Style.color.accent; to: target.color; duration: 1600}
         PropertyAnimation {target: duplicateMessage; properties: "opacity"; from:1; to: 0; duration: 2200}
         PropertyAnimation {target: duplicateMessage; properties: "height"; from:30; to: 0; duration: 2300; easing.type: Easing.InBack}
     }

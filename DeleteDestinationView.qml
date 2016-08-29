@@ -13,6 +13,7 @@ Rectangle{
     property date date
     property int indexOfDestInModel //The position of this Destination inside the vector of thie "destinationModel"
 
+    color : Style.color.background
     CustomToolBar{
         id:myToolBar
 
@@ -62,6 +63,7 @@ Rectangle{
                 text:name;
                 font.family:Style.text.font
                 font.pointSize: Style.text.size.huge
+                color:Style.color.textOnBackground
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Label
@@ -69,6 +71,7 @@ Rectangle{
                 text:Qt.formatDate(date,"ddd dd MMM yyyy");
                 font.family:Style.text.font
                 font.pointSize: Style.text.size.normal
+                color:Style.color.textOnBackground
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Label
@@ -76,6 +79,7 @@ Rectangle{
                 text:desc;
                 font.family:Style.text.font
                 font.pointSize: Style.text.size.normal
+                color:Style.color.textOnBackground
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Image

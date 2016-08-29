@@ -9,6 +9,8 @@ Rectangle
 {    
     property bool delegateButtonsAreVisible : false
 
+    color: Style.color.background
+
     Component
     {
         id:map_view

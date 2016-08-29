@@ -1,14 +1,14 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.4
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
+import QtQuick.Controls 1.4 //Only for calendar
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Styles 1.4
 import "qrc:/styles/styles/" 1.0
 
 Rectangle {
 
     property var photos : [];
+    color : Style.color.background
 
     CustomToolBar{
         id:myToolBar
@@ -44,6 +44,7 @@ Rectangle {
         anchors.top: myToolBar.bottom
         font.family:Style.text.font
         font.pointSize: Style.text.size.normal
+        color : Style.color.textOnBackground
         text: "Duplicate detected."
         visible: duplicateAnimation.running
     }
@@ -59,6 +60,7 @@ Rectangle {
             topMargin: 10
         }
         clip:true //Makes the scrollable content invisible beyond the "container" rectangle
+        color : Style.color.background
 
         Flickable //The draggable area
         {
@@ -115,6 +117,7 @@ Rectangle {
                         text:"My dreaming trip"
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnBackground
                         opacity:0.7
                     }
                     TextField{
@@ -122,16 +125,17 @@ Rectangle {
                         placeholderText: "Destination name"
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnBackground
                     }
                }
 
-                //Gray Line
+                //Line
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width
                     height:1
                     opacity:0.7
-                    color:"gray"
+                    color : Style.color.backgroundDark
                 }
 
                 Column{
@@ -144,6 +148,7 @@ Rectangle {
                         text:"Date:"
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnBackground
                         opacity:0.7
                     }
                     Calendar{
@@ -152,13 +157,13 @@ Rectangle {
                     }
                 }
 
-                //Gray Line
+                //Line
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width
                     height:1
                     opacity:0.7
-                    color:"gray"
+                    color:Style.color.backgroundDark
                 }
 
                 Column{
@@ -168,6 +173,7 @@ Rectangle {
                         text:"Things i want to do there:"
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnBackground
                         opacity:0.7
                     }
                     TextArea{
@@ -177,16 +183,17 @@ Rectangle {
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
+                        color: Style.color.textOnBackground
                     }
                 }
 
-                //Gray Line
+                //Line
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width
                     height:1
                     opacity:0.7
-                    color:"gray"
+                    color:Style.color.backgroundDark
                 }
 
                 Button{
@@ -298,7 +305,7 @@ Rectangle {
         Text{
             text:"Done?"
             anchors.verticalCenter: parent.verticalCenter
-            opacity: 0.2
+            opacity: 0.3
             color:Style.color.textOnBackground
             font.family: Style.text.font
             font.pointSize: Style.text.size.small
@@ -340,7 +347,7 @@ Rectangle {
     ParallelAnimation{
         id: duplicateAnimation
         running: false
-        PropertyAnimation {id:duplicateColorAnimation; target: container; properties: "color"; from:"#ff4d4d"; to: container.color; duration: 1600}
+        PropertyAnimation {id:duplicateColorAnimation; target: container; properties: "color"; from:Style.color.accent; to: container.color; duration: 1600}
         PropertyAnimation {target: duplicateMessage; properties: "opacity"; from:1; to: 0; duration: 2200}
     }
     //FileDialogs slow down the startup time due to this known qml bug: https://bugreports.qt.io/browse/QTBUG-46477

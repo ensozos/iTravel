@@ -3,15 +3,15 @@ import QtQuick 2.0
 QtObject {
 
     property QtObject color: QtObject{
-        property color primary          : "#E91E63"
-        property color primaryDark      : "#C2185B"
-        property color accent           : "#FFF9C4"
-        property color accentDark       : "#FFF176"
-        property color background       : "light gray"
-        property color backgroundDark   : "gray"
-        property color textOnPrimary    : "white"
+        property color primary          : "white"
+        property color primaryDark      : "#F5F5F5"
+        property color accent           : "#80DEEA"
+        property color accentDark       : "#4DD0E1"
+        property color background       : "#FF5722"
+        property color backgroundDark   : "#D84315"
+        property color textOnPrimary    : "black"
         property color textOnAccent     : "black"
-        property color textOnBackground : "red"
+        property color textOnBackground : "white"
         property color textOnImages     : "light gray"
     }
 
