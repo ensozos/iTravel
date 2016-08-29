@@ -59,14 +59,29 @@ Rectangle
                     radius: 10
                     color       : Style.color.accent
                     border.color: Style.color.accentDark
-                    Text {
-                        id: progr_title
-                        anchors.centerIn: parent
-                        text: totalScore
-                        color: Style.color.textOnAccent
+
+                    //Cast the child th "Component"
+                    Component{
+
+                        //Load a component from another line of code
+                        Loader{
+                            anchors.centerIn: parent.parent
+                            sourceComponent: progr_title
+                        }
                     }
                 }
             }
+
+            //This is the component to be loaded on the progress bar
+            Text {
+                id: progr_title
+                anchors.left:  parent.left //The parent is the ProgressBar
+                anchors.leftMargin: parent.width*parent.value/2 - width/2
+                anchors.verticalCenter: parent.verticalCenter
+                text: totalScore
+                color: Style.color.textOnAccent
+            }
+
             Component.onCompleted: {
                 mediator.updateTotalScore(0,10);
             }
@@ -398,5 +413,6 @@ Rectangle
         var randomScore = (Math.random() * 100)/100;
         totalScore = randomScore
         progressBarScore.value = randomScore
+        progr_title.text = Math.round(randomScore * 100)
     }
 }
