@@ -18,7 +18,6 @@ Window {
         anchors.fill: parent
         initialItem: zero
         id: stack
-
     }
 
     property var splashWindow: Splash {

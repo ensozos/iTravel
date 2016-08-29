@@ -6,7 +6,8 @@ import QtQml.Models 2.1
 import "qrc:/styles/styles/" 1.0
 
 Rectangle
-{    
+{
+    objectName: "mainForm"
     property bool delegateButtonsAreVisible : false
     property int totalScore
 
@@ -65,11 +66,8 @@ Rectangle
                     }
                 }
             }
-
             Component.onCompleted: {
-                console.log("-----------------AAAAA-----------------------")
-                totalScore = mediator.getTotalScore()
-                mediator.updateTotalScore(totalScore,10)//DEBUG ONLY
+                mediator.updateTotalScore(0,10);
             }
         }
 
@@ -383,5 +381,9 @@ Rectangle
 
     function areDelegateButtonsVisible(){
         return delegateButtonsAreVisible;
+    }
+
+    function handleScoreSignal(){
+        console.log("---AAA---")
     }
 }

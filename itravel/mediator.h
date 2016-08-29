@@ -26,6 +26,7 @@ private:
 
 signals:
     void destinationModelChanged();
+    void scoreSignal(QVariant score);
 
 public slots:
     void insertDestination(QString name,QString imPath,QString desc,quint16 score,QDate date,QList<QUrl> photos,QString questions);
