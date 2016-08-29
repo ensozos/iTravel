@@ -6,6 +6,7 @@
 
 DestinationModel::DestinationModel()
 {
+    totalScore = 0;
     loadModel();
 }
 
@@ -24,6 +25,12 @@ QHash<int, QByteArray> DestinationModel::roleNames() const
 int DestinationModel::rowCount(const QModelIndex &parent) const
 {
     return myDestinationData.size();
+}
+
+/** Updates the total score given the old and new value of a destination's score. */
+void DestinationModel::updateTotalScore(int oldScoreOfThisDest, int newScoreOfThisDest){
+
+    totalScore = totalScore - oldScoreOfThisDest + newScoreOfThisDest;
 }
 
 void DestinationModel::loadModel(){

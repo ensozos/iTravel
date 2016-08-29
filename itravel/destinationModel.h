@@ -30,9 +30,12 @@ public:
     void setPhotoAlbum(int index, QList<QUrl> photos);
     void loadModel();
     void saveModel();
+    void updateTotalScore(int oldScoreOfThisDest, int newScoreOfThisDest);
+    int getTotalScore(){return totalScore;}
 
 private:
     vector<Destination> myDestinationData;
+    int totalScore;
 };
 
 #endif // DESTINATIONMODEL_H

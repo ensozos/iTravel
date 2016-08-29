@@ -36,6 +36,8 @@ public slots:
     void editDestination(int index,QString name,QString imPath,QString desc,QDate date);
     void setPhotoAlbum(int index, QList<QUrl> photos);
     void saveAll();
+    void updateTotalScore(int oldScoreOfThisDest, int newScoreOfThisDest);
+    int getTotalScore();
 };
 
 #endif // MEDIATOR_H

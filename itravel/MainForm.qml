@@ -8,6 +8,7 @@ import "qrc:/styles/styles/" 1.0
 Rectangle
 {    
     property bool delegateButtonsAreVisible : false
+    property int totalScore
 
     color: Style.color.background
 
@@ -36,6 +37,41 @@ Rectangle
 
     CustomToolBar{
         id:myToolBar
+
+        ProgressBar {
+
+            anchors.centerIn: parent
+            value:totalScore/100
+            width : parent.width * 0.3
+
+            style: ProgressBarStyle {
+                background: Rectangle {
+                    radius: 10
+                    color       : Style.color.textOnPrimary
+                    border.color: Style.color.primaryDark
+                    border.width: 1
+                    implicitWidth: width
+                    implicitHeight: 24
+                }
+                progress: Rectangle {
+                    radius: 10
+                    color       : Style.color.accent
+                    border.color: Style.color.accentDark
+                    Text {
+                        id: progr_title
+                        anchors.centerIn: parent
+                        text: totalScore
+                        color: Style.color.textOnAccent
+                    }
+                }
+            }
+
+            Component.onCompleted: {
+                console.log("-----------------AAAAA-----------------------")
+                totalScore = mediator.getTotalScore()
+                mediator.updateTotalScore(totalScore,10)//DEBUG ONLY
+            }
+        }
 
         ToolButton{
             anchors.right: parent.right

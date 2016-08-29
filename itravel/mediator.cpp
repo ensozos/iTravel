@@ -44,3 +44,11 @@ void Mediator::setPhotoAlbum(int index, QList<QUrl> photos){
     _destinationModel->setPhotoAlbum(index,photos);
 }
 
+void Mediator::updateTotalScore(int oldScoreOfThisDest, int newScoreOfThisDest){
+    _destinationModel->updateTotalScore(oldScoreOfThisDest,newScoreOfThisDest);
+}
+
+int Mediator::getTotalScore(){
+    return _destinationModel->getTotalScore();
+}
+
