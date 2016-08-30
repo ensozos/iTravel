@@ -48,7 +48,19 @@ void DestinationModel::loadModel(){
     {
         QString name = in.readLine();
         QString imgPath = in.readLine();
-        QString desc = in.readLine();
+        QString line = in.readLine();
+        QString desc;
+
+        if(line != "-!-!-!-"){
+            desc = line;
+            while ((line = in.readLine()) != "-!-!-!-" )
+            {
+                cout << "ieafji" <<endl;
+                desc.append('\n'+line);
+            }
+        }else{
+            desc = "";
+        }
         quint16 score = in.readLine().toInt();
         QString questions = in.readLine();
         QDate date = QDate::fromString(in.readLine(),"ddd dd MMM yyyy");
@@ -83,7 +95,7 @@ void DestinationModel::saveModel(){
     for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
         out<< it->getName()    <<endl;
         out<< it->getImgPath() <<endl;
-        out<< it->getDesc()    <<endl;
+        out<< it->getDesc()<<endl<<"-!-!-!-"<<endl;
         out<< it->getScore()   <<endl;
         out<< it->getQuestions()   <<endl;
         out<< it->getDate().toString("ddd dd MMM yyyy") <<endl;
