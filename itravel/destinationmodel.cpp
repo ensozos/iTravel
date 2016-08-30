@@ -55,7 +55,7 @@ void DestinationModel::loadModel(){
             desc = line;
             while ((line = in.readLine()) != "-!-!-!-" )
             {
-                cout << "ieafji" <<endl;
+
                 desc.append('\n'+line);
             }
         }else{

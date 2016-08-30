@@ -535,7 +535,6 @@ Rectangle{
                 font.pointSize: Style.text.size.normal
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                RegExpValidator:{ regExp: /-!-!-!-/ }
                 style: TextAreaStyle {
                     frame: null
                     backgroundColor: Style.color.backgroundDark
