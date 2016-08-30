@@ -411,7 +411,7 @@ Rectangle
         //progressBarScore.value = randomScore
         //progr_title.text = Math.round(randomScore * 100)
         totalScore = mediator.getTotalScore()
-        progressBarScore.value = totalScore/100
+        progressBarScore.value = totalScore/1000
         progr_title.text = totalScore
     }
 }

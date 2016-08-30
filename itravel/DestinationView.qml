@@ -24,7 +24,7 @@ Rectangle{
     property bool museum
     property bool traditional
     property string vacation
-    property bool first_here
+    property bool events
     property bool souv
 
     property bool isEditingEnabled
@@ -55,7 +55,7 @@ Rectangle{
             number_of_photos = ans[1]
             traditional = (ans[2] === "true")
             vacation = ans[3]
-            first_here = (ans[4] === "true")
+            events = (ans[4] === "true")
             souv = (ans[5] === "true")
 
         }else{
@@ -64,7 +64,7 @@ Rectangle{
             number_of_photos = '0'
             traditional = false
             vacation = '0'
-            first_here = false
+            events = false
             souv = false
 
        }
@@ -84,7 +84,7 @@ Rectangle{
             number_of_photos = photos_number_edit.text
             traditional = traditional_food_edit.checked
             vacation = vacation_days_edit.text
-            first_here = first_time_edit.checked
+            events = events_edit.checked
             souv = souvenir_edit.checked
 
             //"img" has already been set in the "uploadButton" onClicked listener
@@ -131,14 +131,13 @@ Rectangle{
             questions += "0" + "-"
         }
 
-        if (first_time_edit.checked) {
-            score+= 50
+        if (events_edit.checked) {
+            score+= 15
             questions += "true" + "-"
-            console.log("first time here")
+            console.log("events part")
         }else {
-            score+= 10
             questions +="false" + "-"
-            console.log("not first time here")
+            console.log("not event")
         }
         if(souvenir_edit.checked){
             score+=5
@@ -173,7 +172,7 @@ Rectangle{
                     color       : Style.color.accent
                     border.color: Style.color.accentDark
                     Text {
-                        id: progr_title
+                        id: progr_title                        
                         anchors.centerIn: parent
                         text: score.toString()
                         color: Style.color.textOnAccent
@@ -443,16 +442,16 @@ Rectangle{
                 Row{
                     spacing: 10
                     Text {
-                        text: qsTr("First time here?")
+                        text: qsTr("Did you participate in any event?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
                         color:Style.color.textOnBackground
                     }
 
                     CheckBox{
-                        id:first_time
+                        id:events_non_edit
                         enabled: false
-                        checked: first_here
+                        checked: events
                         style:museum_number_edit.style
                     }
                 }
@@ -739,15 +738,15 @@ Rectangle{
                 Row{
                     spacing: 10
                     Text {
-                        text: qsTr("First time here?")
+                        text: qsTr("Did you participate in any event?")
                         font.family:Style.text.font
                         font.pointSize: Style.text.size.normal
                         color:Style.color.textOnBackground
                     }
 
                     CheckBox{
-                        id:first_time_edit
-                        checked: first_here
+                        id:events_edit
+                        checked: events
                         style:museum_number_edit.style
                     }
                 }
