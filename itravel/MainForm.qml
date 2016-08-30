@@ -170,7 +170,7 @@ Rectangle
         width: {
             var w = parent.width
             if(w<500)               return w;
-            else if(w>500 & w<1000) return 500;
+            else if(w>=500 & w<1000) return 500;
             else if(w>=1000)         return 1000;
         }
         cellWidth: parent.width>=1000? 500 : width
@@ -363,7 +363,7 @@ Rectangle
                                             anchors.fill: parent
                                             propagateComposedEvents: true
                                             onClicked: {
-                                                stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,indexOfDestInModel:index}});
+                                                stack.push({item:deleteDest_view,properties:{name:name,img:image,desc:desc,date:date,score:score,indexOfDestInModel:index}});
                                             }
                                         }
                                     }

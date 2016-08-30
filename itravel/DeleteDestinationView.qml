@@ -11,6 +11,7 @@ Rectangle{
     property string img
     property string desc
     property date date
+    property int score
     property int indexOfDestInModel //The position of this Destination inside the vector of thie "destinationModel"
 
     color : Style.color.background
@@ -110,6 +111,7 @@ Rectangle{
                 }
                 onClicked: {
                     console.log("Delete Button Pressed")
+                    mediator.updateTotalScore(score,0);
                     mediator.deleteDestination(indexOfDestInModel)
                     stack.pop()
                 }
