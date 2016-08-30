@@ -51,11 +51,10 @@ void DestinationModel::loadModel(){
         QString line = in.readLine();
         QString desc;
 
-        if(line != "-!-!-!-"){
+        if(line != ""){
             desc = line;
-            while ((line = in.readLine()) != "-!-!-!-" )
+            while ((line = in.readLine()) != "" )
             {
-
                 desc.append('\n'+line);
             }
         }else{
@@ -95,7 +94,11 @@ void DestinationModel::saveModel(){
     for(it = this->myDestinationData.begin(); it != this->myDestinationData.end(); ++it) {
         out<< it->getName()    <<endl;
         out<< it->getImgPath() <<endl;
-        out<< it->getDesc()<<endl<<"-!-!-!-"<<endl;
+        if(!it->getDesc().isEmpty()){
+            out<< it->getDesc().trimmed() << endl <<endl;
+        }else{
+            out << endl;
+        }
         out<< it->getScore()   <<endl;
         out<< it->getQuestions()   <<endl;
         out<< it->getDate().toString("ddd dd MMM yyyy") <<endl;
