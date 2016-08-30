@@ -39,6 +39,11 @@
         <file>images/icons/white/time.png</file>
         <file>images/icons/black/time.png</file>
         <file>images/logoTravel.png</file>
+        <file>images/china.jpg</file>
+        <file>images/italy.jpg</file>
+        <file>images/morocco.jpg</file>
+        <file>images/brazil_olymp.jpg</file>
+        <file>images/olympics1.jpg</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles/qmldir</file>
