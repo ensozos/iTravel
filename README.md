@@ -3,7 +3,7 @@
 ###Brief Description
 iTravel is an app that manages travel destinations.</br>
 A travel destination might either be a place you have visited or one that you would like to visit in the future.</br>
-iTravel  motivated to travel around the world and collect points.
+iTravel  motivates you to travel around the world to collect points.
 
 ####Start Screen
 Here you can view all your destinations and operate on them (open/edit/delete).</br>
