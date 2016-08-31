@@ -1,0 +1,63 @@
+228
+Brazil
+images/images/brazil.jpg
+-Olympic games 2016
+-visit christ the Redeemer
+-Rio beaches is must
+-Sao Paulo city
+-The mighty waterfalls of Iguazu are an unforgettable sight
+
+55
+false-10-true-10-true-false
+Παρ 01 Ιουλ 2016
+images/images/brazil_olymp.jpg|images/images/olympics1.jpg|
+Greece
+images/images/greece.jpg
+-visit halkidiki and awesome beaches
+-food in Thessaloniki was the best one
+-archaeological museum of thessaloniki was good 
+
+84
+true-14-true-15-false-true
+Πεμ 04 Ιουν 2015
+
+China
+images/images/china.jpg
+-visit the grait wall
+-i have to eat china's traditional food
+-visit museum and learn history of china
+
+0
+false-0-false-0-false-false
+Σαβ 15 Ιουλ 2017
+
+Italy
+images/images/italy.jpg
+-I must visit venetia
+-eat pizza of course
+
+0
+false-0-false-0-false-false
+Πεμ 08 Σεπ 2016
+
+NewYork
+images/images/newyork.jpg
+-Broadway
+-high line
+-top of the rock
+-walk in central park
+-Eat the famous New York hot dog
+
+0
+false-0-false-0-false-false
+Πεμ 09 Αυγ 2018
+
+Morocco
+images/images/morocco.jpg
+-Morocco was great but was too hot
+-good food
+
+39
+false-14-true-5-false-true
+Πεμ 01 Μαϊ 2014
+images/images/brazil_olymp.jpg|images/images/morocco.jpg|
