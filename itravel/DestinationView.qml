@@ -274,6 +274,7 @@ Rectangle{
 
     Flickable{
 
+        id:container
         anchors{
             top:duplicateMessage.bottom
             right:parent.right
@@ -329,18 +330,75 @@ Rectangle{
                 id: delegate
                 Rectangle
                 {
-                    width:photoAlbumItem.width; height:photoAlbumItem.height
+                    id:delegateRectangle
+                    width:64; height:64
                     scale: PathView.iconScale
                     opacity: PathView.iconOpacity
                     rotation: PathView.itemRotation
 
-                    Image
-                    {
-                        id: photoAlbumItem
-                        width: 64; height: 64
-                        source: icon
-                        asynchronous: true
-                        fillMode: Image.PreserveAspectCrop
+                    MouseArea{
+                        id: delegateArea
+
+                        states: [
+                            State {
+                                name: "big"
+                                ParentChange {
+                                    target: delegateArea
+                                    parent: container
+                                    x: container.x
+                                    y: container.y
+                                }
+                                AnchorChanges {
+                                    target: delegateArea
+                                    anchors.right   : container.right
+                                    anchors.left    : container.left
+                                    anchors.top     : container.top
+                                    anchors.bottom  : container.bottom
+                                }
+                            },
+                            State {
+                                name: "small"
+                                ParentChange {
+                                    target: delegateArea
+                                    parent: delegateRectangle
+                                }
+                                AnchorChanges {
+                                    target: delegateArea
+                                    anchors.right   : delegateRectangle.right
+                                    anchors.left    : delegateRectangle.left
+                                    anchors.top     : delegateRectangle.top
+                                    anchors.bottom  : delegateRectangle.bottom
+                                }
+                            }
+                        ]
+
+                        transitions: Transition {
+                            ParallelAnimation{
+                                AnchorAnimation { duration: 300; }
+                                ParentAnimation { NumberAnimation { properties: "x,y"; duration: 300}}
+                            }
+                        }
+                        Component.onCompleted: {delegateArea.state = "small"}
+
+                        onClicked: {
+
+                            if(delegateArea.state == "small"){
+                                if(view.currentIndex == index){
+                                    delegateArea.state = "big"
+                                }
+                            }else{
+                                delegateArea.state = "small"
+                            }
+                        }
+
+                        Image
+                        {
+                            id: photoAlbumItem
+                            anchors.fill: parent
+                            source: icon
+                            asynchronous: true
+                            fillMode: Image.PreserveAspectCrop
+                        }
                     }
                 }
             }
