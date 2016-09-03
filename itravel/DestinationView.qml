@@ -512,7 +512,30 @@ Rectangle{
                     }
 
                     onClicked: {
-                        fileDialog.open()
+
+                        //Create a file dialog only when you need it (way better performance)
+                        Qt.createQmlObject(
+                                   'import QtQuick 2.0
+                                    import QtQuick.Dialogs 1.0
+                                    FileDialog {
+                                        id: fileDialog
+                                        title: "Please choose a file"
+                                        folder: shortcuts.pictures
+                                        nameFilters: [ "Image files (*.jpg *.png)" ]
+                                        onAccepted: {
+                                            console.log("You chose: " + this.fileUrl)
+                                            rootRectangle.img = this.fileUrl
+                                            this.destroy()
+                                        }
+                                        onRejected: {
+                                            console.log("Canceled")
+                                            this.destroy()
+                                        }
+                                        Component.onCompleted : {this.open()}
+                                    }',
+                                    rootRectangle,
+                                    "errorReport"
+                        )
                     }
                 }
             }
@@ -646,7 +669,38 @@ Rectangle{
                     }
                 }
                 onClicked: {
-                    photoAlbumDialog.open();
+
+                    //Create a file dialog only when you need it (way better performance)
+                    Qt.createQmlObject(
+                               'import QtQuick 2.0
+                                import QtQuick.Dialogs 1.0
+                                FileDialog {
+                                    selectMultiple: true
+                                    title: "Choose some photos for the photo album"
+                                    folder: shortcuts.pictures
+                                    nameFilters: [ "Image files (*.jpg *.png)" ]
+                                    onAccepted: {
+
+                                        console.log("You chose: " + this.fileUrls)
+
+                                        //Push each selected element inside the "photos" list
+                                        for (var i = 0; i < this.fileUrls.length; ++i){
+                                            rootRectangle.photos.push(Qt.resolvedUrl(this.fileUrls[i]))
+
+                                            //Put each selected element in the PathView also
+                                            myPhotosModel.append({"icon":this.fileUrls[i]})
+                                        }
+                                        this.destroy()
+                                    }
+                                    onRejected: {
+                                        console.log("Canceled")
+                                        this.destroy()
+                                    }
+                                    Component.onCompleted: {this.open()}
+                                }',
+                                rootRectangle,
+                                "errorReport"
+                    )
                 }
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -783,43 +837,4 @@ Rectangle{
         PropertyAnimation {target: duplicateMessage; properties: "opacity"; from:1; to: 0; duration: 2200}
         PropertyAnimation {target: duplicateMessage; properties: "height"; from:30; to: 0; duration: 2300; easing.type: Easing.InBack}
     }
-
-    FileDialog {
-        id: fileDialog
-        title: "Please choose a file"
-        folder: shortcuts.pictures
-        //nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
-        nameFilters: [ "Image files (*.jpg *.png)" ]
-        onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
-            img = fileDialog.fileUrl
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-    }
-
-    FileDialog {
-        id: photoAlbumDialog
-        selectMultiple: true
-        title: "Choose some photos for the photo album"
-        folder: shortcuts.pictures
-        nameFilters: [ "Image files (*.jpg *.png)" ]
-        onAccepted: {
-
-            console.log("You chose: " + photoAlbumDialog.fileUrls)
-
-            //Push each selected element inside the "photos" list
-            for (var i = 0; i < photoAlbumDialog.fileUrls.length; ++i){
-                photos.push(Qt.resolvedUrl(photoAlbumDialog.fileUrls[i]))
-
-                //Put each selected element in the PathView also
-                myPhotosModel.append({"icon":photoAlbumDialog.fileUrls[i]})
-            }
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-    }
-
 }
