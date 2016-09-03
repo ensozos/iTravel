@@ -7,6 +7,7 @@ import "qrc:/styles/styles/" 1.0
 
 Rectangle {
 
+    id: rootRectangle
     property var photos : [];
     color : Style.color.background
 
@@ -92,7 +93,30 @@ Rectangle {
                     font.pointSize: Style.text.size.big
                     opacity:0.7
                     onClicked: {
-                        fileDialog.open()
+
+                        //--FileDialogs slow down performance due to this known qml bug: https://bugreports.qt.io/browse/QTBUG-46477
+                        //Create a file dialog only when you need it (way better performance)
+                        Qt.createQmlObject(
+                                   'import QtQuick 2.0
+                                    import QtQuick.Dialogs 1.0
+                                    FileDialog {
+                                        title: "Please choose a file"
+                                        folder: shortcuts.pictures
+                                        nameFilters: [ "Image files (*.jpg *.png)" ]
+                                        onAccepted: {
+                                            console.log("You chose: " + this.fileUrl)
+                                            photo.source = this.fileUrl
+                                            this.destroy()
+                                        }
+                                        onRejected: {
+                                            console.log("Canceled")
+                                            this.destroy()
+                                        }
+                                        Component.onCompleted : {this.open()}
+                                    }',
+                                    rootRectangle,
+                                    "errorReport"
+                        )
                     }
                 }
 
@@ -213,7 +237,38 @@ Rectangle {
                     }
                     text: "Add photos to the photo album"
                     onClicked:{
-                        photoAlbumDialog.open()
+
+                        //Create a file dialog only when you need it (way better performance)
+                        Qt.createQmlObject(
+                                   'import QtQuick 2.0
+                                    import QtQuick.Dialogs 1.0
+                                    FileDialog {
+                                        selectMultiple: true
+                                        title: "Choose some photos for the photo album"
+                                        folder: shortcuts.pictures
+                                        nameFilters: [ "Image files (*.jpg *.png)" ]
+                                        onAccepted: {
+
+                                            console.log("You chose: " + this.fileUrls)
+
+                                            //Push each selected element inside the "photos" list
+                                            for (var i = 0; i < this.fileUrls.length; ++i){
+                                                rootRectangle.photos.push(Qt.resolvedUrl(this.fileUrls[i]))
+
+                                                //Put each selected element in the PathView also
+                                                myPhotosModel.append({"icon":this.fileUrls[i]})
+                                            }
+                                            this.destroy()
+                                        }
+                                        onRejected: {
+                                            console.log("Canceled")
+                                            this.destroy()
+                                        }
+                                        Component.onCompleted: {this.open()}
+                                    }',
+                                    rootRectangle,
+                                    "errorReport"
+                        )
                     }
                     font.family:Style.text.font
                     font.pointSize: Style.text.size.big
@@ -357,43 +412,5 @@ Rectangle {
         running: false
         PropertyAnimation {id:duplicateColorAnimation; target: container; properties: "color"; from:Style.color.accent; to: container.color; duration: 1600}
         PropertyAnimation {target: duplicateMessage; properties: "opacity"; from:1; to: 0; duration: 2200}
-    }
-    //FileDialogs slow down the startup time due to this known qml bug: https://bugreports.qt.io/browse/QTBUG-46477
-    FileDialog {
-        id: fileDialog
-        title: "Please choose a file"
-        folder: shortcuts.pictures
-        //nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
-        nameFilters: [ "Image files (*.jpg *.png)" ]
-        onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
-            photo.source = fileDialog.fileUrl
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-    }
-
-    FileDialog {
-        id: photoAlbumDialog
-        selectMultiple: true
-        title: "Choose some photos for the photo album"
-        folder: shortcuts.pictures
-        nameFilters: [ "Image files (*.jpg *.png)" ]
-        onAccepted: {
-
-            console.log("You chose: " + photoAlbumDialog.fileUrls)
-
-            //Push each selected element inside the "photos" list
-            for (var i = 0; i < photoAlbumDialog.fileUrls.length; ++i){
-                photos.push(Qt.resolvedUrl(photoAlbumDialog.fileUrls[i]))
-
-                //Put each selected element in the PathView also
-                myPhotosModel.append({"icon":photoAlbumDialog.fileUrls[i]})
-            }
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
     }
 }
