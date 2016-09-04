@@ -29,7 +29,17 @@ Change the style of the whole app with a few clicks.</br>
 Just open the "Style1.qml" and set the colors of your preference or create your own qml style file.</br>
 <sub>The file that defines the app's style is defined in the single command of the qmldir file.</sub>
 
-####Preview
+--
+
+###How to set up?
+You can either<br/> 
+* download/clone the project and import it in QtCreator ([download QtCreator](https://www.qt.io/download-open-source/#section-2))</br>
+or<br/>
+* install the "iTravel.apk" file on an Android device.
+
+--
+
+###Preview
 
 ![startscreen](https://cloud.githubusercontent.com/assets/10010156/18164907/1b04c888-704b-11e6-89c9-f026a26c4997.png "Start screen") ![startoperations](https://cloud.githubusercontent.com/assets/10010156/18165018/a52131fa-704b-11e6-8816-b79e126fad6a.png "Operate on your destinations")
 
