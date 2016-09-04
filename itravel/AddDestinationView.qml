@@ -79,19 +79,24 @@ Rectangle {
                 Button
                 {
                     id: uploadPhoto
-                    width: 150
-                    height:25
-                    flat:true
-                    text: "Upload Photo"
                     anchors.horizontalCenter: parent.horizontalCenter
+                    flat:true
+                    opacity:0.7
+
+                    contentItem: Text{
+                        text: "Upload Photo"
+
+                        anchors.centerIn: parent
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.big
+                    }
+
                     background: Rectangle {
                         color: Style.color.accent
                         border.width: 1
                         border.color: Style.color.accentDark
                     }
-                    font.family:Style.text.font
-                    font.pointSize: Style.text.size.big
-                    opacity:0.7
+
                     onClicked: {
 
                         //--FileDialogs slow down performance due to this known qml bug: https://bugreports.qt.io/browse/QTBUG-46477
@@ -230,12 +235,22 @@ Rectangle {
 
                 Button{
                     anchors.horizontalCenter: parent.horizontalCenter
+                    opacity:0.7
+                    flat: true
+                    contentItem:Text{
+
+                        text: "Add photos to the photo album"
+                        anchors.centerIn: parent
+                        font.family:Style.text.font
+                        font.pointSize: Style.text.size.big
+                    }
+
                     background: Rectangle {
                         color: Style.color.accent
                         border.width: 1
                         border.color: Style.color.accentDark
                     }
-                    text: "Add photos to the photo album"
+
                     onClicked:{
 
                         //Create a file dialog only when you need it (way better performance)
@@ -270,10 +285,6 @@ Rectangle {
                                     "errorReport"
                         )
                     }
-                    font.family:Style.text.font
-                    font.pointSize: Style.text.size.big
-                    opacity:0.7
-                    flat: true
                 }
 
                 Component
@@ -359,10 +370,10 @@ Rectangle {
 
     Row{
         id: bottomRow
-        height:30
+        height:doneButton.height
         anchors.bottom: parent.bottom
         anchors.right: container.right
-        anchors.bottomMargin: 10
+        anchors.bottomMargin: 5
         spacing: 10
 
         Text{
@@ -375,6 +386,7 @@ Rectangle {
         }
 
         Button{
+            id:doneButton
             height: myToolBar.height - 5
             width: height
 

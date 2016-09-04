@@ -176,6 +176,8 @@ Rectangle{
                         anchors.centerIn: parent
                         text: score.toString()
                         color: Style.color.textOnAccent
+                        font.pointSize: Style.text.size.normal
+                        font.family: Style.text.font
                     }
                 }
             }
@@ -713,6 +715,8 @@ Rectangle{
             }
 
             Button{
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 style: ButtonStyle {
                     background: Rectangle {
                         color: Style.color.accent
@@ -722,10 +726,11 @@ Rectangle{
                     label: Text{
                         text: "Add photos to photo album"
                         font.family: Style.text.font
-                        font.pointSize: Style.text.size.normal
+                        font.pointSize: Style.text.size.big
                         color: Style.color.textOnAccent
                     }
                 }
+
                 onClicked: {
 
                     //Create a file dialog only when you need it (way better performance)
@@ -760,7 +765,6 @@ Rectangle{
                                 "errorReport"
                     )
                 }
-                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Column

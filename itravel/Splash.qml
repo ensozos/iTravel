@@ -1,6 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Window 2.1
 
+//Works for Desktop
+//Does not work for Android (see Manifest.xml splash properties)
+
 //! [splash-properties]
 Window {
     id: splash
@@ -8,7 +11,7 @@ Window {
     title: "Splash Window"
     modality: Qt.ApplicationModal
     flags: Qt.SplashScreen
-    property int timeoutInterval: 3000
+    property int timeoutInterval: 0//3000
     signal timeout
 //! [splash-properties]
 //! [screen-properties]
@@ -32,11 +35,6 @@ Window {
                 duration: 3000
             }
         Component.onCompleted: createAnimation.start()
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: Qt.quit()
-        }
     }
     //! [timer]
     Timer {

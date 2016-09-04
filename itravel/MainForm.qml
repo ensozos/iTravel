@@ -80,6 +80,8 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 text: totalScore
                 color: Style.color.textOnAccent
+                font.pointSize: Style.text.size.normal
+                font.family: Style.text.font
             }
         }
 
@@ -336,8 +338,8 @@ Rectangle
                                     {
                                         id: editIcon
                                         visible: areDelegateButtonsVisible()
-                                        width:25
-                                        height:25
+                                        width:myToolBar.height * 0.7
+                                        height:width
                                         source:Style.icons.editOn
 
                                         MouseArea
@@ -354,8 +356,8 @@ Rectangle
                                     {
                                          id: deleteDelegateButton
                                          visible: areDelegateButtonsVisible()
-                                         width:25
-                                         height:25
+                                         width:myToolBar.height * 0.7
+                                         height:width
                                          source:Style.icons.delete_
 
                                          MouseArea

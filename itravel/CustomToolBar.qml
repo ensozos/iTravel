@@ -5,7 +5,7 @@ import "qrc:/styles/styles/" 1.0
 
 ToolBar
 {
-    height: 40
+    height: appTitle.height * 1.5
     width:parent.width
     anchors.right: parent.right
 
@@ -21,8 +21,10 @@ ToolBar
     }
 
     Text{
+        id:appTitle
         text: "iTravel"
         anchors.left:parent.left
+        anchors.verticalCenter: parent.verticalCenter
         font.pointSize  : Style.text.size.huge
         font.family     : Style.text.font
         color           : Style.color.textOnPrimary

@@ -18,10 +18,10 @@ QtObject {
     property QtObject text: QtObject{
 
         property QtObject size: QtObject{
-            property int small  : 10 //pointSize
-            property int normal : 11
-            property int big    : 15
-            property int huge   : 18
+            property int small  : 12//10 //pointSize
+            property int normal : 13//11
+            property int big    : 17//15
+            property int huge   : 20//18
         }
         property string font : "Helvetica Neue"
     }
@@ -30,7 +30,7 @@ QtObject {
         property string add         : "images/images/icons/black/add.png"
         property string settings    : "images/images/icons/black/settings.png"
         property string editOn      : "images/images/icons/black/editOn.png"
-        property string editOff      : "images/images/icons/black/editOff.png"
+        property string editOff     : "images/images/icons/black/editOff.png"
         property string delete_     : "images/images/icons/black/delete.png"
         property string back        : "images/images/icons/black/back.png"
         property string save        : "images/images/icons/black/save.png"

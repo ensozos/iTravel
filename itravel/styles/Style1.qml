@@ -18,10 +18,10 @@ QtObject {
     property QtObject text: QtObject{
 
         property QtObject size: QtObject{
-            property int small  : 10 //pointSize
-            property int normal : 11
-            property int big    : 15
-            property int huge   : 18
+            property int small  : 12//10 //pointSize
+            property int normal : 13//11
+            property int big    : 17//15
+            property int huge   : 20//18
         }
         property string font : "Helvetica Neue"
     }
