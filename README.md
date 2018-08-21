@@ -1,45 +1,40 @@
 # iTravel
+>iTravel  motivates you to travel around the world </br>
 
-###Brief Description
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+
 iTravel is an app that manages travel destinations.</br>
 A travel destination might either be a place you have visited or one that you would like to visit in the future.</br>
-iTravel  motivates you to travel around the world to collect points.
+iTravel  motivates you to travel around the world to collect points. Contains no ads or unnecessary permissions.
 
-####Start Screen
-Here you can view all your destinations, operate on them (open/edit/delete) and see your total score so far.</br>
+## Usage
+
+* In start screen you can view all your destinations, operate on them (open/edit/delete) and see your total score so far.</br>
 You can also open a map to explore new destinations.</br>
 
-####Add Destination
-Create a new travel destination with fields such as (image, title, date, description, photo album).
+* Create a new travel destination with fields such as (image, title, date, description, photo album).</br>
 
-####View/Edit Destination
-View a destination and edit it's fields.</br>
-You can also collect points by checking some destination questions.
+* View a destination and edit it's fields.</br>
+ You can also collect points by checking some destination questions.
 
-####Delete
-You can always delete a destination if you like.
+* You can always delete a destination if you like.</br>
 
-####Map
-View a global map and spot your destination.
+* View a global map and spot your destination.</br>
 
---
+## Styling
 
-####Styling
 Change the style of the whole app with a few clicks.</br>
 Just open the "Style1.qml" and set the colors of your preference or create your own qml style file.</br>
 <sub>The file that defines the app's style is defined in the single command of the qmldir file.</sub>
 
---
-
-###How to set up?
+## Installation
 You can either<br/> 
 * download/clone the project and import it in QtCreator ([download QtCreator](https://www.qt.io/download-open-source/#section-2))</br>
 or<br/>
 * install the "iTravel.apk" file on an Android device.
 
---
 
-###Preview
+## Preview
 
 ![startscreen](https://cloud.githubusercontent.com/assets/10010156/18164907/1b04c888-704b-11e6-89c9-f026a26c4997.png "Start screen") ![startoperations](https://cloud.githubusercontent.com/assets/10010156/18165018/a52131fa-704b-11e6-8816-b79e126fad6a.png "Operate on your destinations")
 
@@ -51,6 +46,16 @@ or<br/>
 
 
 ![styling](https://cloud.githubusercontent.com/assets/10010156/18165503/4cc74866-704e-11e6-8d42-bbaf59af7832.png "Fully customize your app easily!")
+
+## Meta
+
+Thanasis Elmas - [@thanelmas](https://github.com/thanelmas) - thanasiselmas@gmail.com </br>
+Zosimadis Ilias - [@ensozos](https://github.com/ensozos) - zosimadi@csd.auth.gr </br>
+Inzekostas Alex - [@stredisgn](https://github.com/stredesign) </br>
+
+Distributed under the GPL-2.0 license. See license.txt for more information.
+
+
 
 
 
